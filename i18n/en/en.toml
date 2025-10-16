@@ -1,0 +1,193 @@
+#list page
+[description]
+other = "Select the version and chapter of the openGauss documentation you want to view."
+
+[key_words]
+other = "openGauss,Open source database,openGauss docs,open source community"
+
+[login_text]
+other = "Login"
+
+[logout_text]
+other = "Logout"
+
+[zone_text]
+other = "User Center"
+
+[document]
+other = "Document"
+
+[version_selection]
+other = "Version selection"
+
+[version_text]
+other = "Version"
+
+[current_lang]
+other = "English"
+
+[search]
+other = "search"
+
+[search_placeholder]
+other = "Input content"
+
+[quick_links]
+other = "Quick links"
+
+[document_link]
+other = "Documentation"
+
+[catalog_text]
+other = "Content"
+
+[other_text]
+other = "Reference Links"
+
+[copy_right]
+other = "Copyright © openGauss 2025. All rights reserved."
+
+[attention]
+other = "WeChat Subscription"
+
+[source_code]
+other = "Source Code"
+
+[feedbook]
+other = "Feedback"
+
+[previous]
+other = "Previous"
+
+[next]
+other = "Next"
+
+[evaluate]
+other = "Rating"
+
+[issue_1]
+other = "Norms and Low Error Categories"
+
+[issue_2]
+other = "Ease of use"
+
+[issue_3]
+other = "Correctness"
+
+[issue_4]
+other = "Risk Reminder"
+
+[issue_5]
+other = "Content Compliance"
+
+[issue_title]
+other = "Feedback"
+
+[issue_part]
+other = "Fragment of document with insects"
+
+[issue_reason]
+other = "Existing problems"
+
+[satisfaction]
+other = "Your overall satisfaction with the document"
+
+[low_score]
+other = "Very dissatisfied"
+
+[high_score]
+other = "Very satisfied"
+
+[join_reason]
+other = "May I ask what caused you to be involved in this issue"
+
+[own_job]
+other = "My job"
+
+[job_wanted]
+other = "Job search"
+
+[technology]
+other = "Technical Interest"
+
+[study]
+other = "Learning"
+
+[email]
+other = "Your email"
+
+[text_email]
+other = "We may send you feedback via email regarding your questions and propose solutions. If there is any award information, we will also notify you through this method."
+
+[privacy_text]
+other = "You understand and agree that the content you fill out and submit is deemed to have fully read and agreed to openGauss"
+
+[privacy_link]
+other = "Privacy Statement"
+
+[btn_submit]
+other = "Create an Issue to Win a Prize"
+
+[back]
+other = "Top"
+
+[questionnaire]
+other = "Feedback"
+
+#search page
+
+[result_1]
+other = " "
+
+[result_2]
+other = " search results about "
+
+[result_3]
+other = " are found"
+
+[cancel]
+other = "cancel"
+
+[brand]
+other = "Trademark"
+[privacy]
+other = "Privacy Policy"
+[legal]
+other = "Legal Notice"
+[relative]
+other = "About Us"
+[about_cookies]
+other = "About Cookies"
+[service]
+other = "Service Status"
+[wechat]
+other = "WeChat Subscription"
+[lang]
+other = "en"
+[opengauss]
+other = "https://www.openGauss.org/en/"
+[enterprise]
+other = "Enterprise"
+[lite]
+other = "Lite"
+
+
+[doc_map]
+other = "Doc Map"
+
+[lts_version]
+other = "Long term Support Version (LTS)"
+[innovation_version]
+other = "Community Innovation Version (RC)"
+[archive_version]
+other = "Archived version"
+[latest_version]
+other = "Latest development version"
+[version_document]
+other = "Version document"
+
+[version_all]
+other = "All"
+
+[search_no_data_tip]
+other = "No content found."
