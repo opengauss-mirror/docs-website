@@ -1,0 +1,102 @@
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useRouter } from 'vitepress';
+
+import { OScroller, OConfigProvider } from '@opensig/opendesign';
+import zhCN from '@opensig/opendesign/es/locale/lang/zh-cn';
+import enUS from '@opensig/opendesign/es/locale/lang/en-us';
+
+import AppHeader from '@/components/header/AppHeader.vue';
+import TheDoc from './views/doc/TheDoc.vue';
+
+import { scrollToTop } from './utils/common';
+import { useLocale } from './composables/useLocale';
+import { useViewStore } from './stores/view';
+
+const { isZh } = useLocale();
+const viewStore = useViewStore();
+
+const router = useRouter();
+router.onAfterRouteChange = () => {
+  scrollToTop(0, false);
+};
+</script>
+
+<template>
+  <OConfigProvider :locale="isZh ? zhCN : enUS">
+    <ClientOnly>
+      <AppHeader v-show="viewStore.isPageLoaded" class="ly-header" />
+    </ClientOnly>
+    <OScroller v-show="viewStore.isPageLoaded" show-type="hover" disabled-x auto-update-on-scroll-size>
+      <main class="ly-main">
+        <Content v-if="viewStore.isHomeView || viewStore.isCustomView" />
+        <TheDoc v-else />
+      </main>
+    </OScroller>
+  </OConfigProvider>
+</template>
+
+<style lang="scss">
+#app {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--o-color-fill1);
+  color: var(--o-color-info1);
+  transition: opacity var(--o-duration-m2) var(--o-easing-standard-in);
+
+  --vw100: 100vw;
+
+  --layout-header-height: 72px;
+  --layout-header-zIndex: 101;
+  --layout-header-max-width: 1568px;
+  --layout-header-padding: 40px;
+  --layout-header-breadcrumb-height: 24px;
+  --layout-header-breadcrumb-margin-bottom: 24px;
+
+  --layout-content-max-width: 1568px;
+  --layout-content-padding: 40px;
+
+  --layout-doc-padding-top: 32px;
+  --layout-doc-padding-bottom: 24px;
+
+  --layout-footer-height: 474px;
+  --layout-screen-height: 100vh;
+  --layout-content-min-height: calc(var(--layout-screen-height) - var(--layout-header-height));
+
+  @include respond-to('<=laptop') {
+    --layout-header-height: 64px;
+    --layout-header-max-width: 100%;
+    --layout-header-padding: 97px;
+    --layout-header-breadcrumb-height: 18px;
+    --layout-content-max-width: 100%;
+    --layout-content-padding: 97px;
+    --layout-footer-height: 438px;
+  }
+
+  @include respond-to('<=pad') {
+    --layout-header-height: 56px;
+    --layout-header-padding: 32px;
+    --layout-content-padding: 32px;
+    --layout-footer-height: 434px;
+  }
+
+  @include respond-to('<=pad_v') {
+    --layout-header-height: 48px;
+  }
+
+  @include respond-to('phone') {
+    --layout-header-padding: 24px;
+    --layout-content-padding: 24px;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.o-scroller {
+  height: var(--layout-content-min-height);
+  background-color: var(--o-color-fill1);
+}
+.ly-main {
+  background-color: var(--o-color-fill1);
+}
+</style>
