@@ -361,7 +361,7 @@
     opacity: 0;
     transition: all var(--o-duration-m1) var(--o-easing-standard-in);
 
-    @include respond-to('<=laptop') {
+    @include respond-to('<=pad') {
       top: var(--o-gap-2);
     }
 

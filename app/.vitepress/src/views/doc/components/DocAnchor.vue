@@ -141,7 +141,9 @@ const onScroll = () => {
   if (distances.length) {
     if (scrollRemainingBottom < 10) {
       active = distances[distances.length - 1].hash;
-    } else if (scrollRemainingBottom < 110) {
+    } 
+    
+    if (!active && scrollRemainingBottom < 110) {
       const overItems = distances.filter((item) => item.top >= 110);
       if (overItems.length) {
         const average = Math.round(110 / overItems.length);
@@ -150,7 +152,9 @@ const onScroll = () => {
           active = item.hash;
         }
       }
-    } else {
+    }
+    
+    if (!active) {
       const max = distances.reduce((prev, cur) => (prev.top > cur.top ? prev : cur));
       active = max.hash;
     }
@@ -223,7 +227,7 @@ watch(
   <div v-show="anchorData.length > 0" class="doc-anchor" :class="{ unexpanded: leLaptop && !expanded }">
     <div class="anchor-wrapper" :class="{ unexpanded: leLaptop && !expanded }">
       <div class="anchor-title">{{ t('docs.anchorTip') }}</div>
-      <OScroller ref="anchorScrollerRef" class="anchor-scroller" size="small" :disabled-x="true">
+      <OScroller ref="anchorScrollerRef" class="anchor-scroller" show-type="hover" size="small" disabled-x auto-update-on-scroll-size>
         <div ref="anchorRef" class="o-anchor">
           <div class="o-anchor-line">
             <div v-show="activeVal" class="o-anchor-indicator" :style="indicatorStyle"></div>
@@ -253,7 +257,7 @@ watch(
   top: var(--layout-doc-anchor-top);
   right: var(--layout-doc-anchor-offset-right);
   width: var(--layout-doc-anchor-width);
-  z-index: 100;
+  z-index: 9;
 
   @include respond-to('pad-laptop') {
     right: 0;

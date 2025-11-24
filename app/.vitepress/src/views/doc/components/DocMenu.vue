@@ -52,7 +52,7 @@ onMounted(() => {
 
 <template>
   <div class="doc-menu-wrapper">
-    <OScroller ref="menuScrollerRef" show-type="hover" size="small" disabled-x>
+    <OScroller ref="menuScrollerRef" show-type="hover" size="small" disabled-x auto-update-on-scroll-size>
       <OMenu v-model="menuValue" v-model:expanded="expanded" class="doc-menu" @change="(val: string) => emits('change', val)">
         <template v-for="node in items" :key="node.id">
           <div class="doc-menu-title-item">{{ node.label }}</div>

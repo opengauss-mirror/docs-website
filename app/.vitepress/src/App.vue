@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useRouter } from 'vitepress';
 
 import { OScroller, OConfigProvider } from '@opensig/opendesign';
@@ -27,8 +26,8 @@ router.onAfterRouteChange = () => {
     <ClientOnly>
       <AppHeader v-show="viewStore.isPageLoaded" class="ly-header" />
     </ClientOnly>
-    <OScroller v-show="viewStore.isPageLoaded" show-type="hover" disabled-x auto-update-on-scroll-size>
-      <main class="ly-main">
+    <OScroller show-type="hover" disabled-x auto-update-on-scroll-size>
+      <main v-show="viewStore.isPageLoaded" class="ly-main">
         <Content v-if="viewStore.isHomeView || viewStore.isCustomView" />
         <TheDoc v-else />
       </main>

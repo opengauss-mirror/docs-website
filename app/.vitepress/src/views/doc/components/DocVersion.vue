@@ -124,10 +124,7 @@ const changeVersion = async (item: { value: string; href?: string | Record<strin
   --dropdown-item-justify: flex-start;
   --dropdown-item-padding: 7px 12px;
   @include hover {
-    background-color: var(--o-color-control2-light);
-    .o-tag {
-      --tag-bd-color: var(--o-color-control1-light);
-    }
+    background-color: var(--o-color-control4-light);
   }
 }
 
@@ -137,8 +134,8 @@ const changeVersion = async (item: { value: string; href?: string | Record<strin
 
 .o-tag {
   --tag-radius: var(--o-radius-xs);
-  --tag-bg-color: var(--o-color-control2-light);
-  --tag-bd-color: var(--o-color-control2-light);
+  --tag-bg-color: var(--o-color-control1-light);
+  --tag-bd-color: var(--o-color-control1-light);
   --tag-padding: 0 8px;
   margin-left: 6px;
 
