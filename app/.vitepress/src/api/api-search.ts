@@ -32,7 +32,10 @@ export function getPop(params: string): Promise<{
  * @return  {Object}
  */
 export function getSearchRecommend(
-  params: { query: string },
+  params: { 
+    query: string,
+    lang: string,
+  },
   cancelToken?: CancelToken
 ): Promise<{
   status: number;
@@ -41,7 +44,7 @@ export function getSearchRecommend(
   };
   msg: string;
 }> {
-  const url = `/api-search/search/word?query=${params.query}`;
+  const url = `/api-search/search/word?query=${params.query}&lang=${params.lang}`;
   return request
     .post(url, params, {
       showError: false,
