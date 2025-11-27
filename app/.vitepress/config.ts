@@ -142,7 +142,7 @@ export default {
         const id = tokens[idx].attrs?.[aIndex]?.[1];
         const tag = tokens[idx].tag;
         const render = self.renderToken(tokens, idx, options);
-        return `${render}${tag === 'h1' || tag === 'h2' ? `<MarkdownTitle title-id="${id || ''}">` : ''}`;
+        return `${render}${tag === 'h1' || tag === 'h2' ? `<MarkdownTitle title-id="${id || ''}" :pin="false">` : ''}`;
       };
 
       md.renderer.rules.heading_close = function (tokens, idx, options, _, self) {

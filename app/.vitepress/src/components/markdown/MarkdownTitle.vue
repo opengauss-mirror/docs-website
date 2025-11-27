@@ -17,6 +17,11 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  // 是否显示pin
+  pin: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits<{
@@ -70,7 +75,7 @@ const onClickCopyLink = (e: MouseEvent) => {
 <template>
   <span class="title-wrap">
     <span class="title" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave" @click="onClickAnchor">
-      <transition name="fade">
+      <transition v-if="pin" name="fade">
         <OIcon class="pin" :class="{ 'pin-show': showPin }"> <IconPin /> </OIcon>
       </transition>
       <slot></slot>
