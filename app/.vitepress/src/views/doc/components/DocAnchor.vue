@@ -25,6 +25,18 @@ const activeVal = ref(hash.value);
 const expanded = ref(false);
 const anchorData = ref<AnchorItemT[]>([]);
 
+// -------------------- 展开所有 anchor 数据 --------------------
+const flatAnchorData = (anchorData: AnchorItemT[]) => {
+  const data: AnchorItemT[] = [];
+  anchorData.forEach((item) => {
+    data.push(item);
+    if (item.children) {
+      data.push(...item.children);
+    }
+  });
+
+  return data;
+};
 // -------------------- 更新指针位置 --------------------
 const updateIndicatorPosition = async () => {
   if (!isClient) {
@@ -63,7 +75,7 @@ const updateActive = async (hashVal: string) => {
   }
 
   const href = decodeURIComponent(hashVal);
-  if (anchorData.value.some((item) => item.href === href)) {
+  if (flatAnchorData(anchorData.value).some((item) => item.href === href)) {
     activeVal.value = href;
   }
 
@@ -71,6 +83,15 @@ const updateActive = async (hashVal: string) => {
 };
 
 // -------------------- 获取锚点数据 --------------------
+const getAnchorItem = (element: HTMLElement) => {
+  return {
+    tag: element.tagName.toLowerCase(),
+    title: element.innerText.replace(/[\u200B-\u200D\uFEFF]/g, ''),
+    href: `#${element.id.replace('user-content-', '')}`,
+    children: [],
+  };
+};
+
 const getAnchorData = () => {
   anchorData.value = [];
   if (!isClient) {
@@ -82,11 +103,23 @@ const getAnchorData = () => {
     return;
   }
 
-  Array.from(markdownBody.querySelectorAll('h2')).forEach((element) => {
-    anchorData.value.push({
-      title: element.innerText.replace(/[\u200B-\u200D\uFEFF]/g, ''),
-      href: `#${element.id.replace('user-content-', '')}`,
-    });
+  let lastItem: AnchorItemT;
+  let lastItemIsH2 = false;
+  Array.from(markdownBody.querySelectorAll<HTMLElement>('h2, h3')).forEach((element) => {
+    // h2
+    if (element.tagName === 'H2') {
+      lastItem = getAnchorItem(element);
+      anchorData.value.push(lastItem);
+      lastItemIsH2 = true;
+      return;
+    }
+
+    // h3
+    if (lastItemIsH2) {
+      lastItem.children!.push(getAnchorItem(element));
+    } else {
+      anchorData.value.push(getAnchorItem(element));
+    }
   });
 };
 
@@ -121,7 +154,7 @@ const onScroll = () => {
 
   const scrollRemainingBottom = getScrollRemainingBottom(scrollContainer);
   const distances: Array<{ hash: string; top: number }> = [];
-  for (const item of anchorData.value) {
+  for (const item of flatAnchorData(anchorData.value)) {
     const target = contentDom.querySelector<HTMLElement>(item.href.replace('#', '#user-content-'));
     if (!target) {
       continue;
@@ -141,8 +174,8 @@ const onScroll = () => {
   if (distances.length) {
     if (scrollRemainingBottom < 10) {
       active = distances[distances.length - 1].hash;
-    } 
-    
+    }
+
     if (!active && scrollRemainingBottom < 110) {
       const overItems = distances.filter((item) => item.top >= 110);
       if (overItems.length) {
@@ -153,7 +186,7 @@ const onScroll = () => {
         }
       }
     }
-    
+
     if (!active) {
       const max = distances.reduce((prev, cur) => (prev.top > cur.top ? prev : cur));
       active = max.hash;
@@ -205,7 +238,7 @@ const scrollIntoTarget = async (hashVal: string) => {
 onMounted(() => {
   setTimeout(async () => {
     await scrollIntoTarget(activeVal.value);
-    if (!anchorData.value.some((item) => item.href === activeVal.value)) {
+    if (!flatAnchorData(anchorData.value).some((item) => item.href === activeVal.value)) {
       onScroll();
     }
   }, 300);
@@ -216,7 +249,7 @@ watch(
   async (newHash) => {
     updateActive(newHash);
     await scrollIntoTarget(newHash);
-    if (!anchorData.value.some((item) => item.href === activeVal.value)) {
+    if (!flatAnchorData(anchorData.value).some((item) => item.href === activeVal.value)) {
       onScroll();
     }
   }
@@ -233,11 +266,22 @@ watch(
             <div v-show="activeVal" class="o-anchor-indicator" :style="indicatorStyle"></div>
           </div>
           <div class="o-anchor-items">
-            <div v-for="item in anchorData" :key="item.href" class="o-anchor-item anchor-item" :title="item.title">
-              <a :href="item.href" target="_self" class="o-anchor-item-link anchor-item-link" :class="{ 'is-active': activeVal === item.href }">{{
-                item.title
-              }}</a>
-            </div>
+            <template v-for="item in anchorData" :key="item.href">
+              <div class="o-anchor-item anchor-item" :title="item.title">
+                <a :href="item.href" target="_self" class="o-anchor-item-link anchor-item-link" :class="{ 'is-active': activeVal === item.href }">{{
+                  item.title
+                }}</a>
+              </div>
+              <div v-for="subItem in item.children" class="o-anchor-item anchor-item" :title="subItem.title">
+                <a
+                  :href="subItem.href"
+                  target="_self"
+                  class="o-anchor-item-link anchor-item-link anchor-item-child-link"
+                  :class="{ 'is-active': activeVal === subItem.href }"
+                  >{{ subItem.title }}</a
+                >
+              </div>
+            </template>
           </div>
         </div>
       </OScroller>
@@ -310,6 +354,14 @@ watch(
   text-overflow: ellipsis;
   word-break: break-all;
   white-space: nowrap;
+  
+  @include respond-to('pad-laptop') {
+    width: 182px;
+  }
+}
+
+.anchor-item-child-link {
+  padding-left: 24px;
 }
 
 .anchor-opener {

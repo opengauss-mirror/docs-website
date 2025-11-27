@@ -29,7 +29,7 @@ const onShow = () => {
   if (showAnchor.value) {
     showDlg.value = true;
   }
-}
+};
 
 // -------------------- 显示弹窗滚动到当前选中锚点位置 --------------------
 const scrollToIndicatorPosition = async () => {
@@ -39,7 +39,7 @@ const scrollToIndicatorPosition = async () => {
 
   await nextTick();
   await nextTick();
-  
+
   const anchorScroller = anchorScrollerRef.value?.getContainerEl() as HTMLElement;
   if (!anchorScroller) {
     return;
@@ -86,8 +86,9 @@ const getAnchorData = () => {
     return;
   }
 
-  Array.from(markdownBody.querySelectorAll('h2')).forEach((element) => {
+  Array.from(markdownBody.querySelectorAll<HTMLElement>('h2, h3')).forEach((element) => {
     anchorData.value.push({
+      tag: element.tagName.toLowerCase(),
       title: element.innerText.replace(/[\u200B-\u200D\uFEFF]/g, ''),
       href: `#${element.id.replace('user-content-', '')}`,
     });
@@ -239,7 +240,13 @@ watch(
     <div class="dlg-anchor-title">{{ t('docs.anchorTip') }}</div>
     <OScroller ref="anchorScrollerRef" class="dlg-anchor-scroller" size="small" show-type="never" :disabled-x="true">
       <div v-for="item in anchorData" :key="item.href" class="dlg-anchor-item" @click="showDlg = false">
-        <a :href="item.href" target="_self" class="dlg-anchor-item-link" :class="{ 'is-active': activeVal === item.href }">{{ item.title }}</a>
+        <a
+          :href="item.href"
+          target="_self"
+          class="dlg-anchor-item-link"
+          :class="{ 'is-active': activeVal === item.href, 'dlg-anchor-item-link-sub-item': item.tag === 'h3' }"
+          >{{ item.title }}</a
+        >
       </div>
     </OScroller>
   </ODialog>
@@ -275,6 +282,10 @@ watch(
     color: var(--o-color-primary1);
     background-color: var(--o-color-fill3);
     font-weight: 500px;
+  }
+
+  .dlg-anchor-item-link-sub-item {
+    padding-left: 24px;
   }
 }
 </style>
