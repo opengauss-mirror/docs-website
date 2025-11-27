@@ -1,8 +1,8 @@
 //放置版本数据 state表示该版本目前的周期状态：DEV(开发更新中)，LTS(长期维护中)，EOM(已结束维护)
 const versionObjZh = {
   latest: {
-    homePath: "/docs/GettingStarted/GettingStarted.html",
-    homeLitePath: "/docs/GettingStarted/GettingStarted.html",
+    homePath: "/getting_started/understanding_opengauss.html",
+    homeLitePath: "/getting_started/understanding_opengauss.html",
     downLink: "",
     state: "DEV",
   },
@@ -108,8 +108,8 @@ const versionObjZh = {
 };
 const versionObjEn = {
   latest: {
-    homePath: "/docs/GettingStarted/GettingStarted.html",
-    homeLitePath: "/docs/GettingStarted/GettingStarted.html",
+    homePath: "/getting_started/understanding_opengauss.html",
+    homeLitePath: "/getting_started/understanding_opengauss.html",
     downLink: "",
     state: "DEV",
   },
