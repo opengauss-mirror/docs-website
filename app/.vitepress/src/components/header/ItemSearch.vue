@@ -34,7 +34,7 @@ function handleSearchEvent(report?: boolean) {
 
   isShowDrawer.value = false;
   handleSearch(input);
-  window.open(`/${lang.value}/search/?q=${encodeURIComponent(input)}`, '_self');
+  window.open(`${import.meta.env.VITE_MAIN_DOMAIN_URL}/${lang.value}/search/?q=${encodeURIComponent(input)}`, '_blank', 'noopener noreferrer');
 }
 
 type SearchItemClickType = 'history' | 'popular' | 'suggest';
