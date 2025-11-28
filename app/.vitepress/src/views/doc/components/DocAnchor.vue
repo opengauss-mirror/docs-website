@@ -257,7 +257,7 @@ watch(
 </script>
 
 <template>
-  <div v-show="anchorData.length > 0" class="doc-anchor" :class="{ unexpanded: leLaptop && !expanded }">
+  <div v-if="anchorData.length > 0" class="doc-anchor" :class="{ unexpanded: leLaptop && !expanded }">
     <div class="anchor-wrapper" :class="{ unexpanded: leLaptop && !expanded }">
       <div class="anchor-title">{{ t('docs.anchorTip') }}</div>
       <OScroller ref="anchorScrollerRef" class="anchor-scroller" show-type="hover" size="small" disabled-x auto-update-on-scroll-size>

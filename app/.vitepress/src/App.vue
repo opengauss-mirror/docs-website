@@ -24,10 +24,10 @@ router.onAfterRouteChange = () => {
 <template>
   <OConfigProvider :locale="isZh ? zhCN : enUS">
     <ClientOnly>
-      <AppHeader v-show="viewStore.isPageLoaded" class="ly-header" />
+      <AppHeader class="ly-header" :class="{ 'ly-header-hidden': !viewStore.isPageLoaded }" />
     </ClientOnly>
     <OScroller show-type="hover" disabled-x auto-update-on-scroll-size>
-      <main v-show="viewStore.isPageLoaded" class="ly-main">
+      <main class="ly-main" :class="{ 'ly-main-hidden': !viewStore.isPageLoaded }">
         <Content v-if="viewStore.isHomeView || viewStore.isCustomView" />
         <TheDoc v-else />
       </main>
@@ -41,7 +41,6 @@ router.onAfterRouteChange = () => {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--o-color-fill1);
   color: var(--o-color-info1);
-  transition: opacity var(--o-duration-m2) var(--o-easing-standard-in);
 
   --vw100: 100vw;
 
@@ -95,7 +94,20 @@ router.onAfterRouteChange = () => {
   height: var(--layout-content-min-height);
   background-color: var(--o-color-fill1);
 }
+
+.ly-header, .ly-main {
+  transition: opacity var(--o-duration-m2) var(--o-easing-standard-in);
+}
+
+.ly-header-hidden {
+  opacity: 0;
+}
+
 .ly-main {
   background-color: var(--o-color-fill1);
+}
+
+.ly-main-hidden {
+  opacity: 0;
 }
 </style>
