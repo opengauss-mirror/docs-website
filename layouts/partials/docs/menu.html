@@ -1,0 +1,25 @@
+<nav id="docs-menu">
+{{ if .Site.Params.BookMenuBundle }}
+<div class="nav">
+  <div id="docstreeview">
+    {{ partial "docs/menu-bundle" . }}
+</div>
+  <div class="download-button">
+  </div>
+</div>
+
+{{ else }}
+    {{ partial "docs/menu-filetree" . }}
+{{ end }}
+
+</nav>
+
+<script>
+(function() {
+  var menu = document.querySelector("#docs-menu");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
