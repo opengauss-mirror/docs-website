@@ -481,6 +481,14 @@
       background-image: url('@/assets/category/docs/icon-tip.svg');
     }
   }
+
+  sup > a::before {
+    content: "";
+  }
+
+  sup > a::after {
+    content: "";
+  }
 }
 
 @include in-dark {
