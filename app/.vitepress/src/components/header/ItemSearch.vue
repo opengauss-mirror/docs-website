@@ -176,7 +176,7 @@ const closeSearch = () => {
             <div class="history">
               <div v-for="item in searchHistory" class="history-item" :class="{ dark: isDark }" @click="onTopSearchItemClick(item)" :key="item">
                 <span class="history-text">{{ item }}</span>
-                <OIcon class="icon-container" @click.stop="deleteHistory(item)"><IconDelete class="icon"></IconDelete></OIcon>
+                <OIcon class="icon-container" @click.stop="deleteHistory(item)"><IconDelete class="icon icon-delete"></IconDelete></OIcon>
               </div>
             </div>
             <div class="split-line"></div>
@@ -281,8 +281,14 @@ const closeSearch = () => {
       background-color: var(--o-color-fill2);
       z-index: 200;
 
-      @include respond-to('<=pad_v') {
-        display: none;
+      @include respond-to('<=laptop') {
+        height: 8px;
+        bottom: -8px;
+      }
+
+      @include respond-to('<=pad') {
+        height: 16px;
+        bottom: -16px;
       }
     }
 
@@ -433,7 +439,9 @@ const closeSearch = () => {
         color: var(--o-color-primary1);
 
         .icon-container {
-          display: inline-block;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           position: absolute;
           width: 16px;
           height: 16px;
@@ -447,6 +455,10 @@ const closeSearch = () => {
       .icon {
         height: 16px;
         width: 16px;
+      }
+
+      .icon-delete {
+        color: var(--o-color-white);
       }
 
       &.dark {
