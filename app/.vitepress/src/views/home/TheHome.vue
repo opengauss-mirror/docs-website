@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onUnmounted } from 'vue';
+import { ref, computed, watch, onUnmounted, onMounted } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import axios, { type Canceler } from 'axios';
 import { OInput, OIcon, ORow, OCol, OLink, OPopup, ODropdownItem, OScroller } from '@opensig/opendesign';
@@ -11,7 +11,7 @@ import HomeBannerCard from './components/HomeBannerCard.vue';
 import IconSearch from '~icons/app/icon-search.svg';
 
 import { HOME_CONFIG, HOME_CONFIG_EN } from '@/config/dsl';
-import { useAppearance, useSearchingStore } from '@/stores/common';
+import { useAppearance } from '@/stores/common';
 import { getSearchRecommend } from '@/api/api-search';
 
 import { useScreen } from '@/composables/useScreen';
@@ -23,7 +23,6 @@ import HomeSectionCard from './components/HomeSectionCard.vue';
 import HomeFooter from './components/HomeFooter.vue';
 
 const appearanceStore = useAppearance();
-const searchStore = useSearchingStore();
 const { lePad, lePadV, isPhone, leLaptop } = useScreen();
 const { locale, t } = useLocale();
 
@@ -99,7 +98,13 @@ const queryGetSearchRecommend = async (val: string) => {
   });
 
   try {
-    const res = await getSearchRecommend({ query: val }, cancelToken);
+    const res = await getSearchRecommend(
+      {
+        query: val,
+        lang: locale.value,
+      },
+      cancelToken
+    );
     lastRecommendCanceler = null;
     res.obj.word.forEach((e: SearchRecommendT) => {
       e.keyHtml = e.key.replace(val, `<span class="found">${val}</span>`);
@@ -156,6 +161,22 @@ watch(searchValue, () => {
   }
 });
 
+const searchInputWidth = ref('100%');
+
+const setSearchInputWidth = () => {
+  const homeSearchInput = document.querySelector('.home-search-input') as HTMLElement;
+  searchInputWidth.value = homeSearchInput?.offsetWidth ? `${homeSearchInput.offsetWidth}px` : '100%';
+};
+
+onMounted(() => {
+  setSearchInputWidth();
+  window.addEventListener('resize', setSearchInputWidth);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', setSearchInputWidth);
+});
+
 // -------------------- banner card --------------------
 const bannerCardRatio = computed(() => {
   return (100 / (lePadV.value ? config.value.recommend.columns_mb : config.value.recommend.columns)).toFixed(2);
@@ -182,7 +203,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
           :placeholder="t('home.searchPlaceholder')"
           :max-length="100"
           :input-on-outlimit="false"
-          class="search"
+          class="home-search-input"
           size="large"
           clearable
           @keyup.enter="enterSearchDoc(searchValue)"
@@ -193,7 +214,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
           </template>
         </OInput>
 
-        <OPopup :target="inputRef" :visible="showSearchWord" trigger="none" position="bottom">
+        <OPopup wrapper=".home" :target="inputRef" :visible="showSearchWord" trigger="none" position="bottom">
           <OScroller ref="scrollerRef" class="search-scroller" show-type="hover" size="small" disabled-x>
             <ODropdownItem
               v-for="item in recommendData"
@@ -203,6 +224,10 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
                 '--dropdown-item-color-hover': 'var(--o-color-info2)',
                 '--dropdown-item-padding': '8px 12px',
                 '--dropdown-item-justify': 'start',
+                display: 'block',
+                overflow: 'hidden',
+                'text-overflow': 'ellipsis',
+                'white-space': 'nowrap',
               }"
               @click="onClickWordItem(item)"
             />
@@ -317,7 +342,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
   font-size: 24px;
 }
 
-.search {
+.home-search-input {
   width: 660px;
   --input-height: 40px;
   --input-radius: var(--o-radius-xs);
@@ -398,6 +423,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
 }
 
 .search-scroller {
+  width: v-bind(searchInputWidth);
   max-height: 304px;
   padding: 4px;
   border-radius: var(--o-radius-xs);

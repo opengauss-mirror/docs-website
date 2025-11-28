@@ -142,7 +142,7 @@ export default {
         const id = tokens[idx].attrs?.[aIndex]?.[1];
         const tag = tokens[idx].tag;
         const render = self.renderToken(tokens, idx, options);
-        return `${render}${tag === 'h1' || tag === 'h2' ? `<MarkdownTitle title-id="${id || ''}">` : ''}`;
+        return `${render}${tag === 'h1' || tag === 'h2' ? `<MarkdownTitle title-id="${id || ''}" :pin="false">` : ''}`;
       };
 
       md.renderer.rules.heading_close = function (tokens, idx, options, _, self) {
@@ -160,7 +160,9 @@ export default {
       const defaultHtmlBlockRender = md.renderer.rules.html_block;
       md.renderer.rules.html_block = (tokens, idx, options, env, self) => {
         const content = tokens[idx].content;
-        tokens[idx].content = tokens[idx].content.replace(/\s+(width|height|class|style|valign|align|headers)=['|"](.*?)['|"]/g, '');
+        tokens[idx].content = tokens[idx].content
+          .replace(/\s+(width|height|style|valign|align|headers)=['|"](.*?)['|"]/g, '')
+          .replace(/<a([^>]*?)href\s*=\s*['"](?!(?:https?:)?\/\/)([^'"]+)\.md(#.*?)?['"]([^>]*?)>/gi, '<a$1href="$2.html$3"$4>');
         const renderContent = defaultHtmlBlockRender!!(tokens, idx, options, env, self);
         if (content.includes('<img')) {
           return `<MarkdownImage>${renderContent}</MarkdownImage>`;
@@ -172,7 +174,9 @@ export default {
       const defaultHtmlInlineRender = md.renderer.rules.html_inline;
       md.renderer.rules.html_inline = function (tokens, idx, options, env, self) {
         const content = tokens[idx].content;
-        tokens[idx].content = tokens[idx].content.replace(/\s+(width|height|class|style|valign|align|headers)=['|"](.*?)['|"]/g, '');
+        tokens[idx].content = tokens[idx].content
+          .replace(/\s+(width|height|style|valign|align|headers)=['|"](.*?)['|"]/g, '')
+          .replace(/<a([^>]*?)href\s*=\s*['"](?!(?:https?:)?\/\/)([^'"]+)\.md(#.*?)?['"]([^>]*?)>/gi, '<a$1href="$2.html$3"$4>');
         const renderContent = defaultHtmlInlineRender!!(tokens, idx, options, env, self);
         if (content.includes('<img')) {
           return `<MarkdownImage>${renderContent}</MarkdownImage>`;

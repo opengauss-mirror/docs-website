@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onUnmounted, ref, watch } from 'vue';
+import { computed, onUnmounted, ref, watch } from 'vue';
 import axios, { type Canceler } from 'axios';
 import { OInput, OIcon, OPopup, ODropdownItem, OScroller } from '@opensig/opendesign';
 
@@ -11,11 +11,11 @@ import { useLocale } from '@/composables/useLocale';
 
 import type { SearchRecommendT } from '@/@types/type-search';
 import { getSearchRecommend } from '@/api/api-search';
-import { onClickOutside } from '@vueuse/core';
+import { onClickOutside, useElementSize } from '@vueuse/core';
 
 const emit = defineEmits(['switchVisible']);
 
-const { t } = useLocale();
+const { t, locale } = useLocale();
 const { size } = useScreen();
 // 搜索状态库
 const searchStore = useSearchingStore();
@@ -68,7 +68,13 @@ const queryGetSearchRecommend = async (val: string) => {
   });
 
   try {
-    const res = await getSearchRecommend({ query: val }, cancelToken);
+    const res = await getSearchRecommend(
+      {
+        query: val,
+        lang: locale.value,
+      },
+      cancelToken
+    );
     lastRecommendCanceler = null;
     res.obj.word.forEach((e: SearchRecommendT) => {
       e.keyHtml = e.key.replace(val, `<span class="found">${val}</span>`);
@@ -125,10 +131,16 @@ watch(searchValue, () => {
     clearSearchDoc();
   }
 });
+
+const inputContainerRef = ref<HTMLElement>();
+const { width } = useElementSize(inputContainerRef);
+const inputWidth = computed(() => {
+  return width.value ? `${width.value - 8}px` : '100%';
+});
 </script>
 
 <template>
-  <div class="doc-search">
+  <div ref="inputContainerRef" class="doc-search">
     <OInput
       ref="inputRef"
       :style="{ width: '100%' }"
@@ -147,7 +159,7 @@ watch(searchValue, () => {
       </template>
     </OInput>
 
-    <OPopup :target="inputRef" :visible="showSearchWord" trigger="none" position="bottom">
+    <OPopup :wrapper="inputContainerRef?.parentElement" :target="inputRef" :visible="showSearchWord" trigger="none" position="bottom">
       <OScroller ref="scrollerRef" class="search-scroller" show-type="hover" size="small" disabled-x>
         <ODropdownItem
           v-for="item in recommendData"
@@ -156,7 +168,11 @@ watch(searchValue, () => {
           :style="{
             '--dropdown-item-color-hover': 'var(--o-color-info2)',
             '--dropdown-item-padding': '8px 12px',
-            '--dropdown-item-justify': 'start',
+            display: 'block',
+            width: inputWidth,
+            overflow: 'hidden',
+            'text-overflow': 'ellipsis',
+            'white-space': 'nowrap',
           }"
           @click="onClickWordItem(item)"
         />

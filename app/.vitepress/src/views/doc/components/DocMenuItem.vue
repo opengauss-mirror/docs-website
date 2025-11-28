@@ -120,21 +120,13 @@ onBeforeUnmount(() => {
     position: relative;
     padding-left: 16px;
 
-    @include respond-to('<=laptop') {
-      padding-left: 17px;
-    }
-
     &::before {
       content: '';
       position: absolute;
       left: 16px;
-      top: 0;
+      top: 2px;
       bottom: 0;
       border-left: 1px solid var(--o-color-control4);
-
-      @include respond-to('<=laptop') {
-        left: 17px;
-      }
     }
 
     > li {
@@ -144,13 +136,26 @@ onBeforeUnmount(() => {
     > .o-menu-item {
       margin-left: 48px;
     }
+  }
 
-    > .o-menu-item::before {
+  :deep(.doc-menu-item:not(:first-child)) {
+    &::before {
       content: '';
       position: absolute;
       left: -16px;
-      top: 0px;
-      bottom: -2px;
+      top: -2px;
+      bottom: 0;
+      border-left: 1px solid var(--o-color-control4);
+    }
+  }
+
+  :deep(.doc-menu-item) {
+    &::before {
+      content: '';
+      position: absolute;
+      left: -16px;
+      top: 0;
+      bottom: 0;
       border-left: 1px solid var(--o-color-control4);
     }
   }
@@ -174,23 +179,6 @@ onBeforeUnmount(() => {
 
 .o-sub-menu-expanded > .o-sub-menu-title > .o-sub-menu-title-content > .menu-item-title > .icon-chevron-down {
   transform: rotate(180deg);
-}
-
-.doc-sub-menu-page {
-  :deep(.o-sub-menu-children) {
-    &::before {
-      content: '';
-      position: absolute;
-      left: 16px;
-      top: 0;
-      bottom: 0;
-      border-left: 1px solid var(--o-color-control4);
-
-      @include respond-to('<=laptop') {
-        left: 17px;
-      }
-    }
-  }
 }
 
 .doc-menu-item {
@@ -225,12 +213,12 @@ onBeforeUnmount(() => {
   padding-bottom: 8px;
 }
 
-.o-sub-menu-associated-selected .o-menu-item-selected::before {
+.o-sub-menu-associated-selected .o-menu-item-selected::after {
   content: '';
   position: absolute;
   left: -16px;
-  top: 4px;
-  bottom: 4px;
+  top: 3px;
+  bottom: 3px;
   border-left: 2px solid var(--o-color-primary1) !important;
 }
 

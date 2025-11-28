@@ -13,7 +13,7 @@ import { useLocale } from '@/composables/useLocale';
 import { useSearchingStore } from '@/stores/common';
 import { scrollToTop } from '@/utils/common';
 import { useNodeStore } from '@/stores/node';
-import { useViewStore } from '@/stores/view';
+import { useVersionStore } from '@/stores/version';
 import { findNode, findPrevNode } from '@/utils/tree';
 
 const result = ref<SearchDocItemT[]>([]);
@@ -22,6 +22,7 @@ const { t, locale } = useLocale();
 const searchStore = useSearchingStore();
 const { lePad } = useScreen();
 const nodeStore = useNodeStore();
+const versionStore = useVersionStore();
 
 // 分页数据
 const total = ref(0);
@@ -61,7 +62,7 @@ const searchResult = async () => {
       keyword: searchStore.keyword,
       lang: locale.value,
       page: currentPage.value,
-      version: 'refactor', // route.path.split('/')?.[3],
+      version: versionStore.isLite ? 'refactor-lite' : 'refactor', // route.path.split('/')?.[3],
       //path: url.replace(`/${locale.value}/`, '').replace('/index.html', '').replace('docs/latest/', '').replace('.html', ''),
     });
 
@@ -87,6 +88,7 @@ const searchResult = async () => {
 
         sourceData.push(node);
         item.sourceData = sourceData;
+        item.version = item.version.replace('refactor', 'latest');
       });
     }
 
