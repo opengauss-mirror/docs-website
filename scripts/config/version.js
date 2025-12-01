@@ -1,6 +1,6 @@
 export const NEW_VERSIONS_CONFIG = {
   common: 'common',
-  refactor: 'latest',
+  master: 'latest',
 };
 
 export const OLD_VERSIONS_CONFIG = {

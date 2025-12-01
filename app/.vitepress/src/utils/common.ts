@@ -111,8 +111,8 @@ export function getSourceUrl(node: TreeNodeT | null) {
   const [_, lang, __, branch, ...others] = pathname.split('/');
   const map: Record<string, string> = {
     common: 'common',
-    latest: 'refactor',
+    latest: 'master',
   };
 
-  return `${GITCODE_LINK}openGauss/docs/blob/${map[branch] || branch}/docs/${lang}/${others.join('/')}`;
+  return `${GITCODE_LINK}openGauss/docs/blob/${map[branch.replace('-lite', '')] || branch}/docs${branch.includes('-lite') ? '-lite' : ''}/${lang}/${others.join('/')}`;
 }
