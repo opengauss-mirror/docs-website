@@ -62,7 +62,7 @@ const searchResult = async () => {
       keyword: searchStore.keyword,
       lang: locale.value,
       page: currentPage.value,
-      version: versionStore.isLite ? 'refactor-lite' : 'refactor', // route.path.split('/')?.[3],
+      version: route.path.split('/')?.[3],
       //path: url.replace(`/${locale.value}/`, '').replace('/index.html', '').replace('docs/latest/', '').replace('.html', ''),
     });
 
@@ -74,7 +74,7 @@ const searchResult = async () => {
           return;
         }
 
-        item.path = `/${item.path}.html`.replace('refactor', 'latest');
+        item.path = `/${item.path}.html`.replace('master', 'latest');
         const node = findNode(nodeStore.versionNodes!, 'href', item.path);
         if (!node) {
           return;
@@ -88,7 +88,7 @@ const searchResult = async () => {
 
         sourceData.push(node);
         item.sourceData = sourceData;
-        item.version = item.version.replace('refactor', 'latest');
+        item.version = item.version.replace('master', 'latest');
       });
     }
 

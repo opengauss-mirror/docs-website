@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "node scripts/dev.js --branch=common,refactor",
+    "dev": "node scripts/dev.js --branch=common,master",
     "dev:clone": "node scripts/clone-docs.js",
     "dev:toc": "node scripts/gen-toc.js",
     "dev:app": "vitepress dev app",
