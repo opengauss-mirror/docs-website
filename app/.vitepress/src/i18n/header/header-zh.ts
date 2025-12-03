@@ -106,7 +106,7 @@ export default {
           CHILDREN: [
             {
               NAME: '文档中心',
-              DESCRIPTION: '提供各业务场景及工具使用所需的文档手册',
+              DESCRIPTION: '提供各使用场景所需的用户手册',
               TAG: TAG_TYPE.NEW,
               URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/`,
             },
@@ -117,7 +117,7 @@ export default {
             },
             {
               NAME: '安装指南',
-              DESCRIPTION: '指导用户顺利完成 openGauss 操作系统安装',
+              DESCRIPTION: '指导用户完成 openGauss 数据库安装',
               URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/latest/installation_guide/installation_overview.html`,
             },
             {
@@ -126,9 +126,9 @@ export default {
               URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/common/faq/faq.html`,
             },
             {
-              NAME: '应用开发指南',
+              NAME: '文档开发指南',
               DESCRIPTION: '参与文档开发的方式',
-              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/latest/developer_guide/query_request_handling_process.html`,
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/common/contribute/contribution_process.html`,
             },
           ],
         },
