@@ -458,7 +458,7 @@
     }
   }
 
-  .note {
+  .custom-block.note {
     background-color: var(--o-color-control2-light);
 
     .custom-block-title::before {
@@ -466,7 +466,7 @@
     }
   }
 
-  .warning {
+  .custom-block.warning {
     background-color: var(--o-color-warning4-light);
 
     .custom-block-title::before {
@@ -474,7 +474,7 @@
     }
   }
 
-  .tip {
+  .custom-block.tip {
     background-color: var(--o-color-success4-light);
 
     .custom-block-title::before {

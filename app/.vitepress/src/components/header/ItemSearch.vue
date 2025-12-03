@@ -509,7 +509,6 @@ const closeSearch = () => {
 
   &.icon {
     font-size: var(--o-icon_size-m);
-    line-height: 28px;
   }
 }
 

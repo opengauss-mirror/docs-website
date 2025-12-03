@@ -91,6 +91,8 @@ onMounted(() => {
   }
 
   .login {
+    width: 24px;
+    height: 24px;
     cursor: pointer;
     color: var(--o-color-info1);
 

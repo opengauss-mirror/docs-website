@@ -62,11 +62,11 @@ export default {
         },
         {
           NAME: 'openGauss 6.0.1 Installation Guide',
-          URL: 'https://docs.opengauss.org/en/docs/6.0.0/docs/GettingStarted/GettingStarted.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/6.0.0/docs/GettingStarted/GettingStarted.html`,
         },
         {
           NAME: 'Technical White Papers',
-          URL: 'https://docs.opengauss.org/en/docs/6.0.0/docs/TechnicalWhitePaper/Technicalwhitepaper.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/6.0.0/docs/TechnicalWhitePaper/Technicalwhitepaper.html`,
         },
       ],
     },
@@ -109,27 +109,22 @@ export default {
               NAME: 'Document Center',
               DESCRIPTION: 'Your go-to resource for different service scenarios and tool usage.',
               TAG: TAG_TYPE.NEW,
-              URL: 'https://docs.opengauss.org/en/',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/`,
             },
             {
               NAME: 'Quick Start',
               DESCRIPTION: 'Learn the community essentials in 10 minutes.',
-              URL: 'https://docs.opengauss.org/en/docs/latest/docs/GettingStarted/GettingStarted.html',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/latest/getting_started/getting_started.html`,
             },
             {
               NAME: 'Installation Guide',
               DESCRIPTION: 'Step-by-step instructions for installing openGauss.',
-              URL: 'https://docs.opengauss.org/en/docs/latest/docs/InstallationGuide/InstallationGuide.html',
-            },
-            {
-              NAME: 'Frequently Asked Questions',
-              DESCRIPTION: 'Get answers to common questions and troubleshooting tips.',
-              URL: '/faq/',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/latest/installation_guide/installation_overview.html`,
             },
             {
               NAME: 'Application Development Guide',
               DESCRIPTION: 'Discover how you can contribute to application development.',
-              URL: 'https://docs.opengauss.org/en/docs/latest/docs/DeveloperGuide/%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.html',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/latest/developer_guide/query_request_handling_process.html`,
             },
           ],
         },
@@ -137,19 +132,11 @@ export default {
       SHORTCUT: [
         {
           NAME: 'About openGauss',
-          URL: 'https://docs.opengauss.org/en/docs/7.0.0-RC1/docs/TechnicalWhitePaper/%E4%BA%A7%E5%93%81%E5%AE%9A%E4%BD%8D.html',
-        },
-        {
-          NAME: 'DataVec Vector Database',
-          URL: 'https://docs.opengauss.org/en/docs/latest/docs/DataVec/DataVec-Overview.html',
-        },
-        {
-          NAME: 'openGauss DataVec + Dify',
-          URL: 'https://docs.opengauss.org/en/docs/latest/docs/DataVec/openGauss-Dify.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/latest/about_opengauss/about_opengauss.html`,
         },
         {
           NAME: 'Database Administration Guide',
-          URL: 'https://docs.opengauss.org/en/docs/latest/docs/DatabaseAdministrationGuide/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/latest/database_administration_guide/database_concepts.html`,
         },
       ],
     },

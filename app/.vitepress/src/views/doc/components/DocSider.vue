@@ -64,7 +64,6 @@ const onChangeDocType = (val: string) => {
   }
 
   const item = versions[locale.value].find((item) => item.value === versionStore.prefixVersion);
-  console.log(locale.value, versionStore.prefixVersion, item);
   if (item) {
     router.go(val === '' ? item.link!.enterprise : item.link!.lite);
   } else {

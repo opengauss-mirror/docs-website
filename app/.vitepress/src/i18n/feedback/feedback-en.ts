@@ -45,10 +45,10 @@ export default {
   forumTip: 'Collaborate to resolve issues.',
   quickIssueTip: 'Quickly submit or track community issues.',
 
-  pr: 'Pull Request反馈',
-  prTip: '用于直接修改代码更改，包括改进文档、修复错误等',
-  issue: 'Issue反馈',
-  issueTip: '用于提出问题或建议，包括错误报告、功能请求或任务讨论',
+  pr: 'Pull Request',
+  prTip: 'Commit code updates, bug fixes, and docs.',
+  issue: 'Issue',
+  issueTip: 'Discuss tasks, report bugs, and propose features.',
 
   faq: 'FAQ',
 };
