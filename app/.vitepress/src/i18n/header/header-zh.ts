@@ -61,11 +61,11 @@ export default {
         },
         {
           NAME: 'openGauss 6.0.1版本安装指南',
-          URL: 'https://docs.opengauss.org/zh/docs/6.0.0/docs/InstallationGuide/InstallationGuide.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/6.0.0/docs/InstallationGuide/InstallationGuide.html`,
         },
         {
           NAME: '技术白皮书',
-          URL: 'https://docs.opengauss.org/zh/docs/6.0.0/docs/TechnicalWhitePaper/Technicalwhitepaper.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/6.0.0/docs/TechnicalWhitePaper/Technicalwhitepaper.html`,
         },
       ],
     },
@@ -108,27 +108,27 @@ export default {
               NAME: '文档中心',
               DESCRIPTION: '提供各业务场景及工具使用所需的文档手册',
               TAG: TAG_TYPE.NEW,
-              URL: 'https://docs.opengauss.org/zh/',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/`,
             },
             {
               NAME: '新手入门',
               DESCRIPTION: '10分钟玩转社区，快速构建与成长',
-              URL: 'https://docs.opengauss.org/zh/docs/latest/docs/GettingStarted/GettingStarted.html',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/latest/getting_started/understanding_opengauss.html`,
             },
             {
               NAME: '安装指南',
               DESCRIPTION: '指导用户顺利完成 openGauss 操作系统安装',
-              URL: 'https://docs.opengauss.org/zh/docs/latest/docs/InstallationGuide/InstallationGuide.html',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/latest/installation_guide/installation_overview.html`,
             },
             {
               NAME: '常见问题',
               DESCRIPTION: '常见问题解决方法',
-              URL: '/faq/',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/common/faq/faq.html`,
             },
             {
               NAME: '应用开发指南',
               DESCRIPTION: '参与文档开发的方式',
-              URL: 'https://docs.opengauss.org/zh/docs/latest/docs/DeveloperGuide/%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97.html',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/latest/developer_guide/query_request_handling_process.html`,
             },
           ],
         },
@@ -136,19 +136,19 @@ export default {
       SHORTCUT: [
         {
           NAME: '关于openGauss',
-          URL: 'https://docs.opengauss.org/zh/docs/7.0.0-RC1/docs/TechnicalWhitePaper/%E4%BA%A7%E5%93%81%E5%AE%9A%E4%BD%8D.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/latest/about_opengauss/about_opengauss.html`,
         },
         {
           NAME: 'DataVec向量数据库',
-          URL: 'https://docs.opengauss.org/zh/docs/latest/docs/DataVec/DataVec-Overview.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/latest/datavec/datavec_overview.html`,
         },
         {
           NAME: 'openGauss DataVec + Dify，快速搭建你的智能助手平台',
-          URL: 'https://docs.opengauss.org/zh/docs/latest/docs/DataVec/openGauss-Dify.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/latest/datavec/opengauss_dify.html`,
         },
         {
           NAME: '数据库管理指南',
-          URL: 'https://docs.opengauss.org/zh/docs/latest/docs/DatabaseAdministrationGuide/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E6%8C%87%E5%8D%97.html',
+          URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/zh/docs/latest/database_administration_guide/database_concepts.html`,
         },
       ],
     },

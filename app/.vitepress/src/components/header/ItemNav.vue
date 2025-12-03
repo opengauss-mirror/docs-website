@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, shallowRef, watch } from 'vue';
 import { useDebounceFn, useElementSize } from '@vueuse/core';
-import { useData, useRouter } from 'vitepress';
+import { useData } from 'vitepress';
 import { OIcon } from '@opensig/opendesign';
 
 import i18nConfig from '@/i18n';
@@ -13,8 +13,6 @@ import NavLink from './NavLink.vue';
 
 import { type NavItemT } from '@/@types/type-nav';
 
-
-const router = useRouter();
 const appearanceStore = useAppearance();
 const { lang } = useData();
 const i18n = computed(() => i18nConfig.global.messages.value[lang.value as 'zh' | 'en']);
@@ -70,7 +68,7 @@ const handleDropdownClick = (item: NavItemT) => {
 
 const clickNav = (item: string) => {
   if (item === 'home') {
-    router.go(`/${lang.value}/`);
+    window.location.href = `${import.meta.env.VITE_MAIN_DOMAIN_URL}/${lang.value}/`;
   }
 };
 

@@ -49,7 +49,7 @@ const handleNavClick = (item: NavItemT | null) => {
     sourceCode.value = codeData.value;
   } else {
     if (item.ID === 'home') {
-      router.go(`/${lang.value}/`);
+      window.location.href = `${import.meta.env.VITE_MAIN_DOMAIN_URL}/${lang.value}/`;
       navInfo.value = {} as NavItemT;
       navActive.value = item.ID;
       emit('link-click');

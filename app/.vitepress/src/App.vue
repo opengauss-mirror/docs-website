@@ -6,11 +6,12 @@ import zhCN from '@opensig/opendesign/es/locale/lang/zh-cn';
 import enUS from '@opensig/opendesign/es/locale/lang/en-us';
 
 import AppHeader from '@/components/header/AppHeader.vue';
-import TheDoc from './views/doc/TheDoc.vue';
+import CookieNotice from '@/components/CookieNotice.vue';
+import TheDoc from '@/views/doc/TheDoc.vue';
 
-import { scrollToTop } from './utils/common';
-import { useLocale } from './composables/useLocale';
-import { useViewStore } from './stores/view';
+import { scrollToTop } from '@/utils/common';
+import { useLocale } from '@/composables/useLocale';
+import { useViewStore } from '@/stores/view';
 
 const { isZh } = useLocale();
 const viewStore = useViewStore();
@@ -32,6 +33,10 @@ router.onAfterRouteChange = () => {
         <TheDoc v-else />
       </main>
     </OScroller>
+
+    <ClientOnly>
+      <CookieNotice />
+    </ClientOnly>
   </OConfigProvider>
 </template>
 
