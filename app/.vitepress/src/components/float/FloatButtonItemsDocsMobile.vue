@@ -19,20 +19,23 @@ const issuebackRef = ref();
 
 const floatData = ref([
   {
+    visibility: true,
     img: markRaw(IconSmile as Object),
     id: 'mark',
     text: computed(() => t('feedback.wantSubmitMark')),
     onClick() {
       showDocsFeedbackDlg.value = true;
-    }
+    },
   },
   {
+    visibility: true,
     img: markRaw(IconForum as Object),
     id: 'forum',
     text: computed(() => t('feedback.forum')),
     link: import.meta.env.VITE_SERVICE_FORUM_URL,
   },
   {
+    visibility: computed(() => locale.value === 'zh'),
     img: markRaw(IconFAQ as Object),
     id: 'faq',
     text: computed(() => t('feedback.faq')),
@@ -48,14 +51,16 @@ const floatData = ref([
     </OIcon>
 
     <OPopup position="rb" :target="issuebackRef" wrapper="#issueback" body-class="popup-issueback" :offset="24" trigger="click">
-      <OLink v-for="item in floatData" :key="item.id" :href="item?.link" target="_blank" @click="item.onClick?.()">
-        <template #icon>
-          <OIcon class="icon">
-            <component :is="item.img"></component>
-          </OIcon>
-        </template>
-        {{ item.text }}
-      </OLink>
+      <template v-for="item in floatData" :key="item.id">
+        <OLink v-if="item.visibility" :href="item?.link" target="_blank" @click="item.onClick?.()">
+          <template #icon>
+            <OIcon class="icon">
+              <component :is="item.img"></component>
+            </OIcon>
+          </template>
+          {{ item.text }}
+        </OLink>
+      </template>
     </OPopup>
   </div>
 
@@ -94,7 +99,7 @@ const floatData = ref([
       box-shadow: var(--o-shadow-2);
     }
 
-    .o-link { 
+    .o-link {
       color: var(--o-color-info1);
     }
 
