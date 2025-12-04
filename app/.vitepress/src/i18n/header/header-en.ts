@@ -107,7 +107,7 @@ export default {
           CHILDREN: [
             {
               NAME: 'Document Center',
-              DESCRIPTION: 'Your go-to resource for different service scenarios and tool usage.',
+              DESCRIPTION: 'Your go-to resource for different usage scenarios.',
               TAG: TAG_TYPE.NEW,
               URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/`,
             },
@@ -122,9 +122,9 @@ export default {
               URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/latest/installation_guide/installation_overview.html`,
             },
             {
-              NAME: 'Application Development Guide',
-              DESCRIPTION: 'Discover how you can contribute to application development.',
-              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/latest/developer_guide/query_request_handling_process.html`,
+              NAME: 'Documentation Development Guide',
+              DESCRIPTION: 'Discover how you can contribute to document development.',
+              URL: `${import.meta.env.VITE_SERVICE_DOCS_URL}/en/docs/common/contribute/directory_structure_introductory.html`,
             },
           ],
         },
