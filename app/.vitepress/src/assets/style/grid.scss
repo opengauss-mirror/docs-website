@@ -1,0 +1,66 @@
+@use './mixin/screen.scss' as *;
+
+@mixin inject-var($width, $padding, $gutter, $columns, $contentColumns) {
+  :root {
+    --grid-layout-width: #{$width}; // 栅格布局总宽度
+    --grid--layout-padding: #{$padding}; // 栅格布局左右的padding
+    --grid-column-gutter: #{$gutter}; // 栅格水槽宽度
+    --grid-column-total: #{$columns}; // 栅格总数
+    --grid-content-columns: #{$contentColumns}; // 内容区域所占栅格数量
+    --grid-full-width: calc(var(--grid-layout-width) - var(--grid--layout-padding) * 2); // 栅格布局内容宽度
+    --grid-column-width: calc((var(--grid-full-width) - var(--grid-column-gutter) * (var(--grid-column-total) - 1)) / var(--grid-column-total)); // 一个栅格的宽度
+    --grid-content-width: calc(var(--grid-column-width) * var(--grid-content-columns) + var(--grid-column-gutter) * (var(--grid-content-columns) - 1)); // 内容区域站栅格个数
+  }
+}
+
+// 1921px <= 屏幕宽度
+@include respond-to('>pc_l') {
+  @include inject-var(1920px, 64px, 32px, 24, 20);
+}
+
+// 1681px <= 屏幕宽度 <= 1920px
+@include respond-to('pc_l') {
+  @include inject-var(100vw, 64px, 32px, 24, 20);
+}
+
+// 1441px <= 屏幕宽度 <= 1680px
+@include respond-to('pc_s') {
+  @include inject-var(100vw, 64px, 32px, 24, 22);
+}
+
+// 1201px <= 屏幕宽度 <= 1440px
+@include respond-to('laptop') {
+  @include inject-var(100vw, 40px, 24px, 24, 22);
+}
+
+// 841px <= 屏幕宽度 <= 1200px
+@include respond-to('pad_h') {
+  @include inject-var(100vw, 32px, 16px, 12, 12);
+}
+
+// 601px <= 屏幕宽度 <= 840px
+@include respond-to('pad_v') {
+  @include inject-var(100vw, 32px, 16px, 8, 8);
+}
+
+// 屏幕宽度 <= 600px
+@include respond-to('phone') {
+  @include inject-var(100vw, 24px, 12px, 4, 4);
+}
+
+:root {
+  --grid-1: var(--grid-column-width);
+  @for $cnt from 2 to 24 {
+    $gutterCnt: $cnt - 1;
+    --grid-#{$cnt}: calc(var(--grid-column-width) * #{$cnt} + var(--grid-column-gutter) * #{$gutterCnt});
+  }
+}
+
+.grid-container {
+  display: flex;
+  width: 100vw;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding-left: var(--grid--layout-padding);
+  padding-right: var(--grid--layout-padding);
+}
