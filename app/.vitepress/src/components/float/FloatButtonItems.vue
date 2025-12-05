@@ -55,6 +55,7 @@ const issuebackRef = ref();
 
 const floatData = ref([
   {
+    visibility: true,
     img: markRaw(IconForum as Object),
     id: 'forum',
     text: computed(() => t('feedback.forum')),
@@ -63,6 +64,7 @@ const floatData = ref([
     link: import.meta.env.VITE_SERVICE_FORUM_URL,
   },
   {
+    visibility: computed(() => locale.value === 'zh'),
     img: markRaw(IconFAQ as Object),
     id: 'faq',
     text: computed(() => t('feedback.faq')),
@@ -109,17 +111,19 @@ const floatData = ref([
         :offset="24"
         trigger="hover"
       >
-        <OLink v-for="item in floatData" :key="item.id" :href="item.link" target="_blank" class="popup-item">
-          <OIcon><component :is="item.img"></component> </OIcon>
+        <template v-for="item in floatData" :key="item.id">
+          <OLink v-if="item.visibility" :href="item.link" target="_blank" class="popup-item">
+            <OIcon><component :is="item.img"></component> </OIcon>
 
-          <div class="text">
-            <p class="text-name">
-              {{ item.text }}
-            </p>
+            <div class="text">
+              <p class="text-name">
+                {{ item.text }}
+              </p>
 
-            <p v-if="item.tip" class="text-tip">{{ item.tip }}</p>
-          </div>
-        </OLink>
+              <p v-if="item.tip" class="text-tip">{{ item.tip }}</p>
+            </div>
+          </OLink>
+        </template>
       </OPopup>
     </div>
   </div>

@@ -6,6 +6,7 @@ import Layout from '@/App.vue';
 import NotFound from '@/NotFound.vue';
 
 import '@/assets/style/base.scss';
+import '@/assets/style/grid.scss';
 import 'element-plus/theme-chalk/src/index.scss';
 import '@opensig/opendesign/es/index.scss';
 import '@/assets/style/theme/default-light.token.css';
