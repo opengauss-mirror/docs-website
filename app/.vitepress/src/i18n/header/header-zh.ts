@@ -433,7 +433,7 @@ export default {
           DESCRIPTION: '',
           REMARK: '时间：2024/12/27 | 北京',
           TYPE: 'PICTURE',
-          URL: '/summit/devday2024/',
+          URL: '/summit/summit2024/',
         },
       ],
     },
