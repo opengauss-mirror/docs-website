@@ -159,7 +159,16 @@ watch(
           </ODropdown>
 
           <transition name="transition">
-            <div v-if="isShow" :class="['nav-dropdown', navActive === 'more' ? mroeSelectId : navActive, appearanceStore.theme, `${navActive}-${lang}`]">
+            <div
+              v-if="isShow && navActive === item.ID"
+              :class="[
+                'nav-dropdown',
+                navActive === 'more' ? mroeSelectId : navActive,
+                appearanceStore.theme,
+                `${navActive}-${lang}`,
+                mroeSelectId ? `${mroeSelectId}-${lang}` : '',
+              ]"
+            >
               <div class="nav-drop-content">
                 <OScroller class="nav-scroller" show-type="always" size="small" disabled-y>
                   <div class="nav-sub-content">
@@ -175,7 +184,7 @@ watch(
 
                     <div class="split-line" v-if="navShortcut?.length"></div>
 
-                    <div class="content-right" v-if="navShortcut?.length">
+                    <div class="content-right">
                       <div v-if="navShortcut?.length">
                         <span class="content-title">{{ i18n.header.QUICKLINK }}</span>
                         <div v-if="!isPicture">
@@ -768,6 +777,38 @@ watch(
     }
   }
 
+  &.learn-en {
+    .item-sub {
+      .content-container {
+        :deep(.content-item) {
+          width: calc((100% - 72px) / 4);
+          margin-left: 24px;
+          margin-top: 0;
+
+          &:nth-child(2n + 1):not(:nth-child(1)) {
+            margin-left: 24px;
+          }
+
+          @include respond-to('laptop') {
+            width: calc((100% - 48px) / 4);
+            margin-left: 16px;
+            &:nth-child(2n + 1):not(:nth-child(1)) {
+              margin-left: 16px;
+            }
+          }
+
+          @include respond-to('pad_h') {
+            width: calc((100% - 36px) / 4);
+            margin-left: 12px;
+            &:nth-child(2n + 1):not(:nth-child(1)) {
+              margin-left: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   &.approve {
     .item-sub {
       margin-left: 24px;
@@ -789,6 +830,39 @@ watch(
 
       @include respond-to('pad_h') {
         margin-left: 12px;
+      }
+    }
+  }
+
+  &.approve-en {
+    .item-sub {
+      .content-container {
+        :deep(.content-item) {
+          margin-top: 0;
+          margin-left: 24px;
+          width: calc(50% - 12px);
+
+          &:nth-child(2n + 1) {
+            margin-left: 0;
+          }
+          &:nth-child(n + 3) {
+            margin-top: 24px;
+          }
+          @include respond-to('laptop') {
+            margin-left: 16px;
+            width: calc(50% - 8px);
+            &:nth-child(n + 3) {
+              margin-top: 16px;
+            }
+          }
+          @include respond-to('pad_h') {
+            margin-left: 12px;
+            width: calc(50% - 6px);
+            &:nth-child(n + 3) {
+              margin-top: 12px;
+            }
+          }
+        }
       }
     }
   }

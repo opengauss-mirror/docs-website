@@ -181,7 +181,6 @@ const descMouseenter = (e: MouseEvent) => {
     display: flex;
     font-weight: 500;
     color: var(--o-color-info1);
-    @include text-truncate(1);
     @include text2;
 
     .content-subtitle-text {
