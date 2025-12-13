@@ -160,7 +160,7 @@ watch(
 
           <transition name="transition">
             <div
-              v-if="isShow && navActive === item.ID"
+              v-if="isShow"
               :class="[
                 'nav-dropdown',
                 navActive === 'more' ? mroeSelectId : navActive,
