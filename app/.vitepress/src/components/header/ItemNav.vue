@@ -50,8 +50,8 @@ const toggleDebounced = useDebounceFn(function (item: NavItemT | null) {
 
     navActive.value = item.ID;
     isShow.value = true;
-    subNavContent.value = item.CHILDREN;
-    navShortcut.value = item.SHORTCUT;
+    subNavContent.value = item.CHILDREN ?? [];
+    navShortcut.value = item.SHORTCUT ?? [];
     isPicture.value = item.WITH_PICTURE ?? false;
   }
 }, 100);
@@ -61,8 +61,8 @@ const handleDropdownClick = (item: NavItemT) => {
   mroeSelectId.value = item.ID;
   isClickDropdown.value = true;
   isShow.value = true;
-  subNavContent.value = item.CHILDREN;
-  navShortcut.value = item.SHORTCUT;
+  subNavContent.value = item.CHILDREN ?? [];
+  navShortcut.value = item.SHORTCUT ?? [];
   isPicture.value = item.WITH_PICTURE ?? false;
 };
 
@@ -137,55 +137,34 @@ watch(
             <span class="nav-item" @click="clickNav(item.ID)">
               {{ item.NAME }}
             </span>
-          </template>
 
-          <ODropdown
-            v-if="hiddenNavs.length && item.ID === 'more'"
-            trigger="hover"
-            options-wrapper=".header-content"
-            optionPosition="top"
-            option-wrap-class="dropdown"
-            @mouseenter="toggleDebounced(item)"
-          >
-            <span id="tour_headerNav_more" class="nav-item">
-              {{ i18n.header.MORE }}
-            </span>
+            <transition name="transition">
+              <div
+                v-if="isShow"
+                :class="[
+                  'nav-dropdown',
+                  navActive === 'more' ? mroeSelectId : navActive,
+                  appearanceStore.theme,
+                  `${navActive}-${lang}`,
+                  mroeSelectId ? `${mroeSelectId}-${lang}` : '',
+                ]"
+              >
+                <div class="nav-drop-content">
+                  <OScroller class="nav-scroller" show-type="always" size="small" disabled-y>
+                    <div class="nav-sub-content">
+                      <div v-if="subNavContent?.length" class="content-left">
+                        <div class="item-sub" v-for="(sub, s) in subNavContent" :key="s">
+                          <span class="content-title">
+                            {{ sub.NAME }}
+                          </span>
 
-            <template #dropdown>
-              <ODropdownItem v-for="item in hiddenNavs" @click="handleDropdownClick(item)">
-                {{ item.NAME }}
-              </ODropdownItem>
-            </template>
-          </ODropdown>
-
-          <transition name="transition">
-            <div
-              v-if="isShow"
-              :class="[
-                'nav-dropdown',
-                navActive === 'more' ? mroeSelectId : navActive,
-                appearanceStore.theme,
-                `${navActive}-${lang}`,
-                mroeSelectId ? `${mroeSelectId}-${lang}` : '',
-              ]"
-            >
-              <div class="nav-drop-content">
-                <OScroller class="nav-scroller" show-type="always" size="small" disabled-y>
-                  <div class="nav-sub-content">
-                    <div v-if="subNavContent?.length" class="content-left">
-                      <div class="item-sub" v-for="(sub, s) in subNavContent" :key="s">
-                        <span class="content-title">
-                          {{ sub.NAME }}
-                        </span>
-
-                        <NavContent :nav-content="sub?.CHILDREN" @link-click="linkClick" />
+                          <NavContent :nav-content="sub?.CHILDREN" @link-click="linkClick" />
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="split-line" v-if="navShortcut?.length"></div>
+                      <div class="split-line" v-if="navShortcut?.length"></div>
 
-                    <div class="content-right">
-                      <div v-if="navShortcut?.length">
+                      <div class="content-right" v-if="navShortcut?.length">
                         <span class="content-title">{{ i18n.header.QUICKLINK }}</span>
                         <div v-if="!isPicture">
                           <div v-for="shortcut in navShortcut" :key="shortcut.NAME" class="shortcut">
@@ -212,11 +191,30 @@ watch(
                         </div>
                       </div>
                     </div>
-                  </div>
-                </OScroller>
+                  </OScroller>
+                </div>
               </div>
-            </div>
-          </transition>
+            </transition>
+          </template>
+
+          <ODropdown
+            v-if="hiddenNavs.length && item.ID === 'more'"
+            trigger="hover"
+            options-wrapper=".header-content"
+            optionPosition="top"
+            option-wrap-class="dropdown"
+            @mouseenter="toggleDebounced(item)"
+          >
+            <span id="tour_headerNav_more" class="nav-item">
+              {{ i18n.header.MORE }}
+            </span>
+
+            <template #dropdown>
+              <ODropdownItem v-for="item in hiddenNavs" @click="handleDropdownClick(item)">
+                {{ item.NAME }}
+              </ODropdownItem>
+            </template>
+          </ODropdown>
         </li>
       </ul>
     </nav>
