@@ -137,64 +137,6 @@ watch(
             <span class="nav-item" @click="clickNav(item.ID)">
               {{ item.NAME }}
             </span>
-
-            <transition name="transition">
-              <div
-                v-if="isShow"
-                :class="[
-                  'nav-dropdown',
-                  navActive === 'more' ? mroeSelectId : navActive,
-                  appearanceStore.theme,
-                  `${navActive}-${lang}`,
-                  mroeSelectId ? `${mroeSelectId}-${lang}` : '',
-                ]"
-              >
-                <div class="nav-drop-content">
-                  <OScroller class="nav-scroller" show-type="always" size="small" disabled-y>
-                    <div class="nav-sub-content">
-                      <div v-if="subNavContent?.length" class="content-left">
-                        <div class="item-sub" v-for="(sub, s) in subNavContent" :key="s">
-                          <span class="content-title">
-                            {{ sub.NAME }}
-                          </span>
-
-                          <NavContent :nav-content="sub?.CHILDREN" @link-click="linkClick" />
-                        </div>
-                      </div>
-
-                      <div class="split-line" v-if="navShortcut?.length"></div>
-
-                      <div class="content-right" v-if="navShortcut?.length">
-                        <span class="content-title">{{ i18n.header.QUICKLINK }}</span>
-                        <div v-if="!isPicture">
-                          <div v-for="shortcut in navShortcut" :key="shortcut.NAME" class="shortcut">
-                            <NavLink :url="shortcut.URL" @link-click="linkClick" class="shortcut-link">
-                              <span>{{ shortcut.NAME }}</span>
-                              <OIcon v-if="shortcut.ICON">
-                                <component :is="shortcut.ICON" class="icon" />
-                              </OIcon>
-                            </NavLink>
-                          </div>
-                        </div>
-                        <div v-else>
-                          <NavLink v-for="shortcut in navShortcut" :url="shortcut.URL" :key="shortcut.NAME" class="review" @link-click="linkClick">
-                            <img :src="shortcut.PICTURE" class="review-picture" />
-                            <div class="review-content">
-                              <p class="review-title">
-                                {{ shortcut.NAME }}
-                              </p>
-                              <div class="review-property">
-                                <span>{{ shortcut.REMARK }}</span>
-                              </div>
-                            </div>
-                          </NavLink>
-                        </div>
-                      </div>
-                    </div>
-                  </OScroller>
-                </div>
-              </div>
-            </transition>
           </template>
 
           <ODropdown
@@ -215,6 +157,64 @@ watch(
               </ODropdownItem>
             </template>
           </ODropdown>
+
+          <transition name="transition">
+            <div
+              v-if="isShow"
+              :class="[
+                'nav-dropdown',
+                navActive === 'more' ? mroeSelectId : navActive,
+                appearanceStore.theme,
+                `${navActive}-${lang}`,
+                mroeSelectId ? `${mroeSelectId}-${lang}` : '',
+              ]"
+            >
+              <div class="nav-drop-content">
+                <OScroller class="nav-scroller" show-type="always" size="small" disabled-y>
+                  <div class="nav-sub-content">
+                    <div v-if="subNavContent?.length" class="content-left">
+                      <div class="item-sub" v-for="(sub, s) in subNavContent" :key="s">
+                        <span class="content-title">
+                          {{ sub.NAME }}
+                        </span>
+
+                        <NavContent :nav-content="sub?.CHILDREN" @link-click="linkClick" />
+                      </div>
+                    </div>
+
+                    <div class="split-line" v-if="navShortcut?.length"></div>
+
+                    <div class="content-right" v-if="navShortcut?.length">
+                      <span class="content-title">{{ i18n.header.QUICKLINK }}</span>
+                      <div v-if="!isPicture">
+                        <div v-for="shortcut in navShortcut" :key="shortcut.NAME" class="shortcut">
+                          <NavLink :url="shortcut.URL" @link-click="linkClick" class="shortcut-link">
+                            <span>{{ shortcut.NAME }}</span>
+                            <OIcon v-if="shortcut.ICON">
+                              <component :is="shortcut.ICON" class="icon" />
+                            </OIcon>
+                          </NavLink>
+                        </div>
+                      </div>
+                      <div v-else>
+                        <NavLink v-for="shortcut in navShortcut" :url="shortcut.URL" :key="shortcut.NAME" class="review" @link-click="linkClick">
+                          <img :src="shortcut.PICTURE" class="review-picture" />
+                          <div class="review-content">
+                            <p class="review-title">
+                              {{ shortcut.NAME }}
+                            </p>
+                            <div class="review-property">
+                              <span>{{ shortcut.REMARK }}</span>
+                            </div>
+                          </div>
+                        </NavLink>
+                      </div>
+                    </div>
+                  </div>
+                </OScroller>
+              </div>
+            </div>
+          </transition>
         </li>
       </ul>
     </nav>
