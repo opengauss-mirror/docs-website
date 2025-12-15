@@ -381,17 +381,22 @@ watch(
     position: relative;
 
     .content-left {
-      flex: 1;
       padding: 32px 24px 24px 0;
       display: flex;
-      width: 100%;
+      width: calc(100% - 348px);
 
       @include respond-to('laptop') {
         padding: var(--o-gap-5) var(--o-gap-5) var(--o-gap-5) 0;
+        width: calc(100% - 261px);
+      }
+
+      @include respond-to('pad_h') {
+        width: calc(100% - 261px);
       }
 
       @include respond-to('<=pad') {
         padding: var(--o-gap-4) 0;
+        width: 100%;
       }
 
       .icon {
@@ -402,18 +407,13 @@ watch(
     }
 
     .content-right {
-      width: 348px;
+      flex: 1;
       padding-top: var(--o-gap-6);
       padding-bottom: var(--o-gap-6);
       padding-left: var(--o-gap-4);
 
       @include respond-to('laptop') {
-        width: 261px;
         padding: var(--o-gap-5) 0 var(--o-gap-5) var(--o-gap-4);
-      }
-
-      @include respond-to('pad_h') {
-        width: 261px;
       }
 
       @include respond-to('<=pad') {
