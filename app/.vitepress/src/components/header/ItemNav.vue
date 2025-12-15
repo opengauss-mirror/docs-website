@@ -50,8 +50,8 @@ const toggleDebounced = useDebounceFn(function (item: NavItemT | null) {
 
     navActive.value = item.ID;
     isShow.value = true;
-    subNavContent.value = item.CHILDREN;
-    navShortcut.value = item.SHORTCUT;
+    subNavContent.value = item.CHILDREN ?? [];
+    navShortcut.value = item.SHORTCUT ?? [];
     isPicture.value = item.WITH_PICTURE ?? false;
   }
 }, 100);
@@ -61,8 +61,8 @@ const handleDropdownClick = (item: NavItemT) => {
   mroeSelectId.value = item.ID;
   isClickDropdown.value = true;
   isShow.value = true;
-  subNavContent.value = item.CHILDREN;
-  navShortcut.value = item.SHORTCUT;
+  subNavContent.value = item.CHILDREN ?? [];
+  navShortcut.value = item.SHORTCUT ?? [];
   isPicture.value = item.WITH_PICTURE ?? false;
 };
 
@@ -184,32 +184,30 @@ watch(
 
                     <div class="split-line" v-if="navShortcut?.length"></div>
 
-                    <div class="content-right">
-                      <div v-if="navShortcut?.length">
-                        <span class="content-title">{{ i18n.header.QUICKLINK }}</span>
-                        <div v-if="!isPicture">
-                          <div v-for="shortcut in navShortcut" :key="shortcut.NAME" class="shortcut">
-                            <NavLink :url="shortcut.URL" @link-click="linkClick" class="shortcut-link">
-                              <span>{{ shortcut.NAME }}</span>
-                              <OIcon v-if="shortcut.ICON">
-                                <component :is="shortcut.ICON" class="icon" />
-                              </OIcon>
-                            </NavLink>
-                          </div>
-                        </div>
-                        <div v-else>
-                          <NavLink v-for="shortcut in navShortcut" :url="shortcut.URL" :key="shortcut.NAME" class="review" @link-click="linkClick">
-                            <img :src="shortcut.PICTURE" class="review-picture" />
-                            <div class="review-content">
-                              <p class="review-title">
-                                {{ shortcut.NAME }}
-                              </p>
-                              <div class="review-property">
-                                <span>{{ shortcut.REMARK }}</span>
-                              </div>
-                            </div>
+                    <div class="content-right" v-if="navShortcut?.length">
+                      <span class="content-title">{{ i18n.header.QUICKLINK }}</span>
+                      <div v-if="!isPicture">
+                        <div v-for="shortcut in navShortcut" :key="shortcut.NAME" class="shortcut">
+                          <NavLink :url="shortcut.URL" @link-click="linkClick" class="shortcut-link">
+                            <span>{{ shortcut.NAME }}</span>
+                            <OIcon v-if="shortcut.ICON">
+                              <component :is="shortcut.ICON" class="icon" />
+                            </OIcon>
                           </NavLink>
                         </div>
+                      </div>
+                      <div v-else>
+                        <NavLink v-for="shortcut in navShortcut" :url="shortcut.URL" :key="shortcut.NAME" class="review" @link-click="linkClick">
+                          <img :src="shortcut.PICTURE" class="review-picture" />
+                          <div class="review-content">
+                            <p class="review-title">
+                              {{ shortcut.NAME }}
+                            </p>
+                            <div class="review-property">
+                              <span>{{ shortcut.REMARK }}</span>
+                            </div>
+                          </div>
+                        </NavLink>
                       </div>
                     </div>
                   </div>
