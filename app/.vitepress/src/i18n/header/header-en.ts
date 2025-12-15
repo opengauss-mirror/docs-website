@@ -169,21 +169,6 @@ export default {
             },
           ],
         },
-        {
-          NAME: 'Growth & Development',
-          CHILDREN: [
-            {
-              NAME: 'Getting Started',
-              DESCRIPTION: 'Series of openGauss video tutorials to help you get started.',
-              URL: '/quick-start/',
-            },
-            {
-              NAME: 'Advanced Learning',
-              DESCRIPTION: 'Master open source software and build the skills that power the future.',
-              URL: '/advanced/',
-            },
-          ],
-        },
       ],
       SHORTCUT: [
         {
