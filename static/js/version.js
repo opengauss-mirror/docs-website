@@ -145,4 +145,16 @@ $(document).ready(function () {
     $(".innovate").toggleClass("disabled");
     $("#menu-top-mobile .innovate").hide();
   }
+
+  // 修复轻量版链接
+  $('a[href*="/docs-lite/"]').each(function() {
+    try {
+      const href = $(this).attr('href');
+      const linkLang = href.includes('/zh/') ? 'zh' : 'en';
+      const sp = href.split(linkLang);
+      $(this).attr('href', `/${linkLang}/docs/${version}-lite${sp[1]}`);
+    } catch {
+      // nothing
+    }
+  });
 });
