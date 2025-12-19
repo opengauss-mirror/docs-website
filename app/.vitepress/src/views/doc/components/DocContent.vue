@@ -8,6 +8,7 @@ import DocViewSource from './DocViewSource.vue';
 import DocBug from './DocBug.vue';
 
 import { useLocale } from '@/composables/useLocale';
+import { useVersionStore } from '@/stores/version';
 
 const emits = defineEmits<{
   (evt: 'update-menu-expaned'): void;
@@ -18,9 +19,18 @@ const emits = defineEmits<{
 
 // -------------------- 处理跨语言、跨指南跳转 --------------------
 const router = useRouter();
+const versionStore = useVersionStore();
 
 router.onBeforeRouteChange = (to) => {
-  const [_1, _2, _3, maybeLange, ...paths] = to.split('/');
+  const [_1, _2, maybeLite, maybeLange, ...paths] = to.split('/');
+  
+  // 企业版跳轻量版
+  if (maybeLite === 'docs-lite') {
+    router.go(`/${maybeLange}/docs/${versionStore.prefixVersion}-lite/${paths.join('/')}`);
+    return false;
+  }
+
+  // 中文跳英文页面
   if (maybeLange === 'zh' || maybeLange === 'en') {
     const [_4, _5, _6, version] = window.location.pathname.split('/');
     router.go(`/${maybeLange}/docs/${version}/${paths.join('/')}`);
