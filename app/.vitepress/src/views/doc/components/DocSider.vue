@@ -37,6 +37,13 @@ const switchMenu = () => {
 // -------------------- 文档类型 --------------------
 const docType = ref(versionStore.isLite ? 'lite' : '');
 
+watch(
+  () => versionStore.isLite,
+  () => {
+    docType.value = versionStore.isLite ? 'lite' : '';
+  }
+);
+
 const onChangeDocType = (val: string) => {
   const { pathname, search } = window.location;
   const arr = pathname.split('/');
