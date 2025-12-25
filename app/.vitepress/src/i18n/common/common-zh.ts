@@ -3,6 +3,7 @@ import { GAUSS_EMAIL } from '@/config/urls';
 export default {
   USER_CENTER: `个人中心`,
   LOGOUT: `退出登录`,
+  NOTIFICATIONS: '消息中心',
   FOOTER: {
     MAIL: GAUSS_EMAIL,
     COPY_RIGHT: `版权所有 ©  openGauss {year} 保留一切权利`,

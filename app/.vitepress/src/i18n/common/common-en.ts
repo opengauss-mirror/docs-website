@@ -2,6 +2,7 @@ import { GAUSS_EMAIL } from '@/config/urls';
 
 export default {
   USER_CENTER: `User Center`,
+  NOTIFICATIONS: 'Notifications',
   LOGOUT: `Logout`,
   FOOTER: {
     MAIL: GAUSS_EMAIL,
