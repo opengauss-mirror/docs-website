@@ -17,6 +17,11 @@ const jumpToUserZone = () => {
   const origin = import.meta.env.VITE_LOGIN_URL;
   window.open(`${origin}/${language}/profile`, '_blank');
 };
+const jumpToNotification = () => {
+  const language = lang.value === 'zh' ? 'zh' : 'en';
+  const origin = import.meta.env.VITE_LOGIN_URL;
+  window.open(`${origin}/${language}/notifications`, '_blank');
+};
 
 onMounted(() => {
   requestUserInfo();
@@ -34,6 +39,9 @@ onMounted(() => {
       <template #dropdown>
         <ODropdownItem @click="jumpToUserZone()">
           {{ i18n.common.USER_CENTER }}
+        </ODropdownItem>
+        <ODropdownItem @click="jumpToNotification()">
+          {{ i18n.common.NOTIFICATIONS }}
         </ODropdownItem>
         <ODropdownItem @click="doLogout()">
           {{ i18n.common.LOGOUT }}
