@@ -156,16 +156,41 @@ export default {
         return `<MarkdownImage>${imageRender!!(...args)}</MarkdownImage>`;
       };
 
+      // 链接
+      const linkOpenRender = md.renderer.rules.link_open;
+      md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
+        if (tokens[idx].attrIndex('href') >= 0) {
+          const href = tokens[idx].attrs?.[tokens[idx].attrIndex('href')]?.[1];
+          if (typeof href === 'string' && href.includes('/docs-lite/')) {
+            const version = env.relativePath.split('/')[2];
+            const lang = href.includes('/zh/') ? 'zh' : 'en';
+            const [_, joinPath] = href.split(lang);
+            tokens[idx].attrs![tokens[idx].attrIndex('href')]![1] = `/${lang}/docs/${version}-lite${joinPath.replace('.md', '.html')}`;
+          }
+        }
+        return linkOpenRender!(tokens, idx, options, env, self);
+      };
+
       // 处理文档里写的html标签
       const defaultHtmlBlockRender = md.renderer.rules.html_block;
       md.renderer.rules.html_block = (tokens, idx, options, env, self) => {
-        const content = tokens[idx].content;
         tokens[idx].content = tokens[idx].content
           .replace(/\s+(width|height|style|valign|align|headers)=['|"](.*?)['|"]/g, '')
           .replace(/<a([^>]*?)href\s*=\s*['"](?!(?:https?:)?\/\/)([^'"]+)\.md(#.*?)?['"]([^>]*?)>/gi, '<a$1href="$2.html$3"$4>');
+
         const renderContent = defaultHtmlBlockRender!!(tokens, idx, options, env, self);
-        if (content.includes('<img')) {
-          return `<MarkdownImage>${renderContent}</MarkdownImage>`;
+        if (renderContent.includes('<img')) {
+          return renderContent.replace(/(<img\s[^>]*>\s*<\/img>|<img\s[^>]*\/?>)/gi, '<MarkdownImage>$1</MarkdownImage>');
+        }
+
+        if (/<a([^>]*?)href\s*=\s*['"]([^'"]*\/docs-lite\/[^'"]*)['"]([^>]*?)>/gi.test(renderContent)) {
+          return renderContent.replace(/<a([^>]*?)href\s*=\s*['"]([^'"]*?)['"]([^>]*?)>/gi, (_, before, href, after) => {
+            const version = env.relativePath.split('/')[2];
+            const lang = href.includes('/zh/') ? 'zh' : 'en';
+            const [__, joinPath] = href.split(lang);
+            const newHref = `/${lang}/docs/${version}-lite${joinPath}`;
+            return `<a${before}href="${newHref}"${after}>`;
+          });
         }
 
         return renderContent;
@@ -173,13 +198,23 @@ export default {
 
       const defaultHtmlInlineRender = md.renderer.rules.html_inline;
       md.renderer.rules.html_inline = function (tokens, idx, options, env, self) {
-        const content = tokens[idx].content;
         tokens[idx].content = tokens[idx].content
           .replace(/\s+(width|height|style|valign|align|headers)=['|"](.*?)['|"]/g, '')
           .replace(/<a([^>]*?)href\s*=\s*['"](?!(?:https?:)?\/\/)([^'"]+)\.md(#.*?)?['"]([^>]*?)>/gi, '<a$1href="$2.html$3"$4>');
+
         const renderContent = defaultHtmlInlineRender!!(tokens, idx, options, env, self);
-        if (content.includes('<img')) {
+        if (renderContent.includes('<img')) {
           return `<MarkdownImage>${renderContent}</MarkdownImage>`;
+        }
+
+        if (/<a([^>]*?)href\s*=\s*['"]([^'"]*\/docs-lite\/[^'"]*)['"]([^>]*?)>/gi.test(renderContent)) {
+          return renderContent.replace(/<a([^>]*?)href\s*=\s*['"]([^'"]*?)['"]([^>]*?)>/gi, (_, before, href, after) => {
+            const version = env.relativePath.split('/')[2];
+            const lang = href.includes('/zh/') ? 'zh' : 'en';
+            const [__, joinPath] = href.split(lang);
+            const newHref = `/${lang}/docs/${version}-lite${joinPath}`;
+            return `<a${before}href="${newHref}"${after}>`;
+          });
         }
 
         return renderContent;
