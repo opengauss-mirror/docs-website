@@ -31,7 +31,7 @@ export default {
               URL: '/download/?version=lts',
             },
             {
-              NAME: 'openGauss 7.0.0-RC1',
+              NAME: 'openGauss 7.0.0-RC2',
               DESCRIPTION: '社区创新版本联创测试使用，发布间隔周期定为6个月，社区提供6个月维护支持',
               TAG: TAG_TYPE.NEW,
               URL: '/download/?version=rc',

@@ -32,7 +32,7 @@ export default {
               URL: '/download/?version=lts',
             },
             {
-              NAME: 'openGauss 7.0.0-RC1',
+              NAME: 'openGauss 7.0.0-RC2',
               DESCRIPTION: 'RCx: a collaborative testing version released every 6 months, with 6 months of community support.',
               TAG: TAG_TYPE.NEW,
               URL: '/download/?version=rc',
