@@ -6,6 +6,12 @@ const versionObjZh = {
     downLink: "",
     state: "DEV",
   },
+  "7.0.0-RC3": {
+    homePath: "/getting_started/understanding_opengauss.html",
+    homeLitePath: "/getting_started/understanding_opengauss.html",
+    downLink: "",
+    state: "RC",
+  },
   "7.0.0-RC2": {
     homePath: "/docs/GettingStarted/GettingStarted.html",
     homeLitePath: "/docs/GettingStarted/GettingStarted.html",
@@ -112,6 +118,12 @@ const versionObjEn = {
     homeLitePath: "/getting_started/understanding_opengauss.html",
     downLink: "",
     state: "DEV",
+  },
+  "7.0.0-RC3": {
+    homePath: "/getting_started/understanding_opengauss.html",
+    homeLitePath: "/getting_started/understanding_opengauss.html",
+    downLink: "",
+    state: "RC",
   },
   "7.0.0-RC2": {
     homePath: "/docs/GettingStarted/GettingStarted.html",
