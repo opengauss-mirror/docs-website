@@ -92,17 +92,41 @@ function buildVersionToc(version, lang) {
       globalIds.clear();
     }
 
-    // 构建单手册
-    if (Array.isArray(toc?.[0]?.single_manuals)) {
-      toc[0].single_manuals.forEach((item) => {
-        const singleManualToc = parseToc(item, tocFilePath);
-        singleManualToc.id = `docs-${lang}-${version}-${singleManualToc.id.split('/').pop()}`;
-        singleManualToc.type = 'docs-single-manual-root';
-        toc.push(singleManualToc);
-        globalIds.clear();
-      });
+    // 扫描获取未加入全量 _toc.yaml 的指南
+    const versionDir = path.join(BUILD_PATH, `./app/${lang}/docs/${version}/`);
+    if (fs.existsSync(versionDir)) {
+      let singleManuals = [];
+      if (Array.isArray(toc?.[0]?.single_manuals)) {
+        toc[0].single_manuals.forEach((item) => {
+          if (typeof item.href?.path === 'string') {
+            item.href.path = path.join(versionDir, item.href.path);
+          }
+        });
 
-      delete toc[0].single_manuals;
+        singleManuals = toc[0].single_manuals;
+      }
+
+      for (const dirname of fs.readdirSync(versionDir)) {
+        const tocPath = path.join(versionDir, dirname, '_toc.yaml');
+        if (!fs.existsSync(tocPath)) {
+          continue;
+        }
+
+        if (globalHandledYaml.has(tocPath)) {
+          continue;
+        }
+
+        const singleManualPath = path.join(versionDir, dirname);
+        const singleManualItem = singleManuals.find((item) => item.href?.path === singleManualPath);
+        const singleToc = parseTocYaml(tocPath, singleManualItem?.href?.upstream);
+        if (singleToc) {
+          singleToc.id = `docs-${lang}-${version}-${dirname}`;
+          singleToc.type = 'docs-single-manual-root';
+          toc.push(singleToc);
+        }
+        
+        globalIds.clear();
+      }
     }
 
     return toc;
