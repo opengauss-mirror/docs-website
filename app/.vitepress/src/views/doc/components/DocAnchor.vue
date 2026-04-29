@@ -11,6 +11,7 @@ import { scrollIntoView } from '@/utils/scroll-to';
 import { useViewStore } from '@/stores/view';
 import { useLocale } from '@/composables/useLocale';
 import { getOffsetTop, getScrollRemainingBottom, isElementVisible } from '@/utils/element';
+import { getDomId } from '@/utils/common';
 
 const route = useRoute();
 const viewStore = useViewStore();
@@ -223,6 +224,7 @@ const scrollIntoTarget = async (hashVal: string) => {
       const hash = decodeURIComponent(hashVal).slice(1);
       const target =
         contentDom.querySelector<HTMLElement>(`#user-content-${hash}`) ||
+        contentDom.querySelector<HTMLElement>(`#user-content-${getDomId(hash)}`) ||
         contentDom.querySelector<HTMLElement>(`#${hash}`) ||
         contentDom.querySelector<HTMLElement>(`[name='${hash}']`);
       const scrollContainer = document.querySelector<HTMLElement>('#app > .o-scroller > .o-scroller-container');

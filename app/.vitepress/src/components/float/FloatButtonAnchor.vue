@@ -8,6 +8,7 @@ import IconAnchor from '~icons/feedback/icon-anchor.svg';
 import type { AnchorItemT } from '@/@types/type-common';
 import { getOffsetTop, getScrollRemainingBottom, isElementVisible } from '@/utils/element';
 import { scrollIntoView } from '@/utils/scroll-to';
+import { getDomId } from '@/utils/common';
 import { useViewStore } from '@/stores/view';
 import { useLocale } from '@/composables/useLocale';
 
@@ -191,6 +192,7 @@ const scrollIntoTarget = async (hashVal: string) => {
       const hash = decodeURIComponent(hashVal).slice(1);
       const target =
         contentDom.querySelector<HTMLElement>(`#user-content-${hash}`) ||
+        contentDom.querySelector<HTMLElement>(`#user-content-${getDomId(hash)}`) ||
         contentDom.querySelector<HTMLElement>(`#${hash}`) ||
         contentDom.querySelector<HTMLElement>(`[name='${hash}']`);
       const scrollContainer = document.querySelector<HTMLElement>('#app > .o-scroller > .o-scroller-container');
