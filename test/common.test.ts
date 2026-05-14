@@ -1,4 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import './setup';
 import type { TreeNodeT } from '../app/.vitepress/src/@types/type-tree';
 import {
   windowOpen,

@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import './setup';
 import { getScroll, easeInOutCubic, scrollTo, scrollIntoView } from '../app/.vitepress/src/utils/scroll-to';
 
 describe('scroll-to', () => {
