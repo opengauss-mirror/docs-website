@@ -200,7 +200,7 @@ watch(
   padding-top: var(--layout-doc-padding-top);
   padding-bottom: var(--layout-doc-padding-top);
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     bottom: 0;
     background-color: var(--o-color-fill2);
     padding-left: 24px;
@@ -212,7 +212,7 @@ watch(
   :deep(.doc-menu-wrapper) {
     height: calc(100% - 150px);
 
-    @include respond-to('<=pad') {
+    @include respond('<=pad') {
       height: calc(100% - 132px);
 
       .o-scroller {
@@ -227,7 +227,7 @@ watch(
   flex-direction: column;
   margin-bottom: 24px;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     margin-bottom: 16px;
   }
 }
@@ -262,11 +262,11 @@ watch(
     }
   }
 
-  @include respond-to('>pad') {
+  @include respond('>pad') {
     display: none;
   }
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     display: none;
   }
 }
@@ -374,7 +374,7 @@ watch(
   transition: var(--all-transition);
   z-index: 34;
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     opacity: 1;
     pointer-events: auto;
   }

@@ -64,7 +64,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   position: relative;
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     margin-left: var(--o-gap-2);
   }
 
@@ -80,7 +80,7 @@ onMounted(() => {
       cursor: pointer;
       vertical-align: middle;
 
-      @include respond-to('<=pad_v') {
+      @include respond('<=pad_v') {
         width: 28px;
         height: 28px;
       }
@@ -92,7 +92,7 @@ onMounted(() => {
       @include text1;
       @include text-truncate(1);
 
-      @include respond-to('<=pad_v') {
+      @include respond('<=pad_v') {
         display: none;
       }
     }
@@ -119,7 +119,9 @@ onMounted(() => {
 }
 
 .o-dropdown-item {
-  background: var(--o-color-fill2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   border-radius: var(--o-radius_control-xs);
   padding: var(--o-gap-1);

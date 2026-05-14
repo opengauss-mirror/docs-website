@@ -56,11 +56,11 @@ const searchStore = useSearchingStore();
   color: var(--o-color-info3);
   @include tip1;
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     display: none;
   }
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     padding: 0 24px;
   }
 
@@ -110,11 +110,11 @@ const searchStore = useSearchingStore();
   color: var(--o-color-info4);
   @include tip1;
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     display: block;
   }
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     font-size: 10px;
   }
 

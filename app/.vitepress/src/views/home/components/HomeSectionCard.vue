@@ -87,17 +87,17 @@ onMounted(() => {
   background-size: 100% 100%;
   cursor: pointer;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     --card-main-padding: 16px 24px;
   }
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     --card-main-padding: 12px 16px;
     --card-content-text-size: var(--o-font_size-tip2) !important;
     --card-content-text-height: var(--o-line_height-tip2) !important;
   }
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     --card-main-padding: 12px;
   }
 
@@ -112,7 +112,7 @@ onMounted(() => {
   font-size: 40px;
   margin-bottom: 8px;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     font-size: 32px;
   }
 }
@@ -122,7 +122,7 @@ onMounted(() => {
   font-weight: 500;
   @include h4;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     margin-top: 0;
   }
 }
@@ -134,13 +134,13 @@ onMounted(() => {
   width: 80px;
   opacity: 0.05;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     right: -12px;
     bottom: -12px;
     width: 60px;
   }
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     right: -8px;
     bottom: -8px;
     width: 50px;

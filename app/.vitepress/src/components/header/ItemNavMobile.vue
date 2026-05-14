@@ -179,7 +179,7 @@ const closeMenu = () => {
   font-weight: 500;
   padding: 12px 32px;
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     padding: 12px 24px;
   }
 
@@ -270,7 +270,7 @@ const closeMenu = () => {
           top: 0;
           width: 100%;
           height: 1px;
-          background-color: rgba(var(--o-mixedgray-14), 0.1);
+          background-color: rgba(var(--o-grey-14), 0.1);
         }
       }
 
@@ -345,7 +345,7 @@ const closeMenu = () => {
     align-items: center;
     padding: 0 32px;
     @include h4;
-    @include respond-to('phone') {
+    @include respond('phone') {
       padding: 0 24px;
     }
     &.active {
@@ -357,7 +357,7 @@ const closeMenu = () => {
   .header-tool-bottom {
     padding: 0 32px 32px;
 
-    @include respond-to('phone') {
+    @include respond('phone') {
       padding: 0 24px 32px;
     }
   }

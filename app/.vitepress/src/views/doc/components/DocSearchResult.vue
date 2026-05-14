@@ -291,7 +291,7 @@ const goToPage = (href: string) => {
   display: flex;
   justify-content: flex-end;
 
-  @include respond-to('<=pad') { 
+  @include respond('<=pad') { 
     justify-content: center;
   }
 }
@@ -304,7 +304,7 @@ const goToPage = (href: string) => {
   overflow: hidden;
 }
 
-@include respond-to('<=laptop') {
+@include respond('<=laptop') {
   .search-result {
     padding: 24px;
   }
@@ -314,7 +314,7 @@ const goToPage = (href: string) => {
   }
 }
 
-@include respond-to('<=pad') {
+@include respond('<=pad') {
   .search-result {
     padding: 16px;
   }

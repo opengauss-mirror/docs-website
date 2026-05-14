@@ -52,7 +52,7 @@ const floatData = ref([
 
     <OPopup position="rb" :target="issuebackRef" wrapper="#issueback" body-class="popup-issueback" :offset="24" trigger="click">
       <template v-for="item in floatData" :key="item.id">
-        <OLink v-if="item.visibility" :href="item?.link" target="_blank" @click="item.onClick?.()">
+        <OLink v-if="item.visibility" :href="item?.link" target="_blank" :hover-underline="false" @click="item.onClick?.()">
           <template #icon>
             <OIcon class="icon">
               <component :is="item.img"></component>

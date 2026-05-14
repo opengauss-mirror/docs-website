@@ -213,7 +213,7 @@ const closeSearch = () => {
   position: relative;
   width: 160px;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     width: 120px;
   }
 
@@ -246,16 +246,16 @@ const closeSearch = () => {
     transform: translate(0);
     --_box-radius: var(--o-radius-xs);
 
-    @include respond-to('<=laptop') {
+    @include respond('<=laptop') {
       width: 120px;
     }
 
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       display: none;
     }
   }
 
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     margin-left: 0;
     z-index: 2;
     position: fixed;
@@ -279,12 +279,12 @@ const closeSearch = () => {
       background-color: var(--o-color-fill2);
       z-index: 200;
 
-      @include respond-to('<=laptop') {
+      @include respond('<=laptop') {
         height: 8px;
         bottom: -8px;
       }
 
-      @include respond-to('<=pad') {
+      @include respond('<=pad') {
         height: 16px;
         bottom: -16px;
       }
@@ -295,7 +295,7 @@ const closeSearch = () => {
       @include h3;
     }
 
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       padding: 0;
       z-index: 200;
       background-color: var(--o-color-fill2);
@@ -329,7 +329,7 @@ const closeSearch = () => {
     background: var(--o-color-fill2);
     border-radius: 0 0 4px 4px;
 
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       backdrop-filter: blur(0px);
       left: -16px;
       right: 0;
@@ -345,7 +345,7 @@ const closeSearch = () => {
         @include tip2;
         color: var(--o-color-info3);
 
-        @include respond-to('<=pad_v') {
+        @include respond('<=pad_v') {
           @include text2;
           color: var(--o-color-info1);
           margin-bottom: var(--o-gap-3);
@@ -365,14 +365,14 @@ const closeSearch = () => {
           }
         }
 
-        @include respond-to('<=pad_v') {
+        @include respond('<=pad_v') {
           @include text1;
           display: block;
         }
       }
     }
 
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       box-shadow: unset;
       padding-left: var(--o-gap-5);
       padding-right: var(--o-gap-5);
@@ -401,7 +401,7 @@ const closeSearch = () => {
     @include tip2;
     color: var(--o-color-info3);
 
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       @include text2;
       color: var(--o-color-info1);
     }
@@ -444,7 +444,7 @@ const closeSearch = () => {
           width: 16px;
           height: 16px;
           border-radius: 50%;
-          background-color: rgb(var(--o-mixedgray-9));
+          background-color: rgb(var(--o-grey-9));
           right: -8px;
           top: -8px;
         }
@@ -461,7 +461,7 @@ const closeSearch = () => {
 
       &.dark {
         @include hover {
-          background-color: rgb(var(--o-mixedgray-7));
+          background-color: rgb(var(--o-grey-7));
         }
       }
 
@@ -472,12 +472,12 @@ const closeSearch = () => {
         white-space: nowrap;
         @include tip2;
 
-        @include respond-to('<=pad_v') {
+        @include respond('<=pad_v') {
           @include text1;
         }
       }
 
-      @include respond-to('<=pad_v') {
+      @include respond('<=pad_v') {
         height: 28px;
       }
     }
@@ -488,11 +488,11 @@ const closeSearch = () => {
     height: 1px;
     margin: var(--o-gap-4) 0;
 
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       display: none;
     }
   }
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     margin-bottom: var(--o-gap-5);
   }
 }
@@ -501,7 +501,7 @@ const closeSearch = () => {
   color: var(--o-color-info1);
   display: none;
 
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     display: block;
   }
 
@@ -516,18 +516,18 @@ const closeSearch = () => {
     display: flex;
     width: 480px;
 
-    @include respond-to('<=laptop') {
+    @include respond('<=laptop') {
       width: 240px;
     }
 
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       width: 100%;
       :deep(.el-input__wrapper) {
         width: 100%;
       }
     }
   }
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     box-shadow: unset;
   }
 }

@@ -66,7 +66,7 @@ const onMouseLeave = () => {
   background: transparent;
   cursor: ew-resize;
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     display: none;
   }
 }

@@ -15,7 +15,7 @@ const props = defineProps({
     default: false,
   },
   position: {
-    type: String,
+    type: String as PropType<'lt' | 'br' | 'rt' | 'tr' | 'rb' | 'top' | 'right' | 'left' | 'bottom' | 'tl' | 'bl' | 'lb'>,
     default: 'right',
   },
   offset: {
@@ -48,7 +48,7 @@ const nodeStore = useNodeStore();
 const feedbackWrapperRef = ref<HTMLElement>();
 const submitFeedback = (feedbackType: 'pr' | 'issue') => {
   emits('click-item');
-  
+
   if (feedbackType === 'pr') {
     const url = `${getSourceUrl(nodeStore.pageNode).replace('blob', 'edit')}${props.selectionText ? `?search=${props.selectionText}` : ''}`;
     if (url) {
@@ -77,6 +77,7 @@ const submitFeedback = (feedbackType: 'pr' | 'issue') => {
     :offset="offset"
     :style="{
       '--popup-padding': '5px 4px',
+      '--popup-shadow': 'var(--o-shadow-2)',
     }"
     body-class="popup-feedback-pr-issue"
   >
@@ -88,7 +89,7 @@ const submitFeedback = (feedbackType: 'pr' | 'issue') => {
     </template>
 
     <ODropdownItem @click="submitFeedback('pr')">
-      <OLink color="primary">
+      <OLink :hover-underline="false" color="primary">
         <span>{{ t('feedback.pr') }}&nbsp;</span>
         <OIcon>
           <IconOutLink />
@@ -97,7 +98,7 @@ const submitFeedback = (feedbackType: 'pr' | 'issue') => {
       <div v-if="showDesc" class="item-desc">{{ t('feedback.prTip') }}</div>
     </ODropdownItem>
     <ODropdownItem @click="submitFeedback('issue')">
-      <OLink color="primary">
+      <OLink :hover-underline="false" color="primary">
         <span>{{ t('feedback.issue') }}&nbsp;</span>
         <OIcon>
           <IconOutLink />
@@ -113,7 +114,7 @@ const submitFeedback = (feedbackType: 'pr' | 'issue') => {
   padding: 5px 4px;
   background-color: var(--o-color-fill2);
   border-radius: var(--o-radius-xs);
-  
+
   .o-dropdown-item {
     justify-content: flex-start;
     padding: 7px 12px;

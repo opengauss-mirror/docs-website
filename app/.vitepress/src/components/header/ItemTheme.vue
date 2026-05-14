@@ -45,11 +45,13 @@ watch(
     if (isClient) {
       const documentElement = document.documentElement;
       if (val === 'dark') {
-        documentElement.setAttribute('data-o-theme', 'dark');
+        documentElement.setAttribute('data-o-theme', 'g.dark');
+        documentElement.classList.remove('light');
         documentElement.classList.add('dark');
       } else {
-        documentElement.removeAttribute('data-o-theme');
+        documentElement.setAttribute('data-o-theme', 'g.light');
         documentElement.classList.remove('dark');
+        documentElement.classList.add('light');
       }
     }
   },
@@ -100,7 +102,7 @@ watch(
       }
     }
 
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       display: none;
     }
   }
@@ -108,7 +110,7 @@ watch(
   .theme-box-mobile {
     margin-top: 24px;
     display: none;
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       display: flex;
       :deep(.o-switch) {
         background: none;

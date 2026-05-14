@@ -53,7 +53,7 @@ onMounted(() => {
 <template>
   <div class="doc-menu-wrapper">
     <OScroller ref="menuScrollerRef" show-type="hover" size="small" disabled-x auto-update-on-scroll-size>
-      <OMenu v-model="menuValue" v-model:expanded="expanded" class="doc-menu" @change="(val: string) => emits('change', val)">
+      <OMenu v-model="menuValue" v-model:expanded="expanded" class="doc-menu" size="small" @change="(val: string) => emits('change', val)" arrow-position="left">
         <template v-for="node in items" :key="node.id">
           <div class="doc-menu-title-item">{{ node.label }}</div>
           <DocMenuItem v-for="child in node.children" :key="child.id" :node="child" />
@@ -80,11 +80,12 @@ onMounted(() => {
 .doc-menu-title-item {
   --menu-item-level-indent: 0;
   padding: 7px 7px 7px 4px;
-  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 600;
   color: var(--o-color-info2);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  @include text2;
 }
 </style>

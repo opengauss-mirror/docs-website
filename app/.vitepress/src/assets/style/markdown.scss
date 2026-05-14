@@ -114,7 +114,7 @@
     margin: 0 auto;
     background-color: transparent;
 
-    @include respond-to('phone') {
+    @include respond('phone') {
       max-width: 100%;
     }
   }
@@ -265,15 +265,15 @@
     border-spacing: 0;
     border-radius: var(--table-radius);
 
-    @include respond-to('<=laptop') {
+    @include respond('<=laptop') {
       --table-head-cell-padding: 8px 16px;
     }
 
-    @include respond-to('<=pad') {
+    @include respond('<=pad') {
       --table-head-cell-padding: 9px 12px;
     }
 
-    @include respond-to('<=phone') {
+    @include respond('<=phone') {
       --table-head-cell-padding: 7px 12px;
     }
 
@@ -333,7 +333,7 @@
       }
     }
 
-    @include respond-to('phone') {
+    @include respond('phone') {
       .copy {
         opacity: 1;
         width: 16px;
@@ -361,11 +361,11 @@
     opacity: 0;
     transition: all var(--o-duration-m1) var(--o-easing-standard-in);
 
-    @include respond-to('<=pad') {
+    @include respond('<=pad') {
       top: var(--o-gap-2);
     }
 
-    @include respond-to('phone') {
+    @include respond('phone') {
       top: 12px;
     }
   }
@@ -401,27 +401,27 @@
       background-repeat: no-repeat;
       margin-right: 8px;
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         width: 20px;
         height: 20px;
         background-size: 20px;
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         width: 18px;
         height: 18px;
         background-size: 18px;
         margin-right: 6px;
       }
 
-      @include respond-to('pad_v') {
+      @include respond('pad_v') {
         width: 18px;
         height: 18px;
         background-size: 18px;
         margin-right: 4px;
       }
 
-      @include respond-to('phone') {
+      @include respond('phone') {
         width: 16px;
         height: 16px;
         background-size: 16px;
@@ -432,19 +432,19 @@
     > *:not(.custom-block-title) {
       margin-left: 32px;
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         margin-left: 28px;
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         margin-left: 24px;
       }
 
-      @include respond-to('pad_v') {
+      @include respond('pad_v') {
         margin-left: 20px;
       }
 
-      @include respond-to('phone') {
+      @include respond('phone') {
         margin-left: 16px;
       }
     }

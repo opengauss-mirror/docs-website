@@ -279,12 +279,12 @@ watch(
     cursor: pointer;
     @include text1;
 
-    @include respond-to('laptop') {
+    @include respond('laptop') {
       padding-left: 12px;
       padding-right: 12px;
     }
 
-    @include respond-to('pad_h') {
+    @include respond('pad_h') {
       padding-left: 8px;
       padding-right: 8px;
     }
@@ -318,7 +318,7 @@ watch(
         opacity: 1;
       }
 
-      @include respond-to('<=pad') {
+      @include respond('<=pad') {
         bottom: 1px;
       }
     }
@@ -345,16 +345,16 @@ watch(
     box-shadow: 0 3px 6px rgba(#001255, 0.08);
   }
 
-  @include respond-to('laptop') {
+  @include respond('laptop') {
     min-height: 311px;
     top: 64px;
   }
-  @include respond-to('pad_h') {
+  @include respond('pad_h') {
     min-height: 287px;
     top: 56px;
   }
 
-  @include respond-to('>pad_v') {
+  @include respond('>pad_v') {
     &.dark {
       &:after {
         content: '';
@@ -385,16 +385,16 @@ watch(
       display: flex;
       width: calc(100% - 348px);
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         padding: var(--o-gap-5) var(--o-gap-5) var(--o-gap-5) 0;
         width: calc(100% - 261px);
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         width: calc(100% - 261px);
       }
 
-      @include respond-to('<=pad') {
+      @include respond('<=pad') {
         padding: var(--o-gap-4) 0;
         width: 100%;
       }
@@ -412,11 +412,11 @@ watch(
       padding-bottom: var(--o-gap-6);
       padding-left: var(--o-gap-4);
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         padding: var(--o-gap-5) 0 var(--o-gap-5) var(--o-gap-4);
       }
 
-      @include respond-to('<=pad') {
+      @include respond('<=pad') {
         display: none;
       }
 
@@ -436,12 +436,12 @@ watch(
         cursor: pointer;
         @include tip1;
 
-        @include respond-to('laptop') {
+        @include respond('laptop') {
           width: 245px;
           @include text1;
         }
 
-        @include respond-to('pad_h') {
+        @include respond('pad_h') {
           width: 245px;
           @include text1;
         }
@@ -478,11 +478,11 @@ watch(
         align-items: unset;
         position: relative;
 
-        @include respond-to('laptop') {
+        @include respond('laptop') {
           width: 245px;
         }
 
-        @include respond-to('pad_h') {
+        @include respond('pad_h') {
           width: 245px;
           &:not(:last-child) {
             &:after {
@@ -508,7 +508,7 @@ watch(
           object-fit: contain;
           border-radius: var(--o-radius-xs);
 
-          @include respond-to('<=laptop') {
+          @include respond('<=laptop') {
             display: none;
           }
         }
@@ -523,7 +523,7 @@ watch(
           justify-content: space-between;
           white-space: normal;
 
-          @include respond-to('<=laptop') {
+          @include respond('<=laptop') {
             margin-left: unset;
             height: auto;
           }
@@ -541,7 +541,7 @@ watch(
               color: var(--o-color-primary1);
             }
 
-            @include respond-to('pad_v-laptop') {
+            @include respond('pad_v-laptop') {
               max-height: 44px;
             }
           }
@@ -563,11 +563,11 @@ watch(
       min-height: 320px;
       flex-shrink: 0;
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         min-height: 300px;
       }
 
-      @include respond-to('<=pad') {
+      @include respond('<=pad') {
         display: none;
       }
     }
@@ -578,11 +578,11 @@ watch(
       margin-bottom: var(--o-gap-3);
       @include tip1;
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         @include text1;
       }
 
-      @include respond-to('<=pad') {
+      @include respond('<=pad') {
         margin-bottom: var(--o-gap-2);
       }
     }
@@ -590,7 +590,7 @@ watch(
     .o-divider {
       --o-divider-gap: var(--o-gap-4);
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         --o-divider-gap: var(--o-gap-3);
       }
     }
@@ -620,7 +620,7 @@ watch(
         margin-left: 0;
       }
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         margin-left: 16px;
 
         .content-container {
@@ -631,7 +631,7 @@ watch(
         }
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         margin-left: 12px;
 
         .content-container {
@@ -660,7 +660,7 @@ watch(
         }
       }
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         .content-container {
           :deep(.content-item) {
             width: calc((100% - 48px) / 4);
@@ -669,7 +669,7 @@ watch(
         }
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         .content-container {
           :deep(.content-item) {
             width: calc((100% - 36px) / 4);
@@ -699,7 +699,7 @@ watch(
         }
       }
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         .content-container {
           :deep(.content-item) {
             width: calc((100% - 48px) / 4);
@@ -712,7 +712,7 @@ watch(
         }
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         .content-container {
           :deep(.content-item) {
             width: calc((100% - 36px) / 4);
@@ -751,7 +751,7 @@ watch(
         margin-left: 0;
       }
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         margin-left: 24px;
 
         .content-container {
@@ -762,7 +762,7 @@ watch(
         }
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         margin-left: 16px;
 
         .content-container {
@@ -787,7 +787,7 @@ watch(
             margin-left: 24px;
           }
 
-          @include respond-to('laptop') {
+          @include respond('laptop') {
             width: calc((100% - 48px) / 4);
             margin-left: 16px;
             &:nth-child(2n + 1):not(:nth-child(1)) {
@@ -795,7 +795,7 @@ watch(
             }
           }
 
-          @include respond-to('pad_h') {
+          @include respond('pad_h') {
             width: calc((100% - 36px) / 4);
             margin-left: 12px;
             &:nth-child(2n + 1):not(:nth-child(1)) {
@@ -822,11 +822,11 @@ watch(
         margin-left: 0;
       }
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         margin-left: 16px;
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         margin-left: 12px;
       }
     }
@@ -846,14 +846,14 @@ watch(
           &:nth-child(n + 3) {
             margin-top: 24px;
           }
-          @include respond-to('laptop') {
+          @include respond('laptop') {
             margin-left: 16px;
             width: calc(50% - 8px);
             &:nth-child(n + 3) {
               margin-top: 16px;
             }
           }
-          @include respond-to('pad_h') {
+          @include respond('pad_h') {
             margin-left: 12px;
             width: calc(50% - 6px);
             &:nth-child(n + 3) {
@@ -889,7 +889,7 @@ watch(
         margin-left: 0;
       }
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         margin-left: 16px;
 
         .content-container {
@@ -900,7 +900,7 @@ watch(
         }
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         margin-left: 12px;
 
         .content-container {
@@ -937,7 +937,7 @@ watch(
         margin-left: 0;
       }
 
-      @include respond-to('laptop') {
+      @include respond('laptop') {
         margin-left: 16px;
 
         .content-container {
@@ -948,7 +948,7 @@ watch(
         }
       }
 
-      @include respond-to('pad_h') {
+      @include respond('pad_h') {
         margin-left: 12px;
 
         .content-container {
@@ -1018,7 +1018,7 @@ html[lang='en'] {
   overflow-y: auto;
   white-space: nowrap;
 
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     --scroller-padding: 0 var(--layout-content-padding);
   }
 }

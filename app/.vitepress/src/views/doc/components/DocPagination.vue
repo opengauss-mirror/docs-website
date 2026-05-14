@@ -81,7 +81,7 @@ const config = computed(() => {
 .o-divider {
   --o-divider-gap: 32px 0 32px;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     --o-divider-gap: 24px 0 24px;
   }
 }
@@ -108,7 +108,7 @@ const config = computed(() => {
   
   @include text1;
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     justify-content: space-between;
     padding: 16px 8px;
     border-radius: var(--o-radius-xs);
@@ -118,7 +118,7 @@ const config = computed(() => {
   .o-icon {
     @include h2;
 
-    @include respond-to('phone') {
+    @include respond('phone') {
       font-size: 24px;
     }
   }
@@ -135,20 +135,20 @@ const config = computed(() => {
   align-items: center;
   
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     gap: 4px;
   }
 }
 
 .prev-text-wrap {
-  @include respond-to('phone') {
+  @include respond('phone') {
     flex-direction: column;
     align-items: flex-end;
   }
 }
 
 .next-text-wrap {
-  @include respond-to('phone') {
+  @include respond('phone') {
     flex-direction: column-reverse;
     align-items: flex-start;
   }
@@ -165,7 +165,7 @@ const config = computed(() => {
 .pre-text,
 .next-text {
   white-space: nowrap;
-  @include respond-to('phone') {
+  @include respond('phone') {
     padding: 0;
   }
 }
@@ -173,19 +173,19 @@ const config = computed(() => {
 .title-text {
   @include text-truncate(1);
   
-  @include respond-to('phone') {
+  @include respond('phone') {
     @include text2;
   }
 }
 
 .icon-arrow-left {
-  @include respond-to('phone') {
+  @include respond('phone') {
     padding-right: 8px;
   }
 }
 
 .icon-arrow-right {
-  @include respond-to('phone') {
+  @include respond('phone') {
     padding-left: 8px;
   }
 }
