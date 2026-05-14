@@ -310,7 +310,7 @@ watch(
   cursor: default;
 }
 
-[data-o-theme='dark'] {
+[data-o-theme='g.dark'] {
   .float-btn-anchor {
     border: 1px solid var(--o-color-control4-light);
   }

@@ -26,10 +26,14 @@ export default function startListenHistoryChange(onPageView?: (from: string, to:
   });
 
   window.addEventListener('popstate', () => {
-    const prevPath = new URL($referrer).pathname;
-    if (prevPath !== location.pathname) {
-      reportPV({ $referrer, ...(onPageView ? onPageView(prevPath, new URL(location.href).pathname) : {}) });
+    try {
+      const prevPath = new URL($referrer).pathname;
+      if (prevPath !== location.pathname) {
+        reportPV({ $referrer, ...(onPageView ? onPageView(prevPath, new URL(location.href).pathname) : {}) });
+      }
+      $referrer = location.href;
+    } catch{
+      // nothing
     }
-    $referrer = location.href;
   });
 }

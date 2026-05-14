@@ -84,7 +84,7 @@ const queryGetSearchRecommend = async (val: string) => {
     );
     lastRecommendCanceler = null;
     res.obj.word.forEach((e: SearchRecommendT) => {
-      e.keyHtml = e.key.replace(val, `<span class="found">${val}</span>`);
+      e.keyHtml = e.key.replace(new RegExp(val, 'gi'), '<span class="found">$&</span>');
     });
 
     if (searchValue.value.trim() === val) {
@@ -106,9 +106,9 @@ onUnmounted(() => {
   timer = undefined;
 });
 
-const onInputValueInput = () => {
-  if (searchValue.value.trim()) {
-    searchRecommendDebounce(searchValue.value.trim());
+const onInputValueInput = (_: Event, val: string) => {
+  if (val.trim()) {
+    searchRecommendDebounce(val.trim());
   } else {
     recommendData.value = [];
     showSearchWord.value = false;
@@ -200,7 +200,7 @@ const inputWidth = computed(() => {
   margin-bottom: 24px;
   height: 40px;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     margin-bottom: 16px;
 
     .o-icon {
@@ -247,7 +247,7 @@ const inputWidth = computed(() => {
 :deep(.search-empty) {
   --result-image-width: 120px;
   --result-image-height: 105px;
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     --result-image-width: 80px;
     --result-image-height: 70px;
   }

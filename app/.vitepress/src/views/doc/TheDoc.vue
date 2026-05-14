@@ -94,8 +94,8 @@ watch(
       ) - var(--layout-doc-content-padding-top)
   );
 
-  @include respond-to('<=laptop') {
-    --layout-doc-content-max-width: 992px;
+  @include respond('<=laptop') {
+    --layout-doc-content-max-width: 1440px;
     --layout-doc-content-padding-top: 24px;
     --layout-doc-content-padding-right: 40px;
     --layout-doc-content-padding-bottom: 24px;
@@ -107,7 +107,7 @@ watch(
     --layout-doc-offset-right: 112px;
   }
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     --layout-doc-content-max-width: 1076px;
     --layout-doc-content-padding-top: 12px;
     --layout-doc-content-padding-right: 40px;
@@ -119,7 +119,7 @@ watch(
     --layout-doc-offset-right: 92px;
     --layout-doc-width: min(1200px, calc(var(--vw100) - var(--layout-doc-menu-offset-left) - var(--layout-doc-offset-right)));
   }
-  @include respond-to('phone') {
+  @include respond('phone') {
     --layout-doc-content-padding-top: 12px;
     --layout-doc-content-padding-right: 12px;
     --layout-doc-content-padding-bottom: 12px;
@@ -142,7 +142,7 @@ watch(
   margin-right: var(--layout-doc-offset-right);
   max-width: var(--layout-doc-content-max-width);
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     padding-top: calc(var(--layout-doc-padding-top) + 40px);
   }
 }

@@ -25,11 +25,11 @@ const { gtPhone } = useScreen();
   z-index: 10;
   height: 164px;
 
-  @include respond-to('<=pc_s') {
+  @include respond('<=laptop') {
     right: 32px;
   }
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     right: 24px;
   }
 }

@@ -107,7 +107,7 @@ const queryGetSearchRecommend = async (val: string) => {
     );
     lastRecommendCanceler = null;
     res.obj.word.forEach((e: SearchRecommendT) => {
-      e.keyHtml = e.key.replace(val, `<span class="found">${val}</span>`);
+      e.keyHtml = e.key.replace(new RegExp(val, 'gi'), '<span class="found">$&</span>');
     });
 
     if (searchValue.value.trim() === val) {
@@ -129,9 +129,9 @@ onUnmounted(() => {
   timer = undefined;
 });
 
-const onInputValueInput = () => {
-  if (searchValue.value.trim()) {
-    searchRecommendDebounce(searchValue.value.trim());
+const onInputValueInput = (_: Event, val: string) => {
+  if (val.trim()) {
+    searchRecommendDebounce(val.trim());
   } else {
     recommendData.value = [];
     showSearchWord.value = false;
@@ -238,7 +238,9 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
           <p class="hot-title">{{ t('home.topSearch') }}</p>
           <ORow gap="16px 0" wrap="wrap">
             <OCol flex="0 0 auto" v-for="(item, i) in config.hots" :key="i">
-              <OLink color="primary" :href="getSearchUrl(item)" target="_blank" rel="noopener noreferrer" @click="onClikHotWord">{{ item }}</OLink>
+              <OLink color="primary" :href="getSearchUrl(item)" target="_blank" rel="noopener noreferrer" :hover-underline="false" @click="onClikHotWord">{{
+                item
+              }}</OLink>
             </OCol>
           </ORow>
         </div>
@@ -315,11 +317,11 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
     background-image: url('@/assets/category/home/home-banner-dark.png');
   }
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     background-position: top -66px right 50%;
   }
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     background-image: none;
   }
 }
@@ -333,7 +335,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
 .banner-search {
   margin-top: 16px;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     margin-top: 12px;
   }
 }
@@ -347,11 +349,11 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
   --input-height: 40px;
   --input-radius: var(--o-radius-xs);
 
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     width: 100%;
   }
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     --input-height: 38px;
     --input-padding: 0 12px;
   }
@@ -368,11 +370,11 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
   color: var(--o-color-info1);
   @include tip1;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     margin-top: 12px;
   }
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     display: none;
   }
 }
@@ -386,11 +388,11 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
 .banner-card {
   margin-top: 32px;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     margin-top: 24px;
   }
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     margin-top: 16px;
   }
 }
@@ -402,12 +404,12 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
   margin-bottom: 24px;
   @include h2;
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     margin-top: 24px;
     margin-bottom: 16px;
   }
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     margin-top: 16px;
     margin-bottom: 12px;
   }
@@ -435,7 +437,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
 }
 
 .content-wrapper {
-  @include respond-to('laptop') {
+  @include respond('laptop') {
     --layout-content-padding: 98px;
   }
 }
@@ -445,7 +447,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
   grid-template-columns: repeat(4, 1fr);
   gap: v-bind(gap);
 
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     grid-template-columns: repeat(1, 1fr);
     gap: 0;
   }

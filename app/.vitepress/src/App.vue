@@ -84,7 +84,7 @@ watch(
   --layout-screen-height: 100vh;
   --layout-content-min-height: calc(var(--layout-screen-height) - var(--layout-header-height));
 
-  @include respond-to('<=laptop') {
+  @include respond('<=laptop') {
     --layout-header-height: 64px;
     --layout-header-max-width: 100%;
     --layout-header-padding: 97px;
@@ -94,21 +94,25 @@ watch(
     --layout-footer-height: 438px;
   }
 
-  @include respond-to('<=pad') {
+  @include respond('<=pad') {
     --layout-header-height: 56px;
     --layout-header-padding: 32px;
     --layout-content-padding: 32px;
     --layout-footer-height: 434px;
   }
 
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     --layout-header-height: 48px;
   }
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     --layout-header-padding: 24px;
     --layout-content-padding: 24px;
   }
+}
+
+.cookie-notice-content {
+  background-color: rgba(var(--o-grey-1), .9) !important;
 }
 </style>
 

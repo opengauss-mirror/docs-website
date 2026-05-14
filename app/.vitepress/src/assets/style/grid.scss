@@ -1,4 +1,4 @@
-@use './mixin/screen.scss' as *;
+@use '@opensig/opendesign/es/_styles/mixin.scss' as *;
 
 @mixin inject-var($width, $padding, $gutter, $columns, $contentColumns) {
   :root {
@@ -14,7 +14,7 @@
 }
 
 // 1921px <= 屏幕宽度
-@include respond-to('>pc_l') {
+@include respond-to('>pc') {
   @include inject-var(1920px, 64px, 32px, 24, 20);
 }
 

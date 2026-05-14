@@ -49,7 +49,7 @@ const topTop = () => {
   color: var(--o-color-info1);
   cursor: pointer;
 
-  @include respond-to('phone') {
+  @include respond('phone') {
     margin-top: 8px;
   }
 }
@@ -59,7 +59,7 @@ const topTop = () => {
   cursor: default;
 }
 
-[data-o-theme='dark'] {
+[data-o-theme='g.dark'] {
   .float-btn-top {
     border: 1px solid var(--o-color-control4-light);
   }

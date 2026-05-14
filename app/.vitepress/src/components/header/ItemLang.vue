@@ -123,7 +123,9 @@ const getLang = (lang: string, simple?: boolean) => {
   height: 100%;
 }
 .o-dropdown-item {
-  background: var(--o-color-fill2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   border-radius: var(--o-radius_control-xs);
   padding: var(--o-gap-1);
@@ -159,7 +161,7 @@ const getLang = (lang: string, simple?: boolean) => {
     }
     &:not(:last-child) {
       margin-right: var(--o-gap-3);
-      @include respond-to('phone') {
+      @include respond('phone') {
         margin-right: var(--o-gap-2);
       }
 
@@ -168,7 +170,7 @@ const getLang = (lang: string, simple?: boolean) => {
         margin-left: var(--o-gap-3);
         color: var(--o-color-info1);
 
-        @include respond-to('phone') {
+        @include respond('phone') {
           margin-left: var(--o-gap-2);
         }
       }

@@ -52,7 +52,7 @@ const goHome = () => {
 <template>
   <div class="app-header" :class="[{ dark: appearanceStore.theme === 'dark' }]">
     <ContentWrapper class="app-header-wrap">
-      <OLink class="logo" @click="goHome">
+      <OLink class="logo" :hover-underline="false" @click="goHome">
         <img alt="openGauss logo" :src="logo" />
       </OLink>
 
@@ -91,19 +91,19 @@ const goHome = () => {
   backdrop-filter: blur(5px);
   height: 72px;
 
-  @include respond-to('laptop') {
+  @include respond('laptop') {
     height: 64px;
   }
 
-  @include respond-to('pad_h') {
+  @include respond('pad_h') {
     height: 56px;
   }
 
-  @include respond-to('<=pad_v') {
+  @include respond('<=pad_v') {
     height: 48px;
   }
 
-  @include respond-to('>pad_v') {
+  @include respond('>pad_v') {
     &.dark {
       &:after {
         content: '';
@@ -142,15 +142,15 @@ const goHome = () => {
     align-items: center;
     margin-right: 40px;
 
-    @include respond-to('laptop') {
+    @include respond('laptop') {
       margin-right: 24px;
     }
 
-    @include respond-to('pad_h') {
+    @include respond('pad_h') {
       margin-right: 16px;
     }
 
-    @include respond-to('<=pad_v') {
+    @include respond('<=pad_v') {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
@@ -162,7 +162,7 @@ const goHome = () => {
     img {
       height: 32px;
 
-      @include respond-to('<=pad_v') {
+      @include respond('<=pad_v') {
         height: 20px;
       }
     }
@@ -170,10 +170,10 @@ const goHome = () => {
 
   .gap {
     margin-left: 24px;
-    @include respond-to('laptop') {
+    @include respond('laptop') {
       margin-left: 16px;
     }
-    @include respond-to('pad_h') {
+    @include respond('pad_h') {
       margin-left: 12px;
     }
   }

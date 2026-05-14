@@ -131,7 +131,9 @@ const submitArticleFeedback = async () => {
     </template>
 
     <div v-if="gtPhone" class="feedback-slider-docs-submit">
-      <OLink color="primary" :disabled="multiRate.every((item) => !item.isChange)" @click="submitArticleFeedback">{{ t('feedback.submit') }}</OLink>
+      <OLink color="primary" :hover-underline="false" :disabled="multiRate.every((item) => !item.isChange)" @click="submitArticleFeedback">{{
+        t('feedback.submit')
+      }}</OLink>
     </div>
     <div v-else class="btn-box">
       <OButton color="normal" variant="text" size="large" @click="closeFeedbackPopup">{{ t('feedback.cancel') }}</OButton>

@@ -204,7 +204,7 @@ watch(
 }
 
 .cookie-notice-content {
-  background-color: rgba(var(--o-mixedgray-1), 0.9);
+  background-color: rgba(var(--o-grey-1), 0.9);
   backdrop-filter: blur(5px);
   box-shadow: var(--o-shadow-1);
 }

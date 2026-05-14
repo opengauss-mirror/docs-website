@@ -106,11 +106,11 @@ const descMouseenter = (e: MouseEvent) => {
       margin-top: 0;
     }
 
-    @include respond-to('laptop') {
+    @include respond('laptop') {
       margin-top: 16px;
     }
 
-    @include respond-to('pad_h') {
+    @include respond('pad_h') {
       margin-top: 12px;
     }
   }

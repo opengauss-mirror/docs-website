@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
+import './setup';
 import { getOffsetTop, isDocument, isElementVisible, getScrollRemainingBottom, isOverlap } from '../app/.vitepress/src/utils/element';
 
 describe('element', () => {
