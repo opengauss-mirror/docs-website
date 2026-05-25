@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, inject, onBeforeUnmount, onMounted, ref, watch, type PropType, type Ref } from 'vue';
-import { isArray, OMenuItem, OSubMenu, OIcon, OIconChevronDown } from '@opensig/opendesign';
+import { inject, onBeforeUnmount, onMounted, ref, watch, type PropType, type Ref } from 'vue';
+import { isArray, OMenuItem, OSubMenu } from '@opensig/opendesign';
 
 import type { TreeNodeT } from '@/@types/type-tree';
 import { refreshSelectedMenuItemPosition } from '@/utils/refresh-ui';
@@ -16,9 +16,6 @@ const menuVal = inject<Ref<string>>('menuValue')!;
 const getMenuScrollerEl = inject<() => HTMLElement>('getMenuScrollerEl')!;
 
 const itemRef = ref();
-const showOffset = computed(() => {
-  return isArray(props.node.parent?.children) && props.node.parent.children.some((child) => child.children.length > 0);
-});
 
 watch(
   () => menuVal.value,
@@ -68,7 +65,6 @@ onBeforeUnmount(() => {
   <OSubMenu
     v-if="isArray(node.children) && node.children.length > 0"
     ref="itemRef"
-    :class="{ 'doc-sub-menu-page': node.children.length && node.children.every((item) => item.type === 'page') }"
     :value="node.id"
     :title="node.label"
     :selectable="node.type === 'page'"
