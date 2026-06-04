@@ -1,7 +1,6 @@
 import type { App } from 'vue';
 import { createPinia } from 'pinia';
 import VueDOMPurifyHTML from 'vue-dompurify-html';
-import { createExternalLinkGuard } from '@opendesign-plus/plugins';
 
 import Layout from '@/App.vue';
 import NotFound from '@/NotFound.vue';
@@ -23,8 +22,7 @@ import { installer } from '@/shared/analytics';
 import { removeCustomCookie } from '@/utils/cookie';
 import { BAIDU_HM } from '@/config/urls';
 import { request } from '@/shared/axios';
-const whitelistDomain = import.meta.env.VITE_WHITELIST_DOMAIN;
- 
+
 export default {
   Layout,
   NotFound,
@@ -35,13 +33,6 @@ export default {
         ADD_ATTR: ['target'],
       },
     });
-    app.use(
-      createExternalLinkGuard({
-        whitelist: whitelistDomain.split(','),
-        showCustomConfirm: true,
-        community: 'openGauss',
-      })
-    );
 
     // 注册组件
     app.component('MarkdownTitle', MarkdownTitle);
