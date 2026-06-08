@@ -8,6 +8,7 @@
     "dev:toc": "node scripts/gen-toc.js",
     "dev:app": "vitepress dev app",
     "build": "node scripts/gen-toc.js $VERSION && node scripts/merge-redirect.js $VERSION && cross-env NODE_OPTIONS='--max-old-space-size=16384' vitepress build app",
+    "postbuild": "node scripts/append-llms.js && node scripts/generate-sitemap-index.js",
     "preview": "vitepress preview app",
     "format": "prettier --write app/.vitepress/src/",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
@@ -34,6 +35,7 @@
     "element-plus": "2.11.5",
     "js-cookie": "3.0.7",
     "pinia": "2.1.6",
+    "vitepress-plugin-llms": "^1.13.1",
     "vue": "3.5.34",
     "vue-dompurify-html": "5.3.0",
     "vue-i18n": "11.1.12"

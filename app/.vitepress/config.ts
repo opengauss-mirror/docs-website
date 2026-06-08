@@ -2,8 +2,13 @@ import type Markdown from 'markdown-it';
 import type Token from 'markdown-it/lib/token.mjs';
 
 import { getDomId } from './src/utils/common';
+import llmstxt from 'vitepress-plugin-llms';
+import type { UserConfig } from 'vitepress';
 
 export default {
+  sitemap: {
+    hostname: 'https://docs.opengauss.org',
+  },
   base: '/',
   assetsDir: '/assets',
   cleanUrls: false,
@@ -272,6 +277,7 @@ export default {
   vite: {
     ssr: {
       noExternal: ['@opendesign-plus/components', 'element-plus']
-    }
-  }
-};
+    },
+    plugins: [llmstxt()],
+  },
+} as UserConfig;
