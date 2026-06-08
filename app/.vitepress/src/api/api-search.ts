@@ -32,9 +32,9 @@ export function getPop(params: string): Promise<{
  * @return  {Object}
  */
 export function getSearchRecommend(
-  params: { 
-    query: string,
-    lang: string,
+  params: {
+    query: string;
+    lang: string;
   },
   cancelToken?: CancelToken
 ): Promise<{
@@ -61,4 +61,55 @@ export function getSearchRecommend(
 export function getSearchDocs(params: SearchDocQueryT) {
   const url = '/api-search/search/sort/docs';
   return request.post(url, params, { showError: false, headers: { source: 'opengauss' } }).then((res: AxiosResponse) => res.data);
+}
+
+/**
+ * 图片上传
+ * @param image 图片文件
+ */
+export function imageUpload(image: File): Promise<{
+  msg: string;
+  obj: any;
+  status: number;
+}> {
+  const url = '/api-search/search/sort/upload/image';
+  const formData = new FormData();
+  formData.append('image', image);
+  return request
+    .post(url, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        source: 'opengauss',
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
+}
+
+/**
+ * 图片搜索
+ */
+export function imageSearch(params: {
+  lang: string;
+  imageUrl: string;
+  keyword?: string;
+  page?: number;
+  pageSize?: number;
+  type?: string;
+  hq?: string;
+  card?: string;
+  filter?: { components: string; version: string }[];
+  limit?: { components: string; version: string }[];
+}): Promise<{
+  msg: string;
+  obj: any;
+  status: number;
+}> {
+  const url = '/api-search/search/multitimodal';
+  return request
+    .post(url, params, {
+      headers: {
+        source: 'opengauss',
+      },
+    })
+    .then((res: AxiosResponse) => res.data);
 }

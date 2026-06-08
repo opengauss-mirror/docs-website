@@ -13,7 +13,7 @@ import { useLocale } from '@/composables/useLocale';
 import { useViewStore } from '@/stores/view';
 import { nextTick, ref, watch } from 'vue';
 
-const { isZh, locale } = useLocale();
+const { locale } = useLocale();
 const viewStore = useViewStore();
 
 const router = useRouter();
@@ -36,7 +36,7 @@ watch(
 </script>
 
 <template>
-  <OConfigProvider :locale="isZh ? zhCN : enUS">
+  <OPlusConfigProvider :locale="locale">
     <ClientOnly>
       <AppHeader class="ly-header" :class="{ 'ly-header-hidden': !viewStore.isPageLoaded }" />
     </ClientOnly>
@@ -46,16 +46,15 @@ watch(
         <TheDoc v-else />
       </main>
     </OScroller>
-    <OPlusConfigProvider :locale="locale">
-      <OCookieNotice
-        ref="cookieRef"
-        community="openGauss"
-        v-model:visible="cookieNoticeVisible"
-        :detail-url="`${HOME_URL}/${locale}/cookies/`"
-        :cookie-domain="COOKIE_DOMAIN"
-      />
-    </OPlusConfigProvider>
-  </OConfigProvider>
+
+    <OCookieNotice
+      ref="cookieRef"
+      community="openGauss"
+      v-model:visible="cookieNoticeVisible"
+      :detail-url="`${HOME_URL}/${locale}/cookies/`"
+      :cookie-domain="COOKIE_DOMAIN"
+    />
+  </OPlusConfigProvider>
 </template>
 
 <style lang="scss">
@@ -112,7 +111,7 @@ watch(
 }
 
 .cookie-notice-content {
-  background-color: rgba(var(--o-grey-1), .9) !important;
+  background-color: rgba(var(--o-grey-1), 0.9) !important;
 }
 </style>
 
