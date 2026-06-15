@@ -1,3 +1,11 @@
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  vue-demi: true
+overrides:
+  axios: 1.16.0
+  js-cookie: 3.0.7
+  ua-parser-js: 1.0.34
 minimumReleaseAgeExclude:
   - "@opendesign-plus/*"
   - "@opendesign-plus-test/*"
