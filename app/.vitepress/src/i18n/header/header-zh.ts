@@ -202,6 +202,7 @@ export default {
             {
               NAME: '培训认证',
               DESCRIPTION: '欢迎学习HCIA-openGauss华为认证openGauss工程师在线课程',
+              TAG: TAG_TYPE.NEW,
               URL: '/training/',
             },
           ],
