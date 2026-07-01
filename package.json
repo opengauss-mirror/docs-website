@@ -20,7 +20,8 @@
     "overrides": {
       "axios": "1.16.0",
       "js-cookie": "3.0.7",
-      "ua-parser-js": "1.0.34"
+      "ua-parser-js": "1.0.34",
+      "markdown-it": "14.2.0"
     }
   },
   "dependencies": {
@@ -64,7 +65,7 @@
     "gray-matter": "4.0.3",
     "js-yaml": "4.1.0",
     "jsdom": "28.1.0",
-    "markdown-it": "14.1.1",
+    "markdown-it": "14.2.0",
     "markdown-it-anchor": "9.2.0",
     "markdown-it-mathjax3": "4.3.2",
     "prettier": "3.2.5",
