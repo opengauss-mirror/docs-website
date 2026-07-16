@@ -1,9 +1,16 @@
 import type Markdown from 'markdown-it';
 import type Token from 'markdown-it/lib/token.mjs';
 
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { getDomId } from './src/utils/common';
+import { buildPageJsonLd } from './src/config/jsonld';
 import llmstxt from 'vitepress-plugin-llms';
 import type { UserConfig } from 'vitepress';
+
+const docsUrl = 'https://docs.opengauss.org';
+const mainDomainUrl = 'https://opengauss.org';
+const srcDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 export default {
   sitemap: {
@@ -273,6 +280,14 @@ export default {
         return renderContent;
       };
     },
+  },
+  transformPageData(pageData) {
+    const schema = buildPageJsonLd(pageData, { docsUrl, mainDomainUrl, srcDir });
+    if (schema) {
+      (pageData.frontmatter.head ??= []).push(
+        ['script', { type: 'application/ld+json' }, JSON.stringify(schema)]
+      );
+    }
   },
   vite: {
     ssr: {
