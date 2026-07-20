@@ -48,10 +48,10 @@ function normalizeVitepressDocsContent(buildPath, branch, source) {
   // 复制website-vitepress内容到build目录
   copyDirectorySync(path.join(REPO_PATH, 'website-vitepress'), buildPath, true);
 
-  const nginxPortalConfPath = path.join(buildPath, 'deploy/nginx/nginx.portal.conf');
+  const nginxPortalConfPath = path.join(buildPath, 'deploy/nginx.portal.yaml');
   if (branchName == `common`) {
-    // 如果是公共分支，删掉nginx.conf并将nginx.portal.conf重命名为nginx.conf
-    const nginxConfPath = path.join(buildPath, 'deploy/nginx/nginx.conf');
+    // 如果是公共分支，删掉nginx.yaml并将nginx.portal.yaml重命名为nginx.yaml
+    const nginxConfPath = path.join(buildPath, 'deploy/nginx.yaml');
     removeSync(nginxConfPath);
     renameSync(nginxPortalConfPath, nginxConfPath);
   } else {
