@@ -3,6 +3,7 @@ import { markRaw } from 'vue';
 import IconOutLink from '~icons/app/icon-out-link.svg';
 import odd from '@/assets/category/header/odd.png';
 import report from '@/assets/category/header/report.png';
+import { CLA_LINK, DATA_LINK, FORUM_LINK, GITCODE_LINK, GIYHUB_LINK } from '@/config/urls';
 
 const OutLink = markRaw(IconOutLink);
 
@@ -80,7 +81,7 @@ export default {
             {
               NAME: 'CLA',
               DESCRIPTION: 'Sign the CLA to protect your work—multiple options available!',
-              URL: 'https://clasign.osinfra.cn/sign/gitee_opengauss-1614047760000855378',
+              URL: `${CLA_LINK}/sign/gitee_opengauss-1614047760000855378`,
               ICON: OutLink,
             },
             {
@@ -247,7 +248,7 @@ export default {
             {
               NAME: 'Statistics',
               DESCRIPTION: 'Find stats and see how the openGauss community thrives.',
-              URL: 'https://datastat.opengauss.org/en/overview',
+              URL: `${DATA_LINK}/en/overview`,
             },
             {
               NAME: 'Governance',
@@ -267,7 +268,7 @@ export default {
             {
               NAME: 'Forum',
               DESCRIPTION: 'Share knowledge, ask anything, and solve together.',
-              URL: 'https://discuss.opengauss.org/',
+              URL: FORUM_LINK,
             },
             {
               NAME: 'Mailing Lists',
@@ -284,7 +285,7 @@ export default {
         },
         {
           NAME: 'Contribution by Organizations',
-          URL: 'https://datastat.opengauss.org/en/detail',
+          URL: `${DATA_LINK}/en/detail`,
         },
       ],
     },
@@ -354,13 +355,13 @@ export default {
   SOURCE_CODE: [
     {
       NAME: 'GitCode',
-      PATH: 'https://gitcode.com/opengauss',
+      PATH: `${GITCODE_LINK}/opengauss`,
       ICON: OutLink,
     },
 
     {
       NAME: 'Github',
-      PATH: 'https://github.com/opengauss-mirror',
+      PATH: `${GIYHUB_LINK}/opengauss-mirror`,
       ICON: OutLink,
     },
   ],

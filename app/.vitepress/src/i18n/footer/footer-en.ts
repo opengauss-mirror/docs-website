@@ -1,4 +1,4 @@
-import { EULER_LINK, MINDSPORE_LINK,  KUNPENG_LINK, BBSCSDN_LINK, OPENUBMC_URL, OPENFUYAO_URL } from '@/config/urls';
+import { EULER_LINK, MINDSPORE_LINK,  KUNPENG_LINK, BBSCSDN_LINK, OPENUBMC_URL, OPENFUYAO_URL, DATA_LINK, DOCS_LINK, FORUM_LINK } from '@/config/urls';
 
 export default {
   FOOTER_NAVS: [
@@ -11,7 +11,7 @@ export default {
         },
         {
           NAME: 'Statistics',
-          URL: 'https://datastat.opengauss.org/en/overview',
+          URL: `${DATA_LINK}/en/overview`,
         },
       ],
     },
@@ -28,7 +28,7 @@ export default {
         },
         {
           NAME: 'White Papers',
-          URL: 'https://docs.opengauss.org/en/docs/6.0.0/docs/TechnicalWhitePaper/Technicalwhitepaper.html',
+          URL: `${DOCS_LINK}/en/docs/6.0.0/docs/TechnicalWhitePaper/Technicalwhitepaper.html`,
         },
       ],
     },
@@ -54,7 +54,7 @@ export default {
       LINKS: [
         {
           NAME: 'Document Center',
-          URL: 'https://docs.opengauss.org/en/',
+          URL: `${DOCS_LINK}/en/`,
         },
         {
           NAME: 'Frequently Asked Questions',
@@ -79,7 +79,7 @@ export default {
         },
         {
           NAME: 'Forum',
-          URL: 'https://discuss.opengauss.org/',
+          URL: FORUM_LINK,
         },
       ],
     },

@@ -1,4 +1,4 @@
-import { MINDSPORE_LINK, KUNPENG_LINK, BBSCSDN_LINK, EULER_EN_LINK, OPENUBMC_URL, OPENFUYAO_URL } from '@/config/urls';
+import { MINDSPORE_LINK, KUNPENG_LINK, BBSCSDN_LINK, EULER_EN_LINK, OPENUBMC_URL, OPENFUYAO_URL, DATA_LINK, DOCS_LINK, FORUM_LINK } from '@/config/urls';
 
 export default {
   FOOTER_NAVS: [
@@ -15,7 +15,7 @@ export default {
         },
         {
           NAME: '贡献看板',
-          URL: 'https://datastat.opengauss.org/zh/overview',
+          URL: `${DATA_LINK}/zh/overview`,
         },
       ],
     },
@@ -32,7 +32,7 @@ export default {
         },
         {
           NAME: '技术白皮书',
-          URL: 'https://docs.opengauss.org/zh/docs/6.0.0/docs/TechnicalWhitePaper/Technicalwhitepaper.html',
+          URL: `${DOCS_LINK}/zh/docs/6.0.0/docs/TechnicalWhitePaper/Technicalwhitepaper.html`,
         },
       ],
     },
@@ -58,7 +58,7 @@ export default {
       LINKS: [
         {
           NAME: '文档中心',
-          URL: 'https://docs.opengauss.org/zh/',
+          URL: `${DOCS_LINK}/zh/`,
         },
         {
           NAME: '常见问题',
@@ -83,7 +83,7 @@ export default {
         },
         {
           NAME: '社区论坛',
-          URL: 'https://discuss.opengauss.org/',
+          URL: FORUM_LINK,
         },
       ],
     },

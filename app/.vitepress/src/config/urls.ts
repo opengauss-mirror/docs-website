@@ -58,6 +58,8 @@ export const OPENFUYAO_URL = 'https://www.openfuyao.cn';
 // 用户问卷调研
 export const QUESTIONNAIRE_SURVEY = 'https://snic.gtsdata.huawei.com/datalinkpro/web/#/openFormFill?hashcode=fpTH9ritP6IMPdjfPhFfQ6yrVqGhWnSoTPVqdcvLj7A=';
 
+export const HOME_URL = 'https://opengauss.org';
+
 export {
   OBS_Summit_PPT,
   GAUSS_EMAIL,

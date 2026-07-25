@@ -3,6 +3,7 @@ import { markRaw } from 'vue';
 import IconOutLink from '~icons/app/icon-out-link.svg';
 import odd from '@/assets/category/header/odd.png';
 import report from '@/assets/category/header/report.png';
+import { CLA_LINK, DATA_LINK, FORUM_LINK, GITCODE_LINK, GIYHUB_LINK } from '@/config/urls';
 
 const OutLink = markRaw(IconOutLink);
 
@@ -79,7 +80,7 @@ export default {
             {
               NAME: 'CLA签署',
               DESCRIPTION: '参与贡献前，需签署贡献者许可协议（CLA）',
-              URL: 'https://clasign.osinfra.cn/sign/gitee_opengauss-1614047760000855378',
+              URL: `${CLA_LINK}/sign/gitee_opengauss-1614047760000855378`,
               ICON: OutLink,
             },
             {
@@ -258,7 +259,7 @@ export default {
               NAME: '兼容性技术测评',
               DESCRIPTION: '帮助企业快速申请兼容性测评',
               ICON: OutLink,
-              URL: 'https://gitcode.com/opengauss/compatible-certification',
+              URL: `${GITCODE_LINK}/opengauss/compatible-certification`,
             },
           ],
         },
@@ -310,7 +311,7 @@ export default {
         },
         {
           NAME: '前往迁移互动专区',
-          URL: 'https://gitcode.com/opengauss/openGauss-workbench',
+          URL: `${GITCODE_LINK}/opengauss/openGauss-workbench`,
         },
         {
           NAME: 'MySQL迁移',
@@ -328,7 +329,7 @@ export default {
             {
               NAME: '贡献看板',
               DESCRIPTION: '查看openGauss社区数据',
-              URL: 'https://datastat.opengauss.org/zh/overview',
+              URL: `${DATA_LINK}/zh/overview`,
             },
             {
               NAME: '社区荣誉',
@@ -358,7 +359,7 @@ export default {
             {
               NAME: '社区论坛',
               DESCRIPTION: '参与开发者讨论openGauss',
-              URL: 'https://discuss.opengauss.org/',
+              URL: FORUM_LINK,
             },
             {
               NAME: '线上交流',
@@ -379,7 +380,7 @@ export default {
         },
         {
           NAME: '单位会员贡献',
-          URL: 'https://datastat.opengauss.org/zh/detail',
+          URL: `${DATA_LINK}/zh/detail`,
         },
       ],
     },
@@ -464,13 +465,13 @@ export default {
   SOURCE_CODE: [
     {
       NAME: 'GitCode',
-      PATH: 'https://gitcode.com/opengauss',
+      PATH: `${GITCODE_LINK}/opengauss`,
       ICON: OutLink,
     },
 
     {
       NAME: 'Github',
-      PATH: 'https://github.com/opengauss-mirror',
+      PATH: `${GIYHUB_LINK}/opengauss-mirror`,
       ICON: OutLink,
     },
   ],

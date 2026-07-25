@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vitepress';
 import { OPlusConfigProvider, OCookieNotice } from '@opendesign-plus/components';
-import { OScroller, OConfigProvider } from '@opensig/opendesign';
-import zhCN from '@opensig/opendesign/es/locale/lang/zh-cn';
-import enUS from '@opensig/opendesign/es/locale/lang/en-us';
+import { OScroller } from '@opensig/opendesign';
 
 import AppHeader from '@/components/header/AppHeader.vue';
 import TheDoc from '@/views/doc/TheDoc.vue';
@@ -12,6 +10,7 @@ import { scrollToTop } from '@/utils/common';
 import { useLocale } from '@/composables/useLocale';
 import { useViewStore } from '@/stores/view';
 import { nextTick, ref, watch } from 'vue';
+import { HOME_URL } from './config/urls';
 
 const { locale } = useLocale();
 const viewStore = useViewStore();
@@ -22,7 +21,6 @@ router.onAfterRouteChange = () => {
 };
 
 const COOKIE_DOMAIN = import.meta.env.VITE_COOKIE_DOMAIN;
-const HOME_URL = 'https://opengauss.org';
 const cookieNoticeVisible = ref(false);
 const cookieRef = ref();
 const route = useRoute();
