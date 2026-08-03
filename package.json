@@ -31,7 +31,7 @@
     "@opensig/opendesign": "1.2.4",
     "@opensig/opendesign-token": "0.0.11",
     "@vueuse/core": "14.3.0",
-    "axios": "1.16.0",
+    "axios": "1.18.0",
     "clipboard": "2.0.11",
     "element-plus": "2.11.5",
     "js-cookie": "3.0.7",
