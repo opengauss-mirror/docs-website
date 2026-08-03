@@ -13,6 +13,9 @@ import type { SearchRecommendT } from '@/@types/type-search';
 import { getSearchRecommend } from '@/api/api-search';
 import { onClickOutside, useElementSize } from '@vueuse/core';
 
+import { oaReport } from '@opendesign-plus/plugins/analytics';
+import { useVersionStore } from '@/stores/version';
+
 defineProps({
   disabled: {
     type: Boolean,
@@ -24,6 +27,8 @@ const emit = defineEmits(['switchVisible']);
 
 const { t, locale } = useLocale();
 const { size } = useScreen();
+const verStore = useVersionStore();
+
 // 搜索状态库
 const searchStore = useSearchingStore();
 // 本次搜索值
@@ -51,6 +56,7 @@ const enterSearchDoc = () => {
   if (size.width < 1200) {
     emit('switchVisible');
   }
+  reportDocSearch();
 };
 
 const clearSearchDoc = () => {
@@ -144,6 +150,19 @@ const { width } = useElementSize(inputContainerRef);
 const inputWidth = computed(() => {
   return width.value ? `${width.value - 8}px` : '100%';
 });
+
+const reportDocSearch = () => {
+  oaReport(
+    'input',
+    {
+      $url: location.href,
+      keyword: searchStore.keyword,
+      version: verStore.version,
+      locale: locale.value,
+    },
+    'search_docs'
+  );
+};
 </script>
 
 <template>

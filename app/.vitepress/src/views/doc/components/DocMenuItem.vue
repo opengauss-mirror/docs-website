@@ -4,6 +4,8 @@ import { isArray, OMenuItem, OSubMenu } from '@opensig/opendesign';
 
 import type { TreeNodeT } from '@/@types/type-tree';
 import { refreshSelectedMenuItemPosition } from '@/utils/refresh-ui';
+import { useVersionStore } from '@/stores/version';
+import { useNodeStore } from '@/stores/node';
 
 const props = defineProps({
   node: {
@@ -59,23 +61,46 @@ onBeforeUnmount(() => {
     }
   }
 });
+
+// ------------埋点------------
+const verStore = useVersionStore();
+const nodeStore = useNodeStore();
+
+const onClickMenu = () => {
+  let n = props.node;
+  const path = [];
+  while (n && n.type !== 'root') {
+    path.push(n.label);
+    n = n.parent!;
+  }
+  path.push(verStore.version);
+
+  return {
+    properties: {
+      type: 'menu',
+      target: props.node.label,
+      url: location.origin + nodeStore.currentNode?.href,
+      ...path.reduceRight(
+        (obj, item, idx) => {
+          obj[`level_${idx + 1}`] = item;
+          return obj;
+        },
+        {} as Record<string, string>
+      ),
+    },
+  };
+};
 </script>
 
 <template>
-  <OSubMenu
-    v-if="isArray(node.children) && node.children.length > 0"
-    ref="itemRef"
-    :value="node.id"
-    :title="node.label"
-    :selectable="node.type === 'page'"
-  >
+  <OSubMenu v-if="isArray(node.children) && node.children.length > 0" ref="itemRef" :value="node.id" :title="node.label" :selectable="node.type === 'page'">
     <template #title>
       <a v-if="node.href" :href="node.href" class="doc-item-text" @click.prevent>{{ node.label }}</a>
       <span v-else>{{ node.label }}</span>
     </template>
     <DocMenuItem v-for="item in node.children" :key="item.id" :node="item" />
   </OSubMenu>
-  <OMenuItem v-else ref="itemRef" :id="node.id" :value="node.id" :title="node.label">
+  <OMenuItem v-else ref="itemRef" :id="node.id" :value="node.id" :title="node.label" v-analytics="onClickMenu">
     <a v-if="node.href" :href="node.href" class="doc-item-text" @click.prevent>{{ node.label }}</a>
     <span v-else>{{ node.label }}</span>
   </OMenuItem>
@@ -86,7 +111,7 @@ onBeforeUnmount(() => {
   width: 100%;
 }
 
-.doc-item-text { 
+.doc-item-text {
   display: inline-block;
   color: inherit;
 }

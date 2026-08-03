@@ -16,9 +16,10 @@ import '@/assets/style/markdown.scss';
 import '@/assets/style/global.scss';
 import '@/assets/style/element-plus/index.scss';
 
+import { initOpenDesignAnalytics } from '@opendesign-plus/plugins/analytics'
+
 import MarkdownTitle from '@/components/markdown/MarkdownTitle.vue';
 import MarkdownImage from '@/components/markdown/MarkdownImage.vue';
-import { installer } from '@/shared/analytics';
 import { removeCustomCookie } from '@/utils/cookie';
 import { BAIDU_HM } from '@/config/urls';
 import { request } from '@/shared/axios';
@@ -38,7 +39,7 @@ export default {
     app.component('MarkdownTitle', MarkdownTitle);
     app.component('MarkdownImage', MarkdownImage);
 
-    app.use(installer, {
+    app.use(initOpenDesignAnalytics, {
       appKey: 'openGauss',
       service: 'docs',
       request(data) {
