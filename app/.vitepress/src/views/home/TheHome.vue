@@ -250,7 +250,13 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
       <div class="banner-card">
         <ORow :gap="gap" wrap="wrap">
           <OCol v-for="(item, i) in config.recommend.items" :key="i" :flex="`0 0 ${bannerCardRatio}%`">
-            <HomeBannerCard :title="item.title" :desc="item.desc" :bg="getBannerCardBg(item)" :href="item.href" />
+            <HomeBannerCard
+              :title="item.title"
+              :desc="item.desc"
+              :bg="getBannerCardBg(item)"
+              :href="item.href"
+              v-analytics="{ properties: { target: item.href, content: item.title, type: 'homePage' } }"
+            />
           </OCol>
         </ORow>
       </div>
@@ -267,6 +273,14 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
             :bg="appearanceStore.theme === 'dark' ? config.installation.item_bg_dark : config.installation.item_bg_light"
             :bg-icon="config.installation.item_bg_icon"
             :href="config.installation.item_href"
+            v-analytics="{
+              properties: {
+                target: config.installation.item_href,
+                content: config.installation.item_title,
+                level1: config.installation.title,
+                type: 'homePage',
+              },
+            }"
           />
         </div>
 
@@ -285,6 +299,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
               :bg-icon="item.bg_icon"
               :href="item.href"
               :show-bg-icon="!lePadV"
+              v-analytics="{ properties: { target: item.href, content: item.title, level1: config.usage_and_om.title, type: 'homePage' } }"
             />
           </div>
         </div>
@@ -294,7 +309,14 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
       <template v-for="item in config.sections" :key="item.title">
         <p class="main-title">{{ item.title }}</p>
         <div class="business-list" :style="{ 'grid-template-columns': `repeat(${lePadV ? item.columns_mb : item.columns}, 1fr)` }">
-          <HomeSectionCard v-for="subItem in item.items" :key="subItem.title" :title="subItem.title" :desc="subItem.desc" :href="subItem.href" />
+          <HomeSectionCard
+            v-for="subItem in item.items"
+            :key="subItem.title"
+            :title="subItem.title"
+            :desc="subItem.desc"
+            :href="subItem.href"
+            v-analytics="{ properties: { target: subItem.href, content: subItem.title, level1: item.title, type: 'homePage' } }"
+          />
         </div>
       </template>
     </ContentWrapper>

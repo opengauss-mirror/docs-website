@@ -3,7 +3,7 @@ allowBuilds:
   esbuild: true
   vue-demi: true
 overrides:
-  axios: 1.16.0
+  axios: 1.18.0
   js-cookie: 3.0.7
   ua-parser-js: 1.0.34
   markdown-it: 14.2.0

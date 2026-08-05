@@ -134,6 +134,23 @@ const onChange = ({ page, pageSize }: { page: number; pageSize: number }) => {
 const goToPage = (href: string) => {
   window.open(href);
 };
+
+// ------------埋点------------
+const reportResultClick = (item: SearchDocItemT) => (ev: MouseEvent) => {
+  return {
+    properties: {
+      type: 'search_result',
+      target: item.path,
+      keyword: searchStore.keyword,
+      content: (ev.currentTarget as HTMLElement).textContent.trim(),
+      score: item.score,
+      $url: location.href,
+      ...(item.recallType ? { recallType: item.recallType } : {}),
+      ...(item.version ? { version: item.version } : {}),
+    },
+    service: 'search_docs',
+  };
+};
 </script>
 <template>
   <div class="inner-search">
@@ -142,7 +159,7 @@ const goToPage = (href: string) => {
       <div class="search-result">
         <div class="search-tip">{{ t('docs.searchResult') }}</div>
         <div v-for="item in result" class="search-result-item" :key="item.path">
-          <a :href="item.path" target="_blank"><div class="item-title" v-dompurify-html="item.title"></div></a>
+          <a :href="item.path" target="_blank"><div class="item-title" v-dompurify-html="item.title" v-analytics="reportResultClick(item)"></div></a>
           <div class="item-content" v-dompurify-html="item?.textContent"></div>
           <div class="item-footer">
             <span class="source-tip">{{ t('docs.origin') }}：</span>
@@ -291,7 +308,7 @@ const goToPage = (href: string) => {
   display: flex;
   justify-content: flex-end;
 
-  @include respond('<=pad') { 
+  @include respond('<=pad') {
     justify-content: center;
   }
 }

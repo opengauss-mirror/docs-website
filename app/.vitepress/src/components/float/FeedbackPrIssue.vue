@@ -8,6 +8,7 @@ import { useLocale } from '@/composables/useLocale';
 import { getSourceUrl } from '@/utils/common';
 import { useNodeStore } from '@/stores/node';
 import { GITCODE_LINK } from '@/config/urls';
+import { oaReport } from '@opendesign-plus/plugins';
 
 const props = defineProps({
   visible: {
@@ -49,6 +50,8 @@ const feedbackWrapperRef = ref<HTMLElement>();
 const submitFeedback = (feedbackType: 'pr' | 'issue') => {
   emits('click-item');
 
+  reportFeedbackClick(feedbackType);
+
   if (feedbackType === 'pr') {
     const url = `${getSourceUrl(nodeStore.pageNode).replace('blob', 'edit')}${props.selectionText ? `?search=${props.selectionText}` : ''}`;
     if (url) {
@@ -65,6 +68,17 @@ const submitFeedback = (feedbackType: 'pr' | 'issue') => {
     );
     return;
   }
+};
+
+const reportFeedbackClick = (type: 'pr' | 'issue') => {
+  const target = t(`feedback.${type}`);
+  oaReport('click', {
+    properties: {
+      type: `feedback-${type}`,
+      $url: location.href,
+      target,
+    },
+  });
 };
 </script>
 
