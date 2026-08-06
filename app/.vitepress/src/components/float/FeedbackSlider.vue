@@ -9,13 +9,6 @@ import { postFeedback } from '@/api/api-feedback';
 import { useLocale } from '@/composables/useLocale';
 import { useScreen } from '@/composables/useScreen';
 
-const props = defineProps({
-  show: {
-    type: Boolean,
-    default: false,
-  },
-});
-
 const message = useMessage(null);
 const { t } = useLocale();
 const { gtPhone, isPhone } = useScreen();
@@ -47,7 +40,7 @@ const placeholder = computed(() => {
   }
 });
 
-const isShow = ref(props.show);
+const isShow = ref(false);
 const inputText = ref('');
 const score = ref(0);
 
@@ -59,20 +52,20 @@ const scorePosition = computed(() => {
 });
 
 const emits = defineEmits<{
-  (e: 'input', value: boolean): void;
-  (e: 'close', value: boolean): void;
+  (e: 'change'): void;
+  (e: 'close'): void;
 }>();
 
-const showFeedbackInput = () => {
+const onSliderChange = () => {
   isShow.value = true;
-  emits('input', isShow.value);
+  emits('change');
 };
 
 const closeFeedbackPopup = () => {
   inputText.value = '';
   score.value = 0;
   isShow.value = false;
-  emits('close', isShow.value);
+  emits('close');
 };
 
 const submitFeedback = () => {
@@ -132,7 +125,7 @@ const RATE_INDEX = Array(RATE_MAX_MB + 1)
         <div v-for="(_, index) in RATE_INDEX" :key="index" class="stop" :style="{ left: `${index * 10}%` }">{{ index }}</div>
       </div>
 
-      <el-slider v-model="score" :step="10" :marks="marks" show-stops :show-tooltip="false" @input="showFeedbackInput" />
+      <el-slider v-model="score" :step="10" :marks="marks" show-stops :show-tooltip="false" @input="onSliderChange" />
     </div>
 
     <div class="grade-info">

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FeedbackMobileDialog from '@/components/float/FeedbackMobileDialog.vue';
+import FeedbackSliderDialog from '@/components/float/FeedbackSliderDialog.vue';
 import FloatButtonItems from '@/components/float/FloatButtonItems.vue';
 import FloatButtonTop from '@/components/float/FloatButtonTop.vue';
 
@@ -14,7 +14,7 @@ const { gtPhone } = useScreen();
     <FloatButtonTop />
   </div>
 
-  <FeedbackMobileDialog v-else />
+  <FeedbackSliderDialog v-else />
 </template>
 
 <style lang="scss" scoped>

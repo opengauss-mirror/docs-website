@@ -17,7 +17,7 @@ const props = defineProps({
   },
   position: {
     type: String as PropType<'lt' | 'br' | 'rt' | 'tr' | 'rb' | 'top' | 'right' | 'left' | 'bottom' | 'tl' | 'bl' | 'lb'>,
-    default: 'right',
+    default: 'lt',
   },
   offset: {
     type: Number,
@@ -49,11 +49,17 @@ const nodeStore = useNodeStore();
 const feedbackWrapperRef = ref<HTMLElement>();
 const submitFeedback = (feedbackType: 'pr' | 'issue') => {
   emits('click-item');
+  const sourceUrl = getSourceUrl(nodeStore.pageNode);
+  const splits = sourceUrl.split('/');
 
   reportFeedbackClick(feedbackType);
 
   if (feedbackType === 'pr') {
-    const url = `${getSourceUrl(nodeStore.pageNode).replace('blob', 'edit')}${props.selectionText ? `?search=${props.selectionText}` : ''}`;
+    if (splits.length >= 6 && (splits[5] === 'blob' || splits[5] === 'tree')) {
+      splits[5] = 'edit';
+    }
+
+    const url = `${splits.join('/')}${props.selectionText ? `?search=${props.selectionText}` : ''}`;
     if (url) {
       window.open(url, '_blank', 'noopener noreferrer');
       return;
@@ -62,7 +68,7 @@ const submitFeedback = (feedbackType: 'pr' | 'issue') => {
 
   if (feedbackType === 'issue') {
     window.open(
-      `${GITCODE_LINK}opengauss/docs/issues/create?labels=docs&title=${nodeStore.pageNode?.label || ''}&description=${nodeStore.pageNode?.label || ''}`,
+      `${splits.slice(0, 5).join('/') || `${GITCODE_LINK}opengauss/docs`}/issues/create?labels=docs&title=${nodeStore.pageNode?.label || ''}&description=${nodeStore.pageNode?.label || ''}`,
       '_blank',
       'noopener noreferrer'
     );

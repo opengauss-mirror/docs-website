@@ -12,6 +12,7 @@ export interface FeedBackDataT {
   accuracy: number;
   completeness: number;
   usability: number;
+  feedback?: string;
 }
 
 /**

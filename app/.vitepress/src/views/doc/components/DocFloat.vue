@@ -29,7 +29,7 @@ const viewStore = useViewStore();
 <style lang="scss" scoped>
 .docs-float {
   position: fixed;
-  bottom: 168px;
+  bottom: 220px;
   right: 40px;
   z-index: 10;
 

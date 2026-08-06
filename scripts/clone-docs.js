@@ -119,8 +119,12 @@ function syncSigDocs(branch) {
       if (fs.statSync(completePath).isDirectory()) {
         scanDir(completePath);
       } else if (item.endsWith('_toc.yaml')) {
-        const obj = yaml.load(fs.readFileSync(completePath, 'utf-8'));
-        scanYaml(obj, targetPath);
+        try {
+          const obj = yaml.load(fs.readFileSync(completePath, 'utf-8'));
+          scanYaml(obj, targetPath);
+        } catch (error) {
+          console.error(`[syncSigDocs]: ${completePath} 解析失败`);
+        }
       }
     }
   };
