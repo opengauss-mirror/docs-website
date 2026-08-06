@@ -7,12 +7,19 @@ import IconQuestion from '~icons/feedback/icon-question.svg';
 import IconFAQ from '~icons/feedback/icon-faq.svg';
 import IconForum from '~icons/feedback/icon-forum.svg';
 
-import FeedbackDocsMobileDialog from './FeedbackDocsMobileDialog.vue';
+import { OFeedbackDocDialog } from '@opendesign-plus/components';
 
 import { useLocale } from '@/composables/useLocale';
+import { useFeedbackDocStore } from '@/stores/feedback';
 
 const { t, locale } = useLocale();
+const feedbackDocStore = useFeedbackDocStore();
+
 const showDocsFeedbackDlg = ref(false);
+const onDocsFeedbackDlgClose = () => {
+  showDocsFeedbackDlg.value = false;
+  feedbackDocStore.reset();
+}
 
 // -------------------- 文档反馈 --------------------
 const issuebackRef = ref();
@@ -64,7 +71,17 @@ const floatData = ref([
     </OPopup>
   </div>
 
-  <FeedbackDocsMobileDialog v-model:visible="showDocsFeedbackDlg" />
+  <OFeedbackDocDialog
+    v-model:visible="showDocsFeedbackDlg"
+    v-model:efficiency="feedbackDocStore.efficiency"
+    v-model:accuracy="feedbackDocStore.accuracy"
+    v-model:completeness="feedbackDocStore.completeness"
+    v-model:usability="feedbackDocStore.usability"
+    v-model:feedback="feedbackDocStore.feedback"
+    :submit-data="feedbackDocStore.submitRate"
+    :submit-issue="feedbackDocStore.submitIssue"
+    @close="onDocsFeedbackDlgClose"
+  />
 </template>
 
 <style lang="scss" scoped>
@@ -91,7 +108,7 @@ const floatData = ref([
       display: flex;
       flex-direction: column;
       padding: 16px;
-      min-width: 124px;
+      min-width: 132px;
       font-size: 14px;
       line-height: 22px;
       background-color: var(--o-color-fill2);

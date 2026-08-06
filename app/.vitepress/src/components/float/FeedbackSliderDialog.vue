@@ -43,7 +43,7 @@ const closeFeedbackMb = () => {
       :scroller="false"
       main-class="feedback-mb-dlg disable-scroller"
     >
-      <FeedbackSlider :show="isShow" @close="showDlg = false" />
+      <FeedbackSlider @close="showDlg = false" />
     </ODialog>
   </div>
 </template>
