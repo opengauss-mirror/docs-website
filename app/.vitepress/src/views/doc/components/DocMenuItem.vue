@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onBeforeUnmount, onMounted, ref, watch, type PropType, type Ref } from 'vue';
+import { computed, inject, onBeforeUnmount, onMounted, ref, watch, type PropType, type Ref } from 'vue';
 import { isArray, OMenuItem, OSubMenu } from '@opensig/opendesign';
 
 import type { TreeNodeT } from '@/@types/type-tree';
@@ -15,7 +15,10 @@ const props = defineProps({
 });
 
 const menuVal = inject<Ref<string>>('menuValue')!;
+const menuExpanded = inject<Ref<string[]>>('menuExpanded')!;
 const getMenuScrollerEl = inject<() => HTMLElement>('getMenuScrollerEl')!;
+
+const isExpanded = computed(() => menuExpanded.value.includes(props.node.id));
 
 const itemRef = ref();
 
@@ -98,7 +101,9 @@ const onClickMenu = () => {
       <a v-if="node.href" :href="node.href" class="doc-item-text" @click.prevent>{{ node.label }}</a>
       <span v-else>{{ node.label }}</span>
     </template>
-    <DocMenuItem v-for="item in node.children" :key="item.id" :node="item" />
+    <template v-if="isExpanded">
+      <DocMenuItem v-for="item in node.children" :key="item.id" :node="item" />
+    </template>
   </OSubMenu>
   <OMenuItem v-else ref="itemRef" :id="node.id" :value="node.id" :title="node.label" v-analytics="onClickMenu">
     <a v-if="node.href" :href="node.href" class="doc-item-text" @click.prevent>{{ node.label }}</a>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, provide, readonly, ref, type PropType } from 'vue';
+import { nextTick, onMounted, provide, readonly, ref, type PropType } from 'vue';
 import { useVModel } from '@vueuse/core';
 import { OMenu, OScroller } from '@opensig/opendesign';
 
@@ -41,12 +41,12 @@ const expanded = useVModel(props, 'expanded', emits);
 const menuScrollerRef = ref();
 
 provide('menuValue', readonly(menuValue));
+provide('menuExpanded', readonly(expanded));
 provide('getMenuScrollerEl', () => menuScrollerRef.value?.getContainerEl());
 
-onMounted(() => { 
-  setTimeout(() => {
-    emits('loaded');
-  });
+onMounted(async () => { 
+  await nextTick();
+  emits('loaded');
 });
 </script>
 
