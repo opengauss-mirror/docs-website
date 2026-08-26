@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { nextTick, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vitepress';
 import { OPlusConfigProvider, OCookieNotice } from '@opendesign-plus/components';
-import { OScroller, OConfigProvider } from '@opensig/opendesign';
-import zhCN from '@opensig/opendesign/es/locale/lang/zh-cn';
-import enUS from '@opensig/opendesign/es/locale/lang/en-us';
+import { OScroller } from '@opensig/opendesign';
 
 import AppHeader from '@/components/header/AppHeader.vue';
 import TheDoc from '@/views/doc/TheDoc.vue';
@@ -11,10 +10,11 @@ import TheDoc from '@/views/doc/TheDoc.vue';
 import { scrollToTop } from '@/utils/common';
 import { useLocale } from '@/composables/useLocale';
 import { useViewStore } from '@/stores/view';
-import { nextTick, ref, watch } from 'vue';
+import { useAppearance } from '@/stores/common';
 
 const { locale } = useLocale();
 const viewStore = useViewStore();
+const commonStore = useAppearance();
 
 const router = useRouter();
 router.onAfterRouteChange = () => {
@@ -36,7 +36,7 @@ watch(
 </script>
 
 <template>
-  <OPlusConfigProvider :locale="locale">
+  <OPlusConfigProvider :locale="locale" :theme="commonStore.theme === 'dark' ? 'dark' : 'light'">
     <ClientOnly>
       <AppHeader class="ly-header" :class="{ 'ly-header-hidden': !viewStore.isPageLoaded }" />
     </ClientOnly>

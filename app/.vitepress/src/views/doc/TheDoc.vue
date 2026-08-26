@@ -14,12 +14,16 @@ import { useScreen } from '@/composables/useScreen';
 import { useViewStore } from '@/stores/view';
 import { useNodeStore } from '@/stores/node';
 
-const { isPhone, lePad } = useScreen();
+const { isPhone, lePad, leLaptop } = useScreen();
 const searchStore = useSearchingStore();
 const viewStore = useViewStore();
 const nodeStore = useNodeStore();
 
 const docSiderWidth = computed(() => {
+  if (viewStore.isNoMenuView) {
+    return leLaptop.value ? '0px' : '126px';
+  }
+
   return lePad.value ? `272px` : `${viewStore.siderWidth}px`;
 });
 
@@ -27,6 +31,9 @@ watch(
   () => nodeStore.currentNode,
   (val) => {
     viewStore.isNoMenuView = !val;
+    if (viewStore.isNoMenuView) {
+      viewStore.isPageLoaded = true;
+    }
   },
   {
     immediate: true,
@@ -35,9 +42,9 @@ watch(
 </script>
 
 <template>
-  <div class="ly-container">
+  <div class="ly-container" :class="{ 'no-menu': viewStore.isNoMenuView }">
     <!-- 文档左侧内容 -->
-    <DocSider />
+    <DocSider v-if="!viewStore.isNoMenuView" />
 
     <!-- 文档右侧内容 -->
     <div class="ly-doc">
@@ -130,6 +137,10 @@ watch(
     --layout-doc-offset-right: var(--layout-doc-menu-gap);
     --layout-doc-width: min(1200px, calc(var(--vw100) - var(--layout-doc-menu-offset-left) * 2));
   }
+}
+
+.ly-container.no-menu {
+  --layout-doc-anchor-offset-right: max(calc(200px + (var(--vw100) - 1920px) / 2), 64px);
 }
 </style>
 
