@@ -24,7 +24,19 @@ COPY ./deploy/nginx.conf /etc/nginx/nginx.conf.template
 RUN mkdir -p /src/
 COPY . /src/website
 
+# merge.js 会把 config.toml 的 resourceURL 改写为 /docs/<version>/，据此推导版本号；
+# 站点以 -b / 相对根构建，页面真实 URL 为 ${DOCS_BASE_URL}/zh|en/docs/<version>/...，
+# 而版本站点在网关上挂载于 ${DOCS_BASE_URL}/docs/<version>/，故 sitemap 索引与语言 sitemap 需分别补前缀
+ARG DOCS_BASE_URL=https://docs.opengauss.org
 RUN cd /src/website && hugo -b / --minify && \
+    docs_version=$(sed -n 's|.*resourceURL = "/docs/\([^/]*\)/".*|\1|p' config.toml) && \
+    if [ -n "$docs_version" ]; then \
+      sed -i "s|<loc>/|<loc>${DOCS_BASE_URL}/docs/${docs_version}/|g" public/sitemap.xml && \
+      sed -i -e "s|<loc>/|<loc>${DOCS_BASE_URL}/|g" \
+             -e "s|href=\"/zh/|href=\"${DOCS_BASE_URL}/zh/|g" \
+             -e "s|href=\"/en/|href=\"${DOCS_BASE_URL}/en/|g" \
+             public/zh/sitemap.xml public/en/sitemap.xml; \
+    fi && \
     mkdir -p /usr/share/nginx/www && \
     cp -rf /src/website/public/* /usr/share/nginx/www/ && \
     rm -rf /src/*
