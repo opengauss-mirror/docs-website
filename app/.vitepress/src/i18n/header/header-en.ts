@@ -353,8 +353,8 @@ export default {
   },
   SOURCE_CODE: [
     {
-      NAME: 'GitCode',
-      PATH: 'https://gitcode.com/opengauss',
+      NAME: 'AtomGit',
+      PATH: 'https://atomgit.com/opengauss',
       ICON: OutLink,
     },
 
