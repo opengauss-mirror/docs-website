@@ -258,7 +258,7 @@ export default {
               NAME: '兼容性技术测评',
               DESCRIPTION: '帮助企业快速申请兼容性测评',
               ICON: OutLink,
-              URL: 'https://gitcode.com/opengauss/compatible-certification',
+              URL: 'https://atomgit.com/opengauss/compatible-certification',
             },
           ],
         },
@@ -310,7 +310,7 @@ export default {
         },
         {
           NAME: '前往迁移互动专区',
-          URL: 'https://gitcode.com/opengauss/openGauss-workbench',
+          URL: 'https://atomgit.com/opengauss/openGauss-workbench',
         },
         {
           NAME: 'MySQL迁移',
@@ -463,8 +463,8 @@ export default {
   },
   SOURCE_CODE: [
     {
-      NAME: 'GitCode',
-      PATH: 'https://gitcode.com/opengauss',
+      NAME: 'AtomGit',
+      PATH: 'https://atomgit.com/opengauss',
       ICON: OutLink,
     },
 

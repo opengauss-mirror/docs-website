@@ -5,7 +5,7 @@ const GAUSS_CERTIFICATE_EMAIL = 'common@certificate.opengauss.org'; // gauss证�
 const DOCS_LINK = 'https://docs.opengauss.org/'; // gauss文档
 const BILIBILI_LINK2 = 'https://www.bilibili.com/'; // bilibili官网
 const ENMOEDU_LINK = 'https://enmoedu.com/'; // 恩墨学院
-const GITCODE_LINK = 'https://gitcode.com/'; // gitcode官网
+const ATOMGIT_LINK = 'https://atomgit.com/'; // atomgit官网
 const OBS_VIDEO_LINK = 'https://opengauss-showroom-video.obs.cn-north-4.myhuaweicloud.com/'; // 峰会录播存储的obs地址
 const OBS_MEETING_LINK = 'https://meetingvideo.obs.ap-southeast-1.myhuaweicloud.com/'; // 开发者大会录播存储的obs地址
 const ETHERPAD_LINK = 'https://etherpad.opengauss.org/'; // gauss的etherpad官网
@@ -80,7 +80,7 @@ export {
   DOCS_LINK,
   BILIBILI_LINK2,
   ENMOEDU_LINK,
-  GITCODE_LINK,
+  ATOMGIT_LINK,
   OBS_VIDEO_LINK,
   OBS_MEETING_LINK,
   ETHERPAD_LINK,

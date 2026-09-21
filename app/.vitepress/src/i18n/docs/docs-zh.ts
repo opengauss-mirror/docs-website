@@ -11,7 +11,7 @@ export default {
   innerInputTip: '在本文档内搜索',
   version: '版本：',
   version1: '版本',
-  viewSource: '在GitCode上查看源文件',
+  viewSource: '在AtomGit上查看源文件',
   confirmTitle: '确定',
   resetTitle: '重置',
   versionFilter: '版本筛选',

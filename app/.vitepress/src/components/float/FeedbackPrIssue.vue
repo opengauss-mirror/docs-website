@@ -7,7 +7,7 @@ import IconOutLink from '~icons/app/icon-outlink.svg';
 import { useLocale } from '@/composables/useLocale';
 import { getSourceUrl } from '@/utils/common';
 import { useNodeStore } from '@/stores/node';
-import { GITCODE_LINK } from '@/config/urls';
+import { ATOMGIT_LINK } from '@/config/urls';
 import { oaReport } from '@opendesign-plus/plugins';
 
 const props = defineProps({
@@ -68,7 +68,7 @@ const submitFeedback = (feedbackType: 'pr' | 'issue') => {
 
   if (feedbackType === 'issue') {
     window.open(
-      `${splits.slice(0, 5).join('/') || `${GITCODE_LINK}opengauss/docs`}/issues/create?labels=docs&title=${nodeStore.pageNode?.label || ''}&description=${nodeStore.pageNode?.label || ''}`,
+      `${splits.slice(0, 5).join('/') || `${ATOMGIT_LINK}opengauss/docs`}/issues/create?labels=docs&title=${nodeStore.pageNode?.label || ''}&description=${nodeStore.pageNode?.label || ''}`,
       '_blank',
       'noopener noreferrer'
     );

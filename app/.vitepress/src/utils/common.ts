@@ -1,5 +1,5 @@
 import type { TreeNodeT } from '@/@types/type-tree';
-import { GITCODE_LINK } from '../config/urls';
+import { ATOMGIT_LINK } from '../config/urls';
 
 import { isClient } from '@opensig/opendesign';
 
@@ -116,5 +116,5 @@ export function getSourceUrl(node: TreeNodeT | null) {
     '7.0.0-RC3': '7.0.0-RC3',
   };
 
-  return `${GITCODE_LINK}openGauss/docs/blob/${map[branch.replace('-lite', '')] || branch}/docs${branch.includes('-lite') ? '-lite' : ''}/${lang}/${others.join('/')}`;
+  return `${ATOMGIT_LINK}openGauss/docs/blob/${map[branch.replace('-lite', '')] || branch}/docs${branch.includes('-lite') ? '-lite' : ''}/${lang}/${others.join('/')}`;
 }

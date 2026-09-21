@@ -252,7 +252,7 @@ describe('common', () => {
       };
 
       const result = getSourceUrl(node);
-      expect(result).toContain('gitcode.com');
+      expect(result).toContain('atomgit.com');
       expect(result).toContain('/zh/');
       expect(result).toContain('.md');
     });
