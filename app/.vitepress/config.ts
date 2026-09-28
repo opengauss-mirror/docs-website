@@ -1,3 +1,4 @@
+import { existsSync, readFileSync } from 'node:fs';
 import type Markdown from 'markdown-it';
 import type Token from 'markdown-it/lib/token.mjs';
 
@@ -7,6 +8,7 @@ import { getDomId } from './src/utils/common';
 import { buildPageJsonLd } from './src/config/jsonld';
 import llmstxt from 'vitepress-plugin-llms';
 import type { UserConfig } from 'vitepress';
+import { extractFirstParagraph } from './src/utils/md-description';
 
 const docsUrl = 'https://docs.opengauss.org';
 const mainDomainUrl = 'https://opengauss.org';
@@ -282,6 +284,25 @@ export default {
     },
   },
   transformPageData(pageData) {
+    // frontmatter 未声明 description 时，截取正文第一段作为页面 description
+    if (!pageData.frontmatter?.description && pageData.relativePath?.endsWith('.md')) {
+      try {
+        const srcPath = resolve(srcDir, pageData.relativePath);
+
+        // 源文件存在才读取，否则保留站点默认 description
+        if (existsSync(srcPath)) {
+          const description = extractFirstParagraph(readFileSync(srcPath, 'utf-8'));
+
+          // 提取到有效段落才覆盖默认描述
+          if (description) {
+            pageData.description = description;
+          }
+        }
+      } catch {
+        // 读取失败时保留站点默认 description
+      }
+    }
+
     const schema = buildPageJsonLd(pageData, { docsUrl, mainDomainUrl, srcDir });
     if (schema) {
       (pageData.frontmatter.head ??= []).push(
