@@ -9,6 +9,14 @@ export const versions = {
       }
     },
     {
+      label: '7.0.0 (LTS)',
+      value: '7.0.0',
+      link: {
+        enterprise: '/zh/docs/7.0.0/release_notes/release_notes.html',
+        lite: '/zh/docs/7.0.0-lite/release_notes/release_notes.html',
+      }
+    },
+    {
       label: '7.0.0-RC3 (RC)',
       value: '7.0.0-RC3',
       link: {
@@ -106,6 +114,14 @@ export const versions = {
       link: {
         enterprise: '/en/docs/latest/release_notes/release_notes.html',
         lite: '/en/docs/latest-lite/release_notes/release_notes.html',
+      }
+    },
+    {
+      label: '7.0.0 (LTS)',
+      value: '7.0.0',
+      link: {
+        enterprise: '/en/docs/7.0.0/release_notes/release_notes.html',
+        lite: '/en/docs/7.0.0-lite/release_notes/release_notes.html',
       }
     },
     {

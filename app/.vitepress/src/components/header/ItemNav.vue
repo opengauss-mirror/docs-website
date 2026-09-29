@@ -974,6 +974,9 @@ watch(
   min-width: 144px;
   height: 40px;
   color: var(--o-color-info1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @include hover {
     background: var(--o-color-control2-light);
