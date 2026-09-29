@@ -25,9 +25,9 @@ export default {
           NAME: 'Get openGauss',
           CHILDREN: [
             {
-              NAME: 'openGauss 6.0.2(LTS)',
+              NAME: 'openGauss 7.0.0(LTS)',
               DESCRIPTION:
-                'An LTS version for openGauss 6.0.0 and later is provided with 3 years of community support, followed by additional maintenance support by oGSPs.',
+                'An LTS version for openGauss 7.0.0 and later is provided with 3 years of community support, followed by additional maintenance support by oGSPs.',
               TAG: null,
               URL: '/download/?version=lts',
             },
@@ -77,6 +77,12 @@ export default {
         {
           NAME: 'Contribute',
           CHILDREN: [
+            {
+              NAME: 'SIG Center',
+              DESCRIPTION: 'Explore openGauss community SIGs.',
+              TAG: TAG_TYPE.NEW,
+              URL: '/sig/sig-list/',
+            },
             {
               NAME: 'CLA',
               DESCRIPTION: 'Sign the CLA to protect your work—multiple options available!',
@@ -205,17 +211,6 @@ export default {
           ],
         },
         {
-          NAME: 'Compatibility',
-          CHILDREN: [
-            {
-              NAME: 'Compatibility List',
-              DESCRIPTION: 'Check software compatibility with openGauss.',
-              URL: '/compatibility/',
-            },
-          ],
-        },
-
-        {
           NAME: 'Security',
           CHILDREN: [
             {
@@ -232,6 +227,16 @@ export default {
               NAME: 'CVEs',
               DESCRIPTION: 'Get immediate updates on all openGauss CVEs.',
               URL: '/cve/',
+            },
+          ],
+        },
+        {
+          NAME: 'Zone',
+          CHILDREN: [
+            {
+              NAME: 'AI Zone',
+              DESCRIPTION: 'Explore openGauss AI ecosystem: Agent, RAG, and more.',
+              URL: '/ai/agent/',
             },
           ],
         },
@@ -258,6 +263,12 @@ export default {
               NAME: 'Success Stories',
               DESCRIPTION: 'Discover how openGauss is transforming business across sectors.',
               URL: '/user-practice/',
+            },
+            {
+              NAME: 'Policies & Rules',
+              DESCRIPTION: 'Learn about the code of conduct and AI contribution policies of the openGauss community.',
+              TAG: TAG_TYPE.NEW,
+              URL: '/conduct/',
             },
           ],
         },
