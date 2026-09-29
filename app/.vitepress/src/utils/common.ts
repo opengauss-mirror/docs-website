@@ -113,6 +113,7 @@ export function getSourceUrl(node: TreeNodeT | null) {
   const map: Record<string, string> = {
     common: 'common',
     latest: 'master',
+    '7.0.0': '7.0.0',
     '7.0.0-RC3': '7.0.0-RC3',
   };
 
