@@ -25,17 +25,17 @@ export default {
           NAME: 'Get openGauss',
           CHILDREN: [
             {
-              NAME: 'openGauss 7.0.0(LTS)',
-              DESCRIPTION:
-                'An LTS version for openGauss 7.0.0 and later is provided with 3 years of community support, followed by additional maintenance support by oGSPs.',
+              NAME: 'openGauss 6.0.6 (LTS)',
+              DESCRIPTION: 'openGauss 6.0.6 LTS (the latest patch version in the openGauss 6 series) is backed by 3 years of community support and extended maintenance from OGSPs thereafter.',
               TAG: null,
-              URL: '/download/?version=lts',
+              URL: '/download/archive/?version=6.0.6%20(LTS)',
             },
             {
-              NAME: 'openGauss 7.0.0-RC2',
-              DESCRIPTION: 'RCx: a collaborative testing version released every 6 months, with 6 months of community support.',
+              NAME: 'openGauss 7.0.0 (LTS)',
+              DESCRIPTION:
+                'openGauss 7.0.0 LTS and subsequent LTS versions will follow a 2-year release cycle, offering 3 years of community support with extended maintenance by OGSPs thereafter.',
               TAG: TAG_TYPE.NEW,
-              URL: '/download/?version=rc',
+              URL: '/download/?version=lts',
             },
           ],
         },
