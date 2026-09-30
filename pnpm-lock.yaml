@@ -8,6 +8,7 @@ overrides:
   axios: 1.18.0
   js-cookie: 3.0.7
   ua-parser-js: 1.0.34
+  markdown-it: 14.3.1
 
 importers:
 
@@ -1194,7 +1195,7 @@ packages:
       axios: 1.18.0
       gray-matter: ^4.0.3
       js-yaml: 4.3.2
-      markdown-it: ^14.3.2
+      markdown-it: 14.3.1
       markdown-it-anchor: ^9.2.0
 
   '@opensig/open-analytics@0.0.9':
@@ -2729,9 +2730,6 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
-  linkify-it@5.0.1:
-    resolution: {integrity: sha512-wVoTjP4Q6R0NW5hiZkVJaFZPWgtXfoGF+6LucL3/FtiNjmcHhYjEr5f1Kqjirc1nBW07J/ZuRFumqr2oqccEWg==}
-
   linkify-it@5.0.2:
     resolution: {integrity: sha512-ONTm2jCMAVZjgQa/Fy1kScXsuOoF5NPTsoFBdE1KVIZ2vAh/r9+Bqo+0jINCBYnavTPQZz38QzFTme79ENoN3Q==}
 
@@ -2799,17 +2797,13 @@ packages:
     resolution: {integrity: sha512-sa2ErMQ6kKOA4l31gLGYliFQrMKkqSO0ZJgGhDHKijPf0pNFM9vghjAh3gn26pS4JDRs7Iwa9S36gxm3vgZTzg==}
     peerDependencies:
       '@types/markdown-it': '*'
-      markdown-it: '*'
+      markdown-it: 14.3.1
 
   markdown-it-async@2.2.0:
     resolution: {integrity: sha512-sITME+kf799vMeO/ww/CjH6q+c05f6TLpn6VOmmWCGNqPJzSh+uFgZoMB9s0plNtW6afy63qglNAC3MhrhP/gg==}
 
   markdown-it-mathjax3@4.3.2:
     resolution: {integrity: sha512-TX3GW5NjmupgFtMJGRauioMbbkGsOXAAt1DZ/rzzYmTHqzkO1rNAdiMD4NiruurToPApn2kYy76x02QN26qr2w==}
-
-  markdown-it@14.2.0:
-    resolution: {integrity: sha512-1TGiQiJVRQ3NPmZH6sx5Cfnmg6GQm9jvC1ch4TK511NjSJvjzKLzn5pPfZRNZkRPZP0HqCioSndqH8v2nRaWVQ==}
-    hasBin: true
 
   markdown-it@14.3.1:
     resolution: {integrity: sha512-4Ej49aYTDFIQ+uBkfX8GBvJGccoARxxPep+7aWTs55ozbjQJpW9M26Fe53vnGgvLeVzva/amzjQQaQu9w0vMhA==}
@@ -4686,7 +4680,7 @@ snapshots:
     dependencies:
       '@mdit-vue/types': 2.1.0
       '@types/markdown-it': 14.1.2
-      markdown-it: 14.2.0
+      markdown-it: 14.3.1
 
   '@mdit-vue/types@2.1.0': {}
 
@@ -6447,10 +6441,6 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  linkify-it@5.0.1:
-    dependencies:
-      uc.micro: 2.1.0
-
   linkify-it@5.0.2:
     dependencies:
       uc.micro: 2.1.0
@@ -6532,15 +6522,6 @@ snapshots:
       mathjax-full: 3.2.2
     transitivePeerDependencies:
       - encoding
-
-  markdown-it@14.2.0:
-    dependencies:
-      argparse: 2.0.1
-      entities: 4.5.0
-      linkify-it: 5.0.1
-      mdurl: 2.0.0
-      punycode.js: 2.3.1
-      uc.micro: 2.1.0
 
   markdown-it@14.3.1:
     dependencies:
@@ -7441,7 +7422,7 @@ snapshots:
   vitepress-plugin-llms@1.13.1(supports-color@7.2.0):
     dependencies:
       gray-matter: 4.0.3
-      markdown-it: 14.2.0
+      markdown-it: 14.3.1
       markdown-title: 1.0.2
       mdast-util-from-markdown: 2.0.3(supports-color@7.2.0)
       millify: 6.1.0
