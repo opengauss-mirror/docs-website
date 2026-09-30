@@ -25,8 +25,8 @@ export default {
           NAME: '获取openGauss',
           CHILDREN: [
             {
-              NAME: 'openGauss 6.0.2(LTS)',
-              DESCRIPTION: 'openGauss 6.0.2 LTS及后续LTS版本发布间隔周期为2年，社区提供3年支持，社区OGSP伙伴提供3年以后维护支持服务。',
+              NAME: 'openGauss 7.0.0(LTS)',
+              DESCRIPTION: 'openGauss 7.0.0 LTS及后续LTS版本发布间隔周期为2年，社区提供3年支持，社区OGSP伙伴提供3年以后维护支持服务。',
               TAG: null,
               URL: '/download/?version=lts',
             },
@@ -76,6 +76,12 @@ export default {
         {
           NAME: '贡献',
           CHILDREN: [
+            {
+              NAME: 'SIG中心',
+              DESCRIPTION: '了解openGauss社区贡献者的角色及其职责。',
+              TAG: TAG_TYPE.NEW,
+              URL: `/sig/sig-list/`,
+            },
             {
               NAME: 'CLA签署',
               DESCRIPTION: '参与贡献前，需签署贡献者许可协议（CLA）',
@@ -202,8 +208,13 @@ export default {
             {
               NAME: '培训认证',
               DESCRIPTION: '欢迎学习HCIA-openGauss华为认证openGauss工程师在线课程',
-              TAG: TAG_TYPE.NEW,
               URL: '/training/',
+            },
+            {
+              NAME: '开源实习',
+              DESCRIPTION: '帮助在校学生在项目实践中提升能力，成为优秀的开源人才',
+              TAG: TAG_TYPE.NEW,
+              URL: '/internship/',
             },
           ],
         },
@@ -296,10 +307,16 @@ export default {
           NAME: 'RAG',
           CHILDREN: [
             {
-              NAME: 'RAG专区',
-              DESCRIPTION: '了解openGauss在RAG场景的击数生态和适配情况',
-              URL: '/ai/',
-            }
+              NAME: 'AI专区',
+              DESCRIPTION: '了解 openGauss 在 Agent、RAG 等 AI 场景的技术生态和适配情况',
+              URL: '/ai/agent/',
+            },
+            {
+              NAME: 'oGMemory 专区',
+              DESCRIPTION: '面向AI Agent的长期记忆系统，以AGFS文件为数据源头，openGauss向量索引为加速层，让Agent拥有跨会话的持久记忆能力。',
+              TAG: TAG_TYPE.NEW,
+              URL: '/ogmemory/',
+            },
           ],
         },
       ],
@@ -349,6 +366,11 @@ export default {
               NAME: '金融专区',
               DESCRIPTION: '基于openGauss的金融解决方案',
               URL: '/finance/',
+            },
+            {
+              NAME: '政策规则',
+              DESCRIPTION: '了解openGauss社区的行为准则、AI贡献策略等相关内容',
+              URL: '/conduct/',
             },
           ],
         },
