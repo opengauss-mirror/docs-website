@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import { useRouter } from 'vitepress';
+import { useRoute, useRouter } from 'vitepress';
 import { ORadioGroup, ORadio, OIcon, useMessage } from '@opensig/opendesign';
 
 import SearchInput from '@/components/SearchInput.vue';
@@ -25,6 +25,7 @@ const { lePad, isPhone } = useScreen();
 const message = useMessage(null);
 const nodeStore = useNodeStore();
 const router = useRouter();
+const route = useRoute();
 const searchStore = useSearchingStore();
 const viewStore = useViewStore();
 const versionStore = useVersionStore();
@@ -36,6 +37,16 @@ const switchMenu = () => {
 
 // -------------------- 文档类型 --------------------
 const docType = ref(versionStore.isLite ? 'lite' : '');
+
+const showDocType = computed(() => {
+  let url = route.path.replace(versionStore.version, versionStore.isLite ? versionStore.version.replace('-lite', '') : `${versionStore.version}-lite`);
+  if (url.endsWith('/')) {
+    url = `${url}/index.html`
+  }
+  
+  const node = findNode(nodeStore.root, 'id', url);
+  return node && versionStore.version !== 'common';
+});
 
 watch(
   () => versionStore.isLite,
@@ -146,8 +157,8 @@ watch(
       </div>
     </div>
     <div class="doc-sidebar-mb" :class="{ 'is-closed': isSidebarHidden }">
-      <div class="doc-sidebar-header" v-if="versionStore.version !== 'common'">
-        <ORadioGroup v-model="docType" :disabled="viewStore.isNoMenuView" @change="onChangeDocType">
+      <div v-if="versionStore.version !== 'common'" class="doc-sidebar-header" :class="{ 'no-doc-type': !showDocType }">
+        <ORadioGroup v-if="showDocType" v-model="docType" :disabled="viewStore.isNoMenuView" @change="onChangeDocType">
           <ORadio value="">{{ t('docs.enterprise') }}</ORadio>
           <ORadio value="lite">{{ t('docs.lite') }}</ORadio>
         </ORadioGroup>
@@ -160,9 +171,9 @@ watch(
   </template>
 
   <div v-else class="doc-sidebar" :class="{ 'is-closed': lePad && isSidebarHidden }">
-    <div class="doc-sidebar-header" v-if="versionStore.version !== 'common'">
+    <div v-if="versionStore.version !== 'common'" class="doc-sidebar-header" :class="{ 'no-doc-type': !showDocType }">
       <DocVersion :version="versionStore.prefixVersion" />
-      <ORadioGroup v-model="docType" :disabled="viewStore.isNoMenuView" @change="onChangeDocType">
+      <ORadioGroup v-if="showDocType" v-model="docType" :disabled="viewStore.isNoMenuView" @change="onChangeDocType">
         <ORadio value="">{{ t('docs.enterprise') }}</ORadio>
         <ORadio value="lite">{{ t('docs.lite') }}</ORadio>
       </ORadioGroup>
@@ -229,6 +240,18 @@ watch(
 
   @include respond('<=laptop') {
     margin-bottom: 16px;
+  }
+}
+
+.doc-sidebar-header.no-doc-type {
+  margin-bottom: 12px;
+
+  @include respond('<=laptop') {
+    margin-bottom: 6px;
+  }
+
+  @include respond('phone') {
+    margin-bottom: 0;
   }
 }
 
