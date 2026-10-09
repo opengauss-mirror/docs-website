@@ -4,7 +4,13 @@ import { execFileSync } from 'child_process';
 
 import { ensureDirSync, removeSync } from './file.js';
 
+const GIT_LOG_MAX_BUFFER = 1024 * 1024 * 512;
 const GIT_REFNAME_FORBIDDEN = /[\s~^:?*\[\\]|\.\.|@{|\/\.\/|\/$|^\-|^\.|^\.\.$/;
+const gitLastmodCache = new Map();
+
+function normalizeGitPath(targetPath) {
+  return String(targetPath || '').replace(/\\/g, '/');
+}
 
 function assertValidGitUrl(url) {
   if (typeof url !== 'string' || url.length === 0) {
@@ -51,7 +57,7 @@ export function getGitUrlInfo(gitUrl) {
     repo,
     branch,
     locations,
-  }
+  };
 }
 
 /**
@@ -119,7 +125,7 @@ export function checkoutBranch(repoPath, branch) {
   gitInherit(['checkout', branch], { cwd: repoPath });
 
   console.log(`[checkoutBranch]：成功在 ${repoPath} 检出 ${branch} 分支`);
-};
+}
 
 /**
  * 拉取远程分支的内容
@@ -132,4 +138,65 @@ export function pullRemoteBranch(repoPath, branch) {
   gitInherit(['pull', 'origin', branch], { cwd: repoPath });
 
   console.log(`[pullRemoteBranch]：成功拉取远程 ${branch} 分支`);
-};
+}
+
+function getRepoHead(repoDir) {
+  try {
+    return git(['rev-parse', 'HEAD'], { cwd: repoDir }).trim();
+  } catch {
+    return '';
+  }
+}
+
+export function getFileLastCommitIso(repoDir, repoFile) {
+  const normalizedFile = normalizeGitPath(repoFile) || '.';
+  try {
+    const output = git(['-c', 'core.quotePath=false', 'log', '-1', '--format=%ct', '--', normalizedFile], {
+      cwd: repoDir,
+      encoding: 'utf-8',
+    }).trim();
+    const timestamp = Number.parseInt(output, 10);
+    return Number.isFinite(timestamp) ? new Date(timestamp * 1000).toISOString() : '';
+  } catch (err) {
+    console.warn(`[git] 获取文件最后提交时间失败：${normalizedFile} - ${err.message}`);
+    return '';
+  }
+}
+
+export function getDirectoryLastCommitMap(repoDir, repoPath) {
+  const normalizedRepoPath = normalizeGitPath(repoPath) || '.';
+  const head = getRepoHead(repoDir);
+  const cacheKey = `${normalizeGitPath(repoDir)}@${head || 'unknown'}@${normalizedRepoPath}`;
+  const cached = gitLastmodCache.get(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
+  const commitTimes = new Map();
+  try {
+    const output = git(['-c', 'core.quotePath=false', 'log', '--format=%x01%ct', '--name-only', '--', normalizedRepoPath], {
+      cwd: repoDir,
+      encoding: 'utf-8',
+      maxBuffer: GIT_LOG_MAX_BUFFER,
+    });
+
+    let currentTimestamp = null;
+    for (const line of output.split(/\r?\n/)) {
+      if (line.charCodeAt(0) === 1) {
+        currentTimestamp = Number.parseInt(line.slice(1), 10);
+        continue;
+      }
+      if (!line || !Number.isFinite(currentTimestamp)) {
+        continue;
+      }
+      if (!commitTimes.has(line)) {
+        commitTimes.set(line, new Date(currentTimestamp * 1000).toISOString());
+      }
+    }
+  } catch (err) {
+    console.warn(`[git] 批量获取目录提交时间失败：${normalizedRepoPath} - ${err.message}`);
+  }
+
+  gitLastmodCache.set(cacheKey, commitTimes);
+  return commitTimes;
+}

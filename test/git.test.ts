@@ -18,6 +18,8 @@ import {
   gitCloneAndCheckout,
   checkoutBranch,
   pullRemoteBranch,
+  getFileLastCommitIso,
+  getDirectoryLastCommitMap,
 } from '../scripts/utils/git.js';
 import { ensureDirSync, removeSync } from '../scripts/utils/file.js';
 
@@ -249,5 +251,78 @@ describe('pullRemoteBranch', () => {
   it('正常调用 pull origin <branch>', () => {
     pullRemoteBranch('/fake/repo', 'master');
     expect(exec).toHaveBeenCalledWith('git', ['pull', 'origin', 'master'], expect.objectContaining({ cwd: '/fake/repo', stdio: 'inherit' }));
+  });
+});
+
+describe('getFileLastCommitIso', () => {
+  it('返回单文件最后提交时间的 ISO 字符串', () => {
+    exec.mockImplementation((_cmd: any, args: any[]) => {
+      if (args.includes('log')) return '1760000000\n';
+      return '';
+    });
+
+    expect(getFileLastCommitIso('/tmp/gauss-get-lastmod', 'docs/zh/a.md')).toBe(new Date(1760000000 * 1000).toISOString());
+  });
+
+  it('查询失败时返回空字符串', () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    exec.mockImplementation(() => {
+      throw new Error('not a git repo');
+    });
+
+    expect(getFileLastCommitIso('/tmp/gauss-get-lastmod-fail', 'docs/zh/a.md')).toBe('');
+    expect(warn).toHaveBeenCalled();
+  });
+});
+
+describe('getDirectoryLastCommitMap', () => {
+  it('解析 name-only log，并为每个文件保留最近一次提交时间', () => {
+    const repoDir = '/tmp/gauss-lastmod-map-repo';
+    exec.mockImplementation((_cmd: any, args: any[]) => {
+      if (args[0] === 'rev-parse') return 'abc123\n';
+      if (args.includes('log')) {
+        return [`\u00011760000000`, 'docs/zh/a.md', '', `\u00011750000000`, 'docs/zh/b.md', 'docs/zh/a.md', ''].join('\n');
+      }
+      return '';
+    });
+
+    const map = getDirectoryLastCommitMap(repoDir, 'docs/zh');
+
+    expect(map.get('docs/zh/a.md')).toBe(new Date(1760000000 * 1000).toISOString());
+    expect(map.get('docs/zh/b.md')).toBe(new Date(1750000000 * 1000).toISOString());
+    expect(exec).toHaveBeenCalledWith('git', expect.arrayContaining(['log', '--name-only', 'docs/zh']), expect.any(Object));
+  });
+
+  it('同仓库同 HEAD 同目录时复用缓存', () => {
+    const repoDir = '/tmp/gauss-lastmod-map-cache';
+    let logCallCount = 0;
+    exec.mockImplementation((_cmd: any, args: any[]) => {
+      if (args[0] === 'rev-parse') return 'abc123\n';
+      if (args.includes('log')) {
+        logCallCount += 1;
+        return `\u00011760000000\ndocs/en/a.md\n`;
+      }
+      return '';
+    });
+
+    getDirectoryLastCommitMap(repoDir, 'docs/en');
+    getDirectoryLastCommitMap(repoDir, 'docs/en');
+
+    expect(logCallCount).toBe(1);
+  });
+
+  it('批量查询失败时返回空 map', () => {
+    const repoDir = '/tmp/gauss-lastmod-map-fail';
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    exec.mockImplementation((_cmd: any, args: any[]) => {
+      if (args[0] === 'rev-parse') return 'abc123\n';
+      if (args.includes('log')) throw new Error('log failed');
+      return '';
+    });
+
+    const map = getDirectoryLastCommitMap(repoDir, 'docs/zh');
+
+    expect(map.size).toBe(0);
+    expect(warn).toHaveBeenCalled();
   });
 });
