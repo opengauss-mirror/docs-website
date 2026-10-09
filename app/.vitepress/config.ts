@@ -6,6 +6,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getDomId } from './src/utils/common';
 import { buildPageJsonLd } from './src/config/jsonld';
+import { applySitemapLastmod } from './src/utils/sitemap-lastmod';
 import llmstxt from 'vitepress-plugin-llms';
 import type { UserConfig } from 'vitepress';
 import { extractFirstParagraph } from './src/utils/md-description';
@@ -17,6 +18,7 @@ const srcDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export default {
   sitemap: {
     hostname: 'https://docs.opengauss.org',
+    transformItems: (items) => applySitemapLastmod(items),
   },
   base: '/',
   assetsDir: '/assets',
@@ -156,7 +158,7 @@ export default {
                 return match;
               });
             }
-            
+
             // 处理 Markdown 标准图片语法的 src
             if (token.type === 'image') {
               const src = token.attrs?.[token.attrIndex('src')]?.[1];
@@ -305,14 +307,12 @@ export default {
 
     const schema = buildPageJsonLd(pageData, { docsUrl, mainDomainUrl, srcDir });
     if (schema) {
-      (pageData.frontmatter.head ??= []).push(
-        ['script', { type: 'application/ld+json' }, JSON.stringify(schema)]
-      );
+      (pageData.frontmatter.head ??= []).push(['script', { type: 'application/ld+json' }, JSON.stringify(schema)]);
     }
   },
   vite: {
     ssr: {
-      noExternal: ['@opendesign-plus/components', 'element-plus']
+      noExternal: ['@opendesign-plus/components', 'element-plus'],
     },
     plugins: [llmstxt()],
   },

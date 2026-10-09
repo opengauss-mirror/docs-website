@@ -4,11 +4,12 @@ import path from 'path';
 import { VITEPRESS_VERSIONS_CONFIG } from './config/version.js';
 import { getGitUrlInfo, isGitRepo, checkoutBranch } from './utils/git.js';
 import { copyDirectorySync } from './utils/file.js';
+import { createLastmodCollector } from './utils/lastmod.js';
 
 const REPO_PATH = path.join(process.cwd(), '../../');
 const relativeRepo = new Set();
 
-const copyRepoFromDiskCache = async (upstream, dir, storagePath) => {
+const copyRepoFromDiskCache = async (upstream, dir, storagePath, collector) => {
   try {
     const { repo, branch, locations } = getGitUrlInfo(upstream);
     const cachePath = path.join(REPO_PATH, repo);
@@ -21,6 +22,7 @@ const copyRepoFromDiskCache = async (upstream, dir, storagePath) => {
     const sourceDir = path.join(cachePath, ...locations.slice(0, -1));
     const destDir = storagePath ? path.join(dir, storagePath) : path.join(dir, repo, ...locations.slice(2, -1));
     copyDirectorySync(sourceDir, destDir);
+    collector?.recordDirectory({ repoDir: cachePath, sourceDir, targetDir: destDir });
     console.log('复制完成');
   } catch (err) {
     console.error(`copyRepoFromDiskCache error: ${err?.message}, upstream: ${upstream}`);
@@ -28,7 +30,7 @@ const copyRepoFromDiskCache = async (upstream, dir, storagePath) => {
   }
 };
 
-const scanYaml = async (yamlPath, dir) => {
+const scanYaml = async (yamlPath, dir, collector) => {
   const lines = fs.readFileSync(yamlPath, 'utf-8').split('\n');
   let i = 0;
   while (i < lines.length) {
@@ -40,20 +42,20 @@ const scanYaml = async (yamlPath, dir) => {
         storagePath = lines[i + 1].replace('path:', '').trim();
       }
 
-      await copyRepoFromDiskCache(upstream, dir, storagePath);
+      await copyRepoFromDiskCache(upstream, dir, storagePath, collector);
     }
     i++;
   }
 };
 
-const mergeUpstream = async (targetPath) => {
+const mergeUpstream = async (targetPath, collector) => {
   if (fs.existsSync(targetPath)) {
     for (const item of fs.readdirSync(targetPath)) {
       const completePath = path.join(targetPath, item);
       if (fs.statSync(completePath).isDirectory()) {
-        await mergeUpstream(completePath);
+        await mergeUpstream(completePath, collector);
       } else if (item.endsWith('.yaml')) {
-        await scanYaml(completePath, targetPath);
+        await scanYaml(completePath, targetPath, collector);
       }
     }
   }
@@ -81,10 +83,12 @@ const copyRedirectYaml = async (buildPath) => {
 
 const merge = async (branch) => {
   const buildPath = path.join(process.cwd(), `../../../build/${branch}`);
+  const lastmodCollector = createLastmodCollector(buildPath);
 
-  await mergeUpstream(`${buildPath}/app/zh/`);
-  await mergeUpstream(`${buildPath}/app/en/`);
-  copyRedirectYaml(buildPath);
+  await mergeUpstream(`${buildPath}/app/zh/`, lastmodCollector);
+  await mergeUpstream(`${buildPath}/app/en/`, lastmodCollector);
+  await copyRedirectYaml(buildPath);
+  lastmodCollector.save();
 };
 
 const args = process.argv.slice(2);
@@ -93,7 +97,7 @@ if (args.length === 0) {
   process.exit(1);
 } else {
   if (Object.keys(VITEPRESS_VERSIONS_CONFIG).includes(args[0])) {
-    merge(args[0]);
+    await merge(args[0]);
   } else {
     console.error('非新版本内容，跳过处理~');
   }
