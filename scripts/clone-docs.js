@@ -5,7 +5,8 @@ import yaml from 'js-yaml';
 import { VITEPRESS_VERSIONS_CONFIG } from './config/version.js';
 import { parseNamedArgs } from './utils/common.js';
 import { gitCloneAndCheckout, getGitUrlInfo } from './utils/git.js';
-import { copyDirectorySync } from './utils/file.js';
+import { copyDirectorySync, copyFileSync } from './utils/file.js';
+import { createLastmodCollector } from './utils/lastmod.js';
 
 // ============================================ 脚本执行逻辑 ============================================
 const ARGS = parseNamedArgs(); // 具名参数
@@ -20,10 +21,17 @@ if (!branches.length) {
   process.exit(1);
 }
 
+const lastmodCollector = createLastmodCollector(BUILD_PATH);
 syncDsl();
 for (const branch of branches) {
-  syncDocs(branch);
-  syncSigDocs(branch);
+  const version = VITEPRESS_VERSIONS_CONFIG[branch];
+  lastmodCollector.clearVersion(version);
+  if (version !== 'common') {
+    lastmodCollector.clearVersion(`${version}-lite`);
+  }
+  syncDocs(branch, lastmodCollector);
+  syncSigDocs(branch, lastmodCollector);
+  lastmodCollector.save();
 }
 
 // ============================================ 同步文档函数 =============================================
@@ -39,14 +47,30 @@ function syncDsl() {
  * 同步文档内容到对应的目录
  * @param {string} branch - 分支
  */
-function syncDocs(branch) {
+function syncDocs(branch, collector) {
   const version = VITEPRESS_VERSIONS_CONFIG[branch];
   gitCloneAndCheckout(REPO, branch, CACHE_PATH);
-  copyDirectorySync(path.join(CACHE_PATH, `docs/docs/zh/`), path.join(BUILD_PATH, `app/zh/docs/${version}/`), true);
-  copyDirectorySync(path.join(CACHE_PATH, `docs/docs/en/`), path.join(BUILD_PATH, `app/en/docs/${version}/`), true);
+  const zhSourcePath = path.join(CACHE_PATH, `docs/docs/zh/`);
+  const zhTargetPath = path.join(BUILD_PATH, `app/zh/docs/${version}/`);
+  const enSourcePath = path.join(CACHE_PATH, `docs/docs/en/`);
+  const enTargetPath = path.join(BUILD_PATH, `app/en/docs/${version}/`);
+  const repoDir = path.join(CACHE_PATH, `docs`);
+
+  copyDirectorySync(zhSourcePath, zhTargetPath, true);
+  copyDirectorySync(enSourcePath, enTargetPath, true);
+  collector?.recordDirectory({ repoDir, sourceDir: zhSourcePath, targetDir: zhTargetPath });
+  collector?.recordDirectory({ repoDir, sourceDir: enSourcePath, targetDir: enTargetPath });
+
   if (version !== 'common') {
-    copyDirectorySync(path.join(CACHE_PATH, `docs/docs-lite/zh/`), path.join(BUILD_PATH, `app/zh/docs/${version}-lite/`), true);
-    copyDirectorySync(path.join(CACHE_PATH, `docs/docs-lite/en/`), path.join(BUILD_PATH, `app/en/docs/${version}-lite/`), true);
+    const zhLiteSourcePath = path.join(CACHE_PATH, `docs/docs-lite/zh/`);
+    const zhLiteTargetPath = path.join(BUILD_PATH, `app/zh/docs/${version}-lite/`);
+    const enLiteSourcePath = path.join(CACHE_PATH, `docs/docs-lite/en/`);
+    const enLiteTargetPath = path.join(BUILD_PATH, `app/en/docs/${version}-lite/`);
+
+    copyDirectorySync(zhLiteSourcePath, zhLiteTargetPath, true);
+    copyDirectorySync(enLiteSourcePath, enLiteTargetPath, true);
+    collector?.recordDirectory({ repoDir, sourceDir: zhLiteSourcePath, targetDir: zhLiteTargetPath });
+    collector?.recordDirectory({ repoDir, sourceDir: enLiteSourcePath, targetDir: enLiteTargetPath });
   }
 }
 
@@ -54,7 +78,7 @@ function syncDocs(branch) {
  * 同步 sig 文档内容到对应的目录
  * @param {string} branch 分支名
  */
-function syncSigDocs(branch) {
+function syncSigDocs(branch, collector) {
   const handledPath = {};
 
   const scanYaml = (obj, currentDir) => {
@@ -63,8 +87,10 @@ function syncSigDocs(branch) {
       console.log(`[syncSigDocs]: 检测到远程地址 - ${obj.href.upstream}`);
       const sourcePath = path.join(CACHE_PATH, repo, ...locations.slice(0, -1));
       const destPath = typeof obj.href.path === 'string' ? path.join(currentDir, obj.href.path) : path.join(currentDir, repo, ...locations.slice(2, -1));
+      const repoDir = path.join(CACHE_PATH, repo);
       gitCloneAndCheckout(url, branch, CACHE_PATH);
       copyDirectorySync(sourcePath, destPath);
+      collector?.recordDirectory({ repoDir, sourceDir: sourcePath, targetDir: destPath });
 
       if (!handledPath[sourcePath]) {
         handledPath[sourcePath] = true;
@@ -79,10 +105,13 @@ function syncSigDocs(branch) {
       console.log(`[syncSigDocs]: 检测到远程 md 地址 - ${obj.href}`);
       gitCloneAndCheckout(url, branch, CACHE_PATH);
 
+      const repoDir = path.join(CACHE_PATH, repo);
+
       // 复制 md
       const sourceMd = path.join(CACHE_PATH, repo, ...locations);
       const destMd = path.join(currentDir, locations[locations.length - 1]);
       copyFileSync(sourceMd, destMd);
+      collector?.recordFile({ repoDir, sourceFile: sourceMd, targetFile: destMd });
 
       // 复制 md 可能关联的资源目录
       const sourceDir = path.join(CACHE_PATH, repo, ...locations.slice(0, -1));
@@ -106,7 +135,7 @@ function syncSigDocs(branch) {
         scanYaml(item, currentDir);
       });
     }
-  }
+  };
 
   const scanDir = (targetPath) => {
     if (!fs.existsSync(targetPath)) {
@@ -132,7 +161,7 @@ function syncSigDocs(branch) {
   const version = VITEPRESS_VERSIONS_CONFIG[branch];
   scanDir(`${BUILD_PATH}/app/zh/docs/${version}`);
   scanDir(`${BUILD_PATH}/app/en/docs/${version}`);
-  if (version !== 'common') { 
+  if (version !== 'common') {
     scanDir(`${BUILD_PATH}/app/zh/docs/${version}-lite`);
     scanDir(`${BUILD_PATH}/app/en/docs/${version}-lite`);
   }

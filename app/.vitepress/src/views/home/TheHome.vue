@@ -20,7 +20,6 @@ import { useLocale } from '@/composables/useLocale';
 import type { SearchRecommendT } from '@/@types/type-search';
 import type { HomeBannerItemT } from '@/@types/type-home';
 import HomeSectionCard from './components/HomeSectionCard.vue';
-import HomeFooter from './components/HomeFooter.vue';
 
 const appearanceStore = useAppearance();
 const { lePad, lePadV, isPhone, leLaptop } = useScreen();
@@ -195,7 +194,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
   <div class="home" :class="[{ dark: appearanceStore.theme === 'dark' }]">
     <ContentWrapper :vertical-padding="[lePadV ? '24px' : '32px', lePadV ? '24px' : '72px']">
       <!-- banner -->
-      <p class="banner-title">{{ t('home.docCenter') }}</p>
+      <h1 class="banner-title">{{ t('home.docCenter') }}</h1>
       <div class="banner-search">
         <OInput
           ref="inputRef"
@@ -263,7 +262,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
 
       <div class="installation-usage-om">
         <div class="installation-section">
-          <div class="main-title">{{ config.installation.title }}</div>
+          <h2 class="main-title">{{ config.installation.title }}</h2>
           <HomeSectionCard
             class="installation-section-card"
             :title="config.installation.item_title"
@@ -285,7 +284,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
         </div>
 
         <div class="uao-section">
-          <div class="main-title">{{ config.usage_and_om.title }}</div>
+          <h2 class="main-title">{{ config.usage_and_om.title }}</h2>
           <div
             class="uao-section-list"
             :style="{ 'grid-template-columns': `repeat(${lePadV ? config.usage_and_om.columns_mb : config.usage_and_om.columns}, 1fr)` }"
@@ -307,7 +306,7 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
 
       <!-- 其它板块 -->
       <template v-for="item in config.sections" :key="item.title">
-        <p class="main-title">{{ item.title }}</p>
+        <h2 class="main-title">{{ item.title }}</h2>
         <div class="business-list" :style="{ 'grid-template-columns': `repeat(${lePadV ? item.columns_mb : item.columns}, 1fr)` }">
           <HomeSectionCard
             v-for="subItem in item.items"
@@ -324,7 +323,6 @@ const getBannerCardBg = (item: HomeBannerItemT) => {
     <ClientOnly>
       <HomeFloat />
     </ClientOnly>
-    <HomeFooter />
   </div>
 </template>
 

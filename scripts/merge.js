@@ -4,6 +4,7 @@ import * as path from 'path';
 import { VITEPRESS_VERSIONS_CONFIG, HUGO_VERSIONS_CONFIG } from './config/version.js';
 import { checkoutBranch, isGitRepo, pullRemoteBranch } from './utils/git.js';
 import { copyDirectorySync, removeSync, renameSync, ensureDirSync } from './utils/file.js';
+import { createLastmodCollector } from './utils/lastmod.js';
 
 // ============================================ 脚本执行逻辑 ============================================
 const REPO_PATH = path.join(process.cwd(), '../../'); // repo 路径
@@ -39,14 +40,19 @@ const DOCS_HUGO_PATH = path.join(REPO_PATH, 'docs'); // docs 仓库路径 （hug
  */
 function normalizeVitepressDocsContent(buildPath, branch, source) {
   // 判断文档仓库是否存在
-  if (!isGitRepo(DOCS_VITEPRESS_PATH )) {
-    throw new Error(`docs 文档仓库不存在： ${DOCS_VITEPRESS_PATH }`);
+  if (!isGitRepo(DOCS_VITEPRESS_PATH)) {
+    throw new Error(`docs 文档仓库不存在： ${DOCS_VITEPRESS_PATH}`);
   }
 
   const branchName = VITEPRESS_VERSIONS_CONFIG[branch];
 
   // 复制website-vitepress内容到build目录
   copyDirectorySync(path.join(REPO_PATH, 'website-vitepress'), buildPath, true);
+
+  removeSync(path.join(buildPath, '.cache'));
+  const lastmodCollector = createLastmodCollector(buildPath);
+  lastmodCollector.clearVersion(branchName);
+  lastmodCollector.clearVersion(`${branchName}-lite`);
 
   const nginxPortalConfPath = path.join(buildPath, 'deploy/nginx/nginx.portal.conf');
   if (branchName == `common`) {
@@ -81,20 +87,32 @@ function normalizeVitepressDocsContent(buildPath, branch, source) {
 
   // 只有存在 zh 内容并且是新版本内容才进行复制
   if (fs.existsSync(`${DOCS_VITEPRESS_PATH}/docs/zh/_toc.yaml`) || branchName === 'common') {
-    copyDirectorySync(`${DOCS_VITEPRESS_PATH}/docs/zh/`, `${buildPath}/app/zh/docs/${branchName}/`, true);
+    const zhSourcePath = `${DOCS_VITEPRESS_PATH}/docs/zh/`;
+    const zhTargetPath = `${buildPath}/app/zh/docs/${branchName}/`;
+    copyDirectorySync(zhSourcePath, zhTargetPath, true);
+    lastmodCollector.recordDirectory({ repoDir: DOCS_VITEPRESS_PATH, sourceDir: zhSourcePath, targetDir: zhTargetPath });
   }
 
   if (fs.existsSync(`${DOCS_VITEPRESS_PATH}/docs-lite/zh/_toc.yaml`) && branchName !== 'common') {
-    copyDirectorySync(`${DOCS_VITEPRESS_PATH}/docs-lite/zh/`, `${buildPath}/app/zh/docs/${branchName}-lite/`, true);
+    const zhLiteSourcePath = `${DOCS_VITEPRESS_PATH}/docs-lite/zh/`;
+    const zhLiteTargetPath = `${buildPath}/app/zh/docs/${branchName}-lite/`;
+    copyDirectorySync(zhLiteSourcePath, zhLiteTargetPath, true);
+    lastmodCollector.recordDirectory({ repoDir: DOCS_VITEPRESS_PATH, sourceDir: zhLiteSourcePath, targetDir: zhLiteTargetPath });
   }
 
   // 只有存在 en 内容并且是新版本内容才进行复制
   if (fs.existsSync(`${DOCS_VITEPRESS_PATH}/docs/en/_toc.yaml`) || branchName === 'common') {
-    copyDirectorySync(`${DOCS_VITEPRESS_PATH}/docs/en/`, `${buildPath}/app/en/docs/${branchName}/`, true);
+    const enSourcePath = `${DOCS_VITEPRESS_PATH}/docs/en/`;
+    const enTargetPath = `${buildPath}/app/en/docs/${branchName}/`;
+    copyDirectorySync(enSourcePath, enTargetPath, true);
+    lastmodCollector.recordDirectory({ repoDir: DOCS_VITEPRESS_PATH, sourceDir: enSourcePath, targetDir: enTargetPath });
   }
 
   if (fs.existsSync(`${DOCS_VITEPRESS_PATH}/docs-lite/en/_toc.yaml`) && branchName !== 'common') {
-    copyDirectorySync(`${DOCS_VITEPRESS_PATH}/docs-lite/en/`, `${buildPath}/app/en/docs/${branchName}-lite/`, true);
+    const enLiteSourcePath = `${DOCS_VITEPRESS_PATH}/docs-lite/en/`;
+    const enLiteTargetPath = `${buildPath}/app/en/docs/${branchName}-lite/`;
+    copyDirectorySync(enLiteSourcePath, enLiteTargetPath, true);
+    lastmodCollector.recordDirectory({ repoDir: DOCS_VITEPRESS_PATH, sourceDir: enLiteSourcePath, targetDir: enLiteTargetPath });
   }
 
   // 复制 dsl 配置
@@ -105,7 +123,7 @@ function normalizeVitepressDocsContent(buildPath, branch, source) {
 
   if (fs.existsSync(`${DOCS_VITEPRESS_PATH}/dsl/`)) {
     copyDirectorySync(`${DOCS_VITEPRESS_PATH}/dsl/`, `${buildPath}/app/.vitepress/public/dsl/`, true);
-    
+
     if (source === 'test') {
       if (fs.existsSync(`${buildPath}/app/.vitepress/public/dsl/zh/home_test.json`)) {
         removeSync(`${buildPath}/app/.vitepress/public/dsl/zh/home.json`);
@@ -122,7 +140,9 @@ function normalizeVitepressDocsContent(buildPath, branch, source) {
 
     console.log(`已将 dsl 复制到 public 目录下`);
   }
-};
+
+  lastmodCollector.save();
+}
 
 /**
  * 按 hugo 文档方式处理
@@ -156,4 +176,4 @@ function normalizeHugoDocsContent(buildPath, branch) {
   copyDirectorySync(`${DOCS_HUGO_PATH}/content/en/`, `${buildPath}/content/en/docs/${version}/`, true);
   copyDirectorySync(`${DOCS_HUGO_PATH}/content/docs-lite/zh/`, `${buildPath}/content/zh/docs/${version}-lite/`, true);
   copyDirectorySync(`${DOCS_HUGO_PATH}/content/docs-lite/en/`, `${buildPath}/content/en/docs/${version}-lite/`, true);
-};
+}

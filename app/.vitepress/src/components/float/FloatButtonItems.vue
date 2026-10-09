@@ -85,7 +85,7 @@ const floatData = ref([
         }"
       >
         <template v-for="item in floatData" :key="item.id">
-          <OLink v-if="item.visibility" :href="item.link" target="_blank" :hover-underline="false" class="popup-item">
+          <OLink v-if="item.visibility" :href="item.link" target="_blank" rel="noopener noreferrer" :hover-underline="false" class="popup-item">
             <OIcon><component :is="item.img"></component> </OIcon>
 
             <div class="text">
