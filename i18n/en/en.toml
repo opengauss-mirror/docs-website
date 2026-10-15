@@ -181,6 +181,13 @@ other = "Long term Support Version (LTS)"
 other = "Community Innovation Version (RC)"
 [archive_version]
 other = "Archived version"
+
+[eol_tag]
+other = "Outdated"
+
+[eol_notice]
+other = "This document is no longer maintained. Refer to the latest version."
+
 [latest_version]
 other = "Latest development version"
 [version_document]
