@@ -32,7 +32,7 @@ const baseUrl = import.meta.env.VITE_MAIN_DOMAIN_URL;
           <p class="section-title">{{ item.NAME }}</p>
 
           <div class="section-links">
-            <a v-for="link in item.LINKS" :key="link.NAME" :href="link.URL.includes('http') ? link.URL : `${baseUrl}${link.URL}`" class="link" target="_blank">{{ link.NAME }}</a>
+            <a v-for="link in item.LINKS" :key="link.NAME" :href="link.URL.includes('http') ? link.URL : `${baseUrl}${link.URL}`" class="link" target="_blank" rel="noopener noreferrer">{{ link.NAME }}</a>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@ const baseUrl = import.meta.env.VITE_MAIN_DOMAIN_URL;
         <p class="friendly-link-title">{{ i18n.footer.LINK_TITLE }}</p>
 
         <div class="friendly-link-box">
-          <a v-for="item in friendLinks" :key="item.NAME" :href="item.URL.includes('http') ? item.URL : `${baseUrl}${item.URL}`" class="friendly-link-item" target="_blank">{{ item.NAME }}</a>
+          <a v-for="item in friendLinks" :key="item.NAME" :href="item.URL.includes('http') ? item.URL : `${baseUrl}${item.URL}`" class="friendly-link-item" target="_blank" rel="noopener noreferrer">{{ item.NAME }}</a>
         </div>
       </div>
 

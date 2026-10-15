@@ -73,7 +73,7 @@ onMounted(() => {
     </template>
 
     <div class="section-desc" :title="desc">{{ desc }}</div>
-    <img v-if="bgIcon && showBgIcon" :src="bgIcon" class="section-bg-icon" />
+    <img v-if="bgIcon && showBgIcon" :src="bgIcon" class="section-bg-icon" alt="" />
   </OCard>
 </template>
 

@@ -11,6 +11,7 @@ import { scrollToTop } from '@/utils/common';
 import { useLocale } from '@/composables/useLocale';
 import { useViewStore } from '@/stores/view';
 import { useAppearance } from '@/stores/common';
+import HomeFooter from './views/home/components/HomeFooter.vue';
 
 const { locale } = useLocale();
 const viewStore = useViewStore();
@@ -45,6 +46,7 @@ watch(
         <Content v-if="viewStore.isHomeView || viewStore.isCustomView" />
         <TheDoc v-else />
       </main>
+      <HomeFooter />
     </OScroller>
 
     <OCookieNotice
