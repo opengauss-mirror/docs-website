@@ -189,6 +189,13 @@ other = "长期支持版本 (LTS)"
 other = "社区创新版本 (RC)"
 [archive_version]
 other = "归档版本"
+
+[eol_tag]
+other = "停止维护"
+
+[eol_notice]
+other = "本文档已停止维护，建议查阅最新版本文档。"
+
 [latest_version]
 other = "最新开发版本 (Latest)"
 [version_document]
