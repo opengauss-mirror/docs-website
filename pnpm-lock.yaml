@@ -16,13 +16,13 @@ importers:
     dependencies:
       '@opendesign-plus/components':
         specifier: 0.0.1-rc.60
-        version: 0.0.1-rc.60(@opendesign-plus/composables@0.0.1-rc.10(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(js-cookie@3.0.7)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1))(markdown-it-async@2.2.0)(pinia@2.1.6(typescript@5.2.2)(vue@3.5.34(typescript@5.2.2)))(shiki@3.21.0)(vue-i18n@11.1.12(vue@3.5.34(typescript@5.2.2))))(@opendesign-plus/styles@0.0.1-rc.2)(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(@vueuse/shared@14.3.0(vue@3.5.34(typescript@5.2.2)))(aos@2.3.4)(dayjs@1.11.19)(element-plus@2.11.5(vue@3.5.34(typescript@5.2.2)))(video.js@8.23.7)(vue-dompurify-html@5.3.0(vue@3.5.34(typescript@5.2.2)))(vue@3.5.34(typescript@5.2.2))
+        version: 0.0.1-rc.60(@opendesign-plus/composables@0.0.1-rc.10(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(js-cookie@3.0.7)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3))(markdown-it-async@2.2.0)(pinia@2.1.6(typescript@5.2.2)(vue@3.5.34(typescript@5.2.2)))(shiki@3.21.0)(vue-i18n@11.1.12(vue@3.5.34(typescript@5.2.2))))(@opendesign-plus/styles@0.0.1-rc.2)(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(@vueuse/shared@14.3.0(vue@3.5.34(typescript@5.2.2)))(aos@2.3.4)(dayjs@1.11.19)(element-plus@2.11.5(vue@3.5.34(typescript@5.2.2)))(video.js@8.23.7)(vue-dompurify-html@5.3.0(vue@3.5.34(typescript@5.2.2)))(vue@3.5.34(typescript@5.2.2))
       '@opendesign-plus/plugins':
         specifier: 0.0.1-rc.7
         version: 0.0.1-rc.7
       '@opendesign-plus/utils':
-        specifier: 0.0.1-rc.8
-        version: 0.0.1-rc.8(axios@1.20.0)(gray-matter@4.0.3)(js-yaml@4.3.2)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1))(markdown-it@14.3.1)
+        specifier: 0.0.1-rc.9
+        version: 0.0.1-rc.9(axios@1.20.0)(gray-matter@4.0.3)(js-yaml@4.3.2)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3))(markdown-it@14.3.3)
       '@opensig/open-analytics':
         specifier: 0.0.9
         version: 0.0.9
@@ -133,11 +133,11 @@ importers:
         specifier: 28.1.0
         version: 28.1.0
       markdown-it:
-        specifier: 14.3.1
-        version: 14.3.1
+        specifier: 14.3.3
+        version: 14.3.3
       markdown-it-anchor:
         specifier: 9.2.0
-        version: 9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1)
+        version: 9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3)
       markdown-it-mathjax3:
         specifier: 4.3.2
         version: 4.3.2
@@ -1057,8 +1057,8 @@ packages:
   '@opendesign-plus/styles@0.0.1-rc.2':
     resolution: {integrity: sha512-mgjqcsMUDJjo+kMSjumll9MM+r5rOkFZu1W00FwIW2tu3GNbdo3VZTdb3Ax596rnT9e1+7fr7ksxmBdcAq254A==}
 
-  '@opendesign-plus/utils@0.0.1-rc.8':
-    resolution: {integrity: sha512-kmMPN2VaIWC9A3JHdY7ybz8ZUCv86Q86Uap7jnF8Pzjj2S7NPBt+z4dcToDNKfkXoa8tg4f7EwJS0HC3DYRIMw==}
+  '@opendesign-plus/utils@0.0.1-rc.9':
+    resolution: {integrity: sha512-31T7yzLngYoDjOHk3+3aA8UK3JgRrgJ2bwSUZubyxmgeJuNOW7Gr5+6CCztjQNUiygBi50SOf/eINOSFBu+LBA==}
     peerDependencies:
       axios: 1.20.0
       gray-matter: ^4.0.3
@@ -2660,8 +2660,8 @@ packages:
   markdown-it-mathjax3@4.3.2:
     resolution: {integrity: sha512-TX3GW5NjmupgFtMJGRauioMbbkGsOXAAt1DZ/rzzYmTHqzkO1rNAdiMD4NiruurToPApn2kYy76x02QN26qr2w==}
 
-  markdown-it@14.3.1:
-    resolution: {integrity: sha512-4Ej49aYTDFIQ+uBkfX8GBvJGccoARxxPep+7aWTs55ozbjQJpW9M26Fe53vnGgvLeVzva/amzjQQaQu9w0vMhA==}
+  markdown-it@14.3.3:
+    resolution: {integrity: sha512-L//tDAkjTjJCU6pBUSBTgs3Kg4InVaZuUZog/b6V12UKhcDQ7S78877ibbCanRExwPuYP1CZD7Gd2dxSy1GXRg==}
     hasBin: true
 
   markdown-title@1.0.2:
@@ -4436,7 +4436,7 @@ snapshots:
     dependencies:
       '@mdit-vue/types': 2.1.0
       '@types/markdown-it': 14.1.2
-      markdown-it: 14.3.1
+      markdown-it: 14.3.3
 
   '@mdit-vue/types@2.1.0': {}
 
@@ -4452,9 +4452,9 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@opendesign-plus/components@0.0.1-rc.60(@opendesign-plus/composables@0.0.1-rc.10(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(js-cookie@3.0.7)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1))(markdown-it-async@2.2.0)(pinia@2.1.6(typescript@5.2.2)(vue@3.5.34(typescript@5.2.2)))(shiki@3.21.0)(vue-i18n@11.1.12(vue@3.5.34(typescript@5.2.2))))(@opendesign-plus/styles@0.0.1-rc.2)(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(@vueuse/shared@14.3.0(vue@3.5.34(typescript@5.2.2)))(aos@2.3.4)(dayjs@1.11.19)(element-plus@2.11.5(vue@3.5.34(typescript@5.2.2)))(video.js@8.23.7)(vue-dompurify-html@5.3.0(vue@3.5.34(typescript@5.2.2)))(vue@3.5.34(typescript@5.2.2))':
+  '@opendesign-plus/components@0.0.1-rc.60(@opendesign-plus/composables@0.0.1-rc.10(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(js-cookie@3.0.7)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3))(markdown-it-async@2.2.0)(pinia@2.1.6(typescript@5.2.2)(vue@3.5.34(typescript@5.2.2)))(shiki@3.21.0)(vue-i18n@11.1.12(vue@3.5.34(typescript@5.2.2))))(@opendesign-plus/styles@0.0.1-rc.2)(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(@vueuse/shared@14.3.0(vue@3.5.34(typescript@5.2.2)))(aos@2.3.4)(dayjs@1.11.19)(element-plus@2.11.5(vue@3.5.34(typescript@5.2.2)))(video.js@8.23.7)(vue-dompurify-html@5.3.0(vue@3.5.34(typescript@5.2.2)))(vue@3.5.34(typescript@5.2.2))':
     dependencies:
-      '@opendesign-plus/composables': 0.0.1-rc.10(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(js-cookie@3.0.7)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1))(markdown-it-async@2.2.0)(pinia@2.1.6(typescript@5.2.2)(vue@3.5.34(typescript@5.2.2)))(shiki@3.21.0)(vue-i18n@11.1.12(vue@3.5.34(typescript@5.2.2)))
+      '@opendesign-plus/composables': 0.0.1-rc.10(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(js-cookie@3.0.7)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3))(markdown-it-async@2.2.0)(pinia@2.1.6(typescript@5.2.2)(vue@3.5.34(typescript@5.2.2)))(shiki@3.21.0)(vue-i18n@11.1.12(vue@3.5.34(typescript@5.2.2)))
       '@opendesign-plus/styles': 0.0.1-rc.2
       '@opensig/opendesign': 1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2))
       '@vueuse/core': 14.3.0(vue@3.5.34(typescript@5.2.2))
@@ -4466,12 +4466,12 @@ snapshots:
       vue: 3.5.34(typescript@5.2.2)
       vue-dompurify-html: 5.3.0(vue@3.5.34(typescript@5.2.2))
 
-  '@opendesign-plus/composables@0.0.1-rc.10(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(js-cookie@3.0.7)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1))(markdown-it-async@2.2.0)(pinia@2.1.6(typescript@5.2.2)(vue@3.5.34(typescript@5.2.2)))(shiki@3.21.0)(vue-i18n@11.1.12(vue@3.5.34(typescript@5.2.2)))':
+  '@opendesign-plus/composables@0.0.1-rc.10(@opensig/opendesign@1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2)))(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(js-cookie@3.0.7)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3))(markdown-it-async@2.2.0)(pinia@2.1.6(typescript@5.2.2)(vue@3.5.34(typescript@5.2.2)))(shiki@3.21.0)(vue-i18n@11.1.12(vue@3.5.34(typescript@5.2.2)))':
     dependencies:
       '@opensig/opendesign': 1.2.5(@vueuse/core@14.3.0(vue@3.5.34(typescript@5.2.2)))(dayjs@1.11.19)(vue@3.5.34(typescript@5.2.2))
       '@vueuse/core': 14.3.0(vue@3.5.34(typescript@5.2.2))
       js-cookie: 3.0.7
-      markdown-it-anchor: 9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1)
+      markdown-it-anchor: 9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3)
       markdown-it-async: 2.2.0
       pinia: 2.1.6(typescript@5.2.2)(vue@3.5.34(typescript@5.2.2))
       shiki: 3.21.0
@@ -4485,13 +4485,13 @@ snapshots:
 
   '@opendesign-plus/styles@0.0.1-rc.2': {}
 
-  '@opendesign-plus/utils@0.0.1-rc.8(axios@1.20.0)(gray-matter@4.0.3)(js-yaml@4.3.2)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1))(markdown-it@14.3.1)':
+  '@opendesign-plus/utils@0.0.1-rc.9(axios@1.20.0)(gray-matter@4.0.3)(js-yaml@4.3.2)(markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3))(markdown-it@14.3.3)':
     dependencies:
       axios: 1.20.0
       gray-matter: 4.0.3
       js-yaml: 4.3.2
-      markdown-it: 14.3.1
-      markdown-it-anchor: 9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1)
+      markdown-it: 14.3.3
+      markdown-it-anchor: 9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3)
 
   '@opensig/open-analytics@0.0.9':
     dependencies:
@@ -6229,15 +6229,15 @@ snapshots:
 
   mark.js@8.11.1: {}
 
-  markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.1):
+  markdown-it-anchor@9.2.0(@types/markdown-it@14.1.2)(markdown-it@14.3.3):
     dependencies:
       '@types/markdown-it': 14.1.2
-      markdown-it: 14.3.1
+      markdown-it: 14.3.3
 
   markdown-it-async@2.2.0:
     dependencies:
       '@types/markdown-it': 14.1.2
-      markdown-it: 14.3.1
+      markdown-it: 14.3.3
 
   markdown-it-mathjax3@4.3.2:
     dependencies:
@@ -6246,7 +6246,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  markdown-it@14.3.1:
+  markdown-it@14.3.3:
     dependencies:
       argparse: 2.0.1
       entities: 4.5.0
@@ -7120,7 +7120,7 @@ snapshots:
       esbuild: 0.25.12
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
-      postcss: 8.5.6
+      postcss: 8.5.14
       rollup: 4.53.3
       tinyglobby: 0.2.15
     optionalDependencies:
@@ -7131,7 +7131,7 @@ snapshots:
   vitepress-plugin-llms@1.13.1:
     dependencies:
       gray-matter: 4.0.3
-      markdown-it: 14.3.1
+      markdown-it: 14.3.3
       markdown-title: 1.0.2
       mdast-util-from-markdown: 2.0.3
       millify: 6.1.0
