@@ -7,7 +7,7 @@
     "dev:clone": "node scripts/clone-docs.js",
     "dev:toc": "node scripts/gen-toc.js",
     "dev:app": "vitepress dev app",
-    "build": "node scripts/gen-toc.js $VERSION && node scripts/merge-redirect.js $VERSION && cross-env NODE_OPTIONS='--max-old-space-size=16384' vitepress build app",
+    "build": "node scripts/gen-toc.js $VERSION && node scripts/merge-redirect.js $VERSION && cross-env NODE_OPTIONS='--max-old-space-size=24576' vitepress build app",
     "postbuild": "node scripts/append-llms.js && node scripts/generate-sitemap-index.js",
     "preview": "vitepress preview app",
     "format": "prettier --write app/.vitepress/src/",
