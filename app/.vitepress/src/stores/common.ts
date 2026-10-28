@@ -1,4 +1,7 @@
+import { setCustomCookie } from '@/utils/cookie';
 import { defineStore } from 'pinia';
+
+const APPEARANCE_KEY = 'openGauss-theme-appearance';
 
 // 语言
 export const useLangStore = defineStore('lang', {
@@ -19,6 +22,29 @@ export const useAppearance = defineStore('appearance', {
     theme: 'light' as 'light' | 'dark',
     iconMenuShow: true,
   }),
+  getters: {
+    isDark: (state) => state.theme === 'dark',
+  },
+  actions: {
+    setTheme(theme: 'light' | 'dark') {
+      if (this.theme !== theme) {
+        this.theme = theme;
+      }
+      this.sync();
+    },
+    sync() {
+      if (typeof document !== 'undefined') {
+        document.documentElement.setAttribute('data-o-theme', `g.${this.theme}`);
+        if (this.theme === 'dark') {
+          document.documentElement.classList.remove('light');
+        } else if (this.theme === 'light') {
+          document.documentElement.classList.remove('dark');
+        }
+        document.documentElement.classList.add(this.theme);
+        setCustomCookie(APPEARANCE_KEY, this.theme, 180, import.meta.env.VITE_COOKIE_DOMAIN);
+      }
+    }
+  }
 });
 
 /**

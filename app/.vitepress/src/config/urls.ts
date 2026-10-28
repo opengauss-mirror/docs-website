@@ -26,7 +26,7 @@ const KUNPENG_LINK = 'https://www.hikunpeng.com/'; // hikunpeng官网
 const BBSCSDN_LINK = 'https://bbs.csdn.net/'; // csdn官网
 const PSY_LINK = 'https://www.psycopg.org/'; // psycopg官网
 const MAGI_LINK = 'https://magicstack.github.io/'; // py-og文档官网
-const GIYHUB_LINK = 'https://github.com/'; // github官网
+const GITHUB_LINK = 'https://github.com/'; // github官网
 const APACHE_LINK = 'https://shardingsphere.apache.org/'; // Apache ShardingSphere官网
 const HAPROXY_LINK = 'https://www.haproxy.com/'; // haproxy官网
 const SAP_LINK = 'https://www.sap.com/'; // SAP Build Code官网
@@ -101,7 +101,7 @@ export {
   BBSCSDN_LINK,
   PSY_LINK,
   MAGI_LINK,
-  GIYHUB_LINK,
+  GITHUB_LINK,
   APACHE_LINK,
   HAPROXY_LINK,
   XINGYEBANK_LINK,

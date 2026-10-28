@@ -1,209 +1,177 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { useData } from 'vitepress';
-
-import { OLink, OIcon } from '@opensig/opendesign';
-import ContentWrapper from '@/components/ContentWrapper.vue';
-import ItemNav from './ItemNav.vue';
-import ItemLang from './ItemLang.vue';
-import ItemTheme from './ItemTheme.vue';
-import ItemUser from './ItemUser.vue';
-import ItemSearch from './ItemSearch.vue';
-import ItemCode from './ItemCode.vue';
-import ItemNavMobile from './ItemNavMobile.vue';
+import { computed, useTemplateRef } from 'vue';
+import { useData, useRouter } from 'vitepress';
+import { OHeaderLanguageSwitcher, OHeaderMobile, OHeaderTheme } from '@opendesign-plus/components';
+import { OHeader } from '@opendesign-plus/components';
+import HeaderTools from './HeaderTools.vue';
 
 import logoLight from '@/assets/category/header/logo.svg';
 import logoDark from '@/assets/category/header/logo_dark.svg';
-import IconClose from '~icons/app/icon-close.svg';
-import IconMenu from '~icons/app/icon-header-menu.svg';
 
 import { useAppearance } from '@/stores/common';
 import { useScreen } from '@/composables/useScreen';
+import headerData from '@/config/header';
+import { useElementSize } from '@vueuse/core';
+import { useLocale } from '@/composables/useLocale';
+import { isPageExist } from '@/api/api-common.js';
 
-const { lang } = useData();
+const { locale } = useLocale();
 const { lePadV } = useScreen();
 const appearanceStore = useAppearance();
+const router = useRouter();
+
+const navData = computed(() => headerData.nav[locale.value as 'zh' | 'en']);
+
+const changeTheme = (val: 'light' | 'dark') => appearanceStore.setTheme(val);
+const changeLanguage: (arg: { id: string }) => void = async ({ id }) => {
+  if (locale.value === id) {
+    return;
+  }
+
+  const { pathname, search } = window.location;
+  const newHref = pathname.replace(`/${locale.value}/`, `/${id}/`);
+  if (await isPageExist(newHref)) {
+    router.go(newHref + search);
+  } else {
+    window.location.href = `/${id}/`;
+  }
+};
 
 // Logo主题判断
 const logo = computed(() => (appearanceStore.theme === 'light' ? logoLight : logoDark));
 
-const langShow = ref(['zh', 'en']);
+const goHome = () => window.location.href = `${import.meta.env.VITE_MAIN_DOMAIN_URL}/${locale.value}/`;
 
-const menuShow = ref(false);
+const headerRef = useTemplateRef('headerRef');
+const headerMobileRef = useTemplateRef('headerMobileRef');
+const headerWrap = computed(() => {
+  const activeHeader = lePadV.value ? headerMobileRef.value : headerRef.value;
+  return activeHeader?.$el.querySelector('.header-wrap');
+});
 
-const menuPanel = () => {
-  setTimeout(() => {
-    menuShow.value = !menuShow.value;
-    document.body.style.overflow = menuShow.value ? 'hidden' : '';
-  }, 200);
-};
+const { height } = useElementSize(headerWrap);
 
-const mobileClick = () => {
-  menuPanel();
-};
-
-// 返回首页
-const goHome = () => {
-  menuShow.value = false;
-  window.location.href = `${import.meta.env.VITE_MAIN_DOMAIN_URL}/${lang.value}/`;
-};
+defineExpose({ 
+  height
+});
 </script>
 
 <template>
-  <div class="app-header" :class="[{ dark: appearanceStore.theme === 'dark' }]">
-    <ContentWrapper class="app-header-wrap">
-      <OLink class="logo" :hover-underline="false" @click="goHome">
-        <img alt="openGauss logo" :src="logo" />
-      </OLink>
-
-      <div v-if="lePadV" class="menu-icon">
-        <div class="icon" @click="menuPanel">
-          <OIcon>
-            <IconMenu v-if="!menuShow" />
-            <IconClose v-else />
-          </OIcon>
-        </div>
-      </div>
-
-      <ItemNavMobile v-if="lePadV" :lang-options="langShow" :menuShow="menuShow" @link-click="mobileClick" @close-menu="mobileClick" />
-
-      <ItemNav v-else />
-      <div v-if="!lePadV" id="tour_headerNav_tool" class="header-tool">
-        <ItemSearch />
-        <ItemCode class="gap" />
-        <ItemLang class="gap" />
-        <ItemTheme class="gap" />
-        <ItemUser class="gap" />
-      </div>
-    </ContentWrapper>
-  </div>
+  <OHeaderMobile v-if="lePadV" ref="headerMobileRef" active-index="document" :logo="logo" :nav-data="navData">
+    <template #toolbar>
+      <HeaderTools />
+    </template>
+    <template #tool>
+      <!-- 语言 -->
+      <OHeaderLanguageSwitcher :options="headerData.langOptions" type="mobile" @change="changeLanguage" />
+      <!-- 皮肤 -->
+      <OHeaderTheme type="mobile" :theme="appearanceStore.theme" @change="changeTheme" />
+    </template>
+  </OHeaderMobile>
+  <OHeader v-else ref="headerRef" community="openGauss" :logo="logo" :nav-data="navData" active-index="document" @go-home="goHome">
+    <template #toolbar>
+      <HeaderTools />
+    </template>
+  </OHeader>
 </template>
 
 <style lang="scss" scoped>
-.app-header {
-  background-color: var(--o-color-fill2);
-  position: sticky;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 98;
-  box-shadow: var(--o-shadow-1);
-  backdrop-filter: blur(5px);
-  height: 72px;
+:deep(.header .other-tool .o-theme-switcher) {
+  margin-top: 24px;
+}
 
-  @include respond('laptop') {
-    height: 64px;
+:deep(.header-simple .header-title) {
+  font-size: 18px !important;
+  line-height: 26px !important;
+}
+
+:deep(.opengauss.nav-content) {
+  --sub-gap: 24px;
+  @include respond-to('<=laptop') {
+    --sub-gap: 16px;
   }
+}
 
-  @include respond('pad_h') {
-    height: 56px;
-  }
-
-  @include respond('<=pad_v') {
-    height: 48px;
-  }
-
-  @include respond('>pad_v') {
-    &.dark {
-      &:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 1px;
-        background-color: var(--o-color-control4);
-      }
+@mixin grid-header-nav-layout($container-cols: 2) {
+  .item-sub {
+    flex: 1;
+    .content-container {
+      display: grid;
+      grid-template-columns: repeat($container-cols, 1fr);
+      gap: var(--sub-gap);
     }
-
-    &:before {
-      bottom: 0;
-      box-shadow: var(--o-shadow-1);
-      content: '';
-      left: 0;
-      pointer-events: none;
-      position: absolute;
-      right: 0;
-      top: 0;
-      z-index: 100;
+    .content-item {
+      width: 100% !important;
+    }
+    &:not(:first-child) {
+      margin-left: var(--sub-gap);
     }
   }
 }
 
-.app-header-wrap {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
+// 下载
+:deep(.opengauss.nav-content.download) {
+  @include grid-header-nav-layout();
+}
 
-  .logo {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    margin-right: 40px;
+// 开发
+:deep(.opengauss.nav-content.development) {
+  @include grid-header-nav-layout(4);
+}
 
-    @include respond('laptop') {
-      margin-right: 24px;
-    }
+// 文档
+:deep(.opengauss.nav-content.document) {
+  @include grid-header-nav-layout(4);
+}
 
-    @include respond('pad_h') {
-      margin-right: 16px;
-    }
+// 学习
+:deep(.opengauss.nav-content.learn) {
+  @include grid-header-nav-layout();
+}
 
-    @include respond('<=pad_v') {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 0;
-      margin-right: 0;
-      height: 48px;
-    }
+// 支持
+:deep(.opengauss.nav-content.approve) {
+  @include grid-header-nav-layout(1);
+}
 
-    img {
-      height: 32px;
+// 社区
+:deep(.opengauss.nav-content.community) {
+  @include grid-header-nav-layout();
+}
 
-      @include respond('<=pad_v') {
-        height: 20px;
-      }
-    }
-  }
+// 动态
+:deep(.opengauss.nav-content.update) {
+  @include grid-header-nav-layout();
+}
 
-  .gap {
-    margin-left: 24px;
-    @include respond('laptop') {
-      margin-left: 16px;
-    }
-    @include respond('pad_h') {
-      margin-left: 12px;
-    }
-  }
+:deep(.opengauss.nav-content .content-item) {
+  margin: 0;
 }
 
 .header-tool {
   display: flex;
   align-items: center;
   height: 100%;
-}
-
-.menu-icon {
-  display: block;
-
-  .icon {
-    font-size: var(--o-icon_size-m);
-    color: var(--o-color-info1);
-    height: 24px;
-    cursor: pointer;
+  .source-code {
+    margin-left: var(--header-tool-gap);
   }
-}
-
-:deep(.user-dropdown) {
-  --dropdown-list-radius: var(--o-radius-s);
-}
-
-:deep(.o-popup) {
-  --popup-shadow: var(--o-shadow2);
-  .o-popup-body {
-    border: none;
+  .header-lang {
+    margin-left: var(--header-tool-gap);
+  }
+  .o-theme-switcher {
+    margin-left: var(--header-tool-gap);
+  }
+  .login {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-left: var(--header-tool-gap);
+    .o-icon {
+      --icon-size: 24px;
+    }
+    :deep(.info-wrap) {
+      margin: 5px 0 !important;
+    }
   }
 }
 </style>
