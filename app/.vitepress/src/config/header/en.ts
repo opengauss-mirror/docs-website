@@ -1,5 +1,6 @@
 import { markRaw } from 'vue';
 import IconOutLink from '~icons/app/icon-out-link.svg';
+import { CLA_LINK, DATA_LINK, FORUM_LINK } from '../urls';
 
 const outLink = markRaw(IconOutLink);
 
@@ -77,7 +78,7 @@ export default [
           {
             label: 'CLA',
             description: 'Sign the CLA to protect your work—multiple options available!',
-            href: 'https://clasign.osinfra.cn/sign/gitee_opengauss-1614047760000855378',
+            href: `${CLA_LINK}sign/gitee_opengauss-1614047760000855378`,
             icon: outLink,
           },
           {
@@ -244,7 +245,7 @@ export default [
           {
             label: 'Statistics',
             description: 'Find stats and see how the openGauss community thrives.',
-            href: 'https://datastat.opengauss.org/en/overview',
+            href: `${DATA_LINK}en/overview`,
             icon: outLink,
           },
           {
@@ -271,7 +272,7 @@ export default [
           {
             label: 'Forum',
             description: 'Share knowledge, ask anything, and solve together.',
-            href: 'https://discuss.opengauss.org/',
+            href: FORUM_LINK,
             icon: outLink,
           },
           {
@@ -289,7 +290,7 @@ export default [
       },
       {
         label: 'Contribution by Organizations',
-        href: 'https://datastat.opengauss.org/en/detail',
+        href: `${DATA_LINK}en/detail`,
       },
     ],
   },

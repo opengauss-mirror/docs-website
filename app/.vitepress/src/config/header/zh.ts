@@ -2,7 +2,7 @@ import { markRaw } from 'vue';
 import odd from '@/assets/category/header/odd.png';
 import report from '@/assets/category/header/report.png';
 import IconOutLink from '~icons/app/icon-out-link.svg';
-import { ATOMGIT_LINK } from '../urls';
+import { ATOMGIT_LINK, CLA_LINK, DATA_LINK, FORUM_LINK } from '../urls';
 
 const outLink = markRaw(IconOutLink);
 
@@ -74,7 +74,7 @@ export default [
           {
             label: 'CLA签署',
             description: '参与贡献前，需签署贡献者许可协议（CLA）',
-            href: 'https://clasign.osinfra.cn/sign/gitee_opengauss-1614047760000855378',
+            href: `${CLA_LINK}sign/gitee_opengauss-1614047760000855378`,
             icon: outLink,
           },
           {
@@ -257,7 +257,8 @@ export default [
             label: '兼容性技术测评',
             description: '帮助企业快速申请兼容性测评',
             jumpOut: true,
-            href: `${ATOMGIT_LINK}/opengauss/compatible-certification`,
+            href: `${ATOMGIT_LINK}opengauss/compatible-certification`,
+            icon: outLink,
           },
         ],
       },
@@ -315,7 +316,8 @@ export default [
       },
       {
         label: '前往迁移互动专区',
-        href: `${ATOMGIT_LINK}/opengauss/openGauss-workbench`,
+        href: `${ATOMGIT_LINK}opengauss/openGauss-workbench`,
+        icon: outLink,
       },
       {
         label: 'MySQL迁移',
@@ -333,7 +335,7 @@ export default [
           {
             label: '贡献看板',
             description: '查看openGauss社区数据',
-            href: 'https://datastat.opengauss.org/zh/overview',
+            href: `${DATA_LINK}zh/overview`,
             icon: outLink,
           },
           {
@@ -370,7 +372,7 @@ export default [
           {
             label: '社区论坛',
             description: '参与开发者讨论openGauss',
-            href: 'https://discuss.opengauss.org/',
+            href: FORUM_LINK,
             icon: outLink,
           },
           {
@@ -392,7 +394,8 @@ export default [
       },
       {
         label: '单位会员贡献',
-        href: 'https://datastat.opengauss.org/zh/detail',
+        href: `${DATA_LINK}zh/detail`,
+        icon: outLink,
       },
     ],
   },

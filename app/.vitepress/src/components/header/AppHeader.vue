@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, useTemplateRef } from 'vue';
-import { useData, useRouter } from 'vitepress';
+import { useRouter } from 'vitepress';
 import { OHeaderLanguageSwitcher, OHeaderMobile, OHeaderTheme } from '@opendesign-plus/components';
 import { OHeader } from '@opendesign-plus/components';
 import HeaderTools from './HeaderTools.vue';

@@ -50,7 +50,7 @@ const headerHeight = computed(() => appHeaderRef.value?.height.toString() ?? '72
         <Content v-if="viewStore.isHomeView || viewStore.isCustomView" />
         <TheDoc v-else />
       </main>
-      <HomeFooter />
+      <HomeFooter v-if="viewStore.isHomeView" />
     </OScroller>
 
     <OCookieNotice
@@ -87,7 +87,7 @@ const headerHeight = computed(() => appHeaderRef.value?.height.toString() ?? '72
 
   --layout-footer-height: 474px;
   --layout-screen-height: 100vh;
-  --layout-content-min-height: calc(var(--layout-screen-height) - var(--layout-header-height));
+  --layout-content-min-height: var(--layout-screen-height);
 
   @include respond('<=laptop') {
     --layout-header-height: 64px;

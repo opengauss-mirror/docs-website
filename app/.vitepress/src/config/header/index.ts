@@ -36,7 +36,7 @@ export default {
         id: 'message',
         label: '消息中心',
         target: '_self',
-        url: '/zh/notifications/'
+        url: `${import.meta.env.VITE_MAIN_DOMAIN_URL}/zh/notifications/`
       },
       {
         id: 'logout',
@@ -57,7 +57,7 @@ export default {
         id: 'message',
         label: 'Notifications',
         target: '_self',
-        url: '/en/notifications/'
+        url: `${import.meta.env.VITE_MAIN_DOMAIN_URL}/en/notifications/`
       },
       {
         id: 'logout',
