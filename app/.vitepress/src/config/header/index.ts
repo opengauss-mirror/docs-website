@@ -30,7 +30,7 @@ export default {
         id: 'center',
         label: '个人中心',
         target: '_blank',
-        url: `${import.meta.env.VITE_LOGIN_URL}/zh/profile`
+        url: `${import.meta.env.VITE_MAIN_DOMAIN_URL}/zh/my/settings`
       },
       {
         id: 'message',
@@ -51,7 +51,7 @@ export default {
         id: 'center',
         label: 'User Center',
         target: '_blank',
-        url: `${import.meta.env.VITE_LOGIN_URL}/en/profile`
+        url: `${import.meta.env.VITE_MAIN_DOMAIN_URL}/en/my/settings`
       },
       {
         id: 'message',
