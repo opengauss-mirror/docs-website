@@ -46,3 +46,17 @@ export function getUserIdToken() {
     return res.data;
   });
 }
+
+export async function getUnreadMsgCount(gitee_user_name: string, token: string) {
+  try {
+    const res = await request
+      .get<{ count: Record<string, number>; }>('/api-message/inner/count_new', {
+        params: { gitee_user_name },
+        headers: { token },
+        showError: false,
+      });
+    return res.data.count;
+  } catch {
+    return ({});
+  }
+}

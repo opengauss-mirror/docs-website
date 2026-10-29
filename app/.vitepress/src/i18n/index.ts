@@ -11,6 +11,8 @@ import response from './response';
 import docs from './docs';
 import feedback from './feedback';
 import home from './home';
+import { useData } from 'vitepress';
+import { computed } from 'vue';
 
 const messages = {
   zh: {
@@ -49,5 +51,10 @@ const i18n = createI18n({
   fallbackLocale: 'zh',
   messages,
 });
+
+export function useI18n() {
+  const { lang } = useData();
+  return computed(() => messages[lang.value as 'zh' | 'en']);
+}
 
 export default i18n;

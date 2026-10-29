@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue';
+import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
 import { useRoute, useRouter } from 'vitepress';
 import { OPlusConfigProvider, OCookieNotice } from '@opendesign-plus/components';
 import { OScroller } from '@opensig/opendesign';
@@ -34,19 +34,23 @@ watch(
     cookieRef.value?.check();
   }
 );
+
+// ================ header ================
+const appHeaderRef = useTemplateRef('appHeaderRef');
+const headerHeight = computed(() => appHeaderRef.value?.height.toString() ?? '72');
 </script>
 
 <template>
   <OPlusConfigProvider :locale="locale" :theme="commonStore.theme === 'dark' ? 'dark' : 'light'">
     <ClientOnly>
-      <AppHeader class="ly-header" :class="{ 'ly-header-hidden': !viewStore.isPageLoaded }" />
+      <AppHeader ref="appHeaderRef" class="ly-header" :class="{ 'ly-header-hidden': !viewStore.isPageLoaded }" />
     </ClientOnly>
     <OScroller show-type="hover" disabled-x auto-update-on-scroll-size>
-      <main class="ly-main" :class="{ 'ly-main-hidden': !viewStore.isPageLoaded }">
+      <main class="ly-main" :class="{ 'ly-main-hidden': !viewStore.isPageLoaded }" :style="{ marginTop: `${headerHeight ?? '72'}px` }">
         <Content v-if="viewStore.isHomeView || viewStore.isCustomView" />
         <TheDoc v-else />
       </main>
-      <HomeFooter />
+      <HomeFooter v-if="viewStore.isHomeView" />
     </OScroller>
 
     <OCookieNotice
@@ -83,7 +87,7 @@ watch(
 
   --layout-footer-height: 474px;
   --layout-screen-height: 100vh;
-  --layout-content-min-height: calc(var(--layout-screen-height) - var(--layout-header-height));
+  --layout-content-min-height: var(--layout-screen-height);
 
   @include respond('<=laptop') {
     --layout-header-height: 64px;

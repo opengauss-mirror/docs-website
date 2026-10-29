@@ -10,9 +10,9 @@ import setConfig from './setConfig';
 import { isBoolean, useLoading, useMessage, isNull, isUndefined } from '@opensig/opendesign';
 import type { LoadingPropsT } from '@opensig/opendesign/lib/loading/types';
 import { LOGIN_STATUS, clearUserAuth } from '@/shared/login';
-import { useLoginStore } from '@/stores/user';
 
 import i18n from '@/i18n';
+import { useLoginStore } from '@opendesign-plus/composables';
 
 interface RequestConfig<D = any> extends AxiosRequestConfig {
   data?: D;

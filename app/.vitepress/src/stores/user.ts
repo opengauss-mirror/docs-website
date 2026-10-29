@@ -9,6 +9,9 @@ export const useUserInfoStore = defineStore('userInfo', {
     return {
       photo: '', // 头像
       username: '', // 昵称
+      identities: [] as { identity: string; user_name: string; login_name: string; }[], // 授权账号
+      phone: '',
+      email: '',
     };
   },
 });

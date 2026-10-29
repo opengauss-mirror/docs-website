@@ -10,6 +10,7 @@ import { applySitemapLastmod } from './src/utils/sitemap-lastmod';
 import llmstxt from 'vitepress-plugin-llms';
 import type { UserConfig } from 'vitepress';
 import { extractFirstParagraph } from './src/utils/md-description';
+import vueI18n from '@intlify/unplugin-vue-i18n/vite';
 
 const docsUrl = 'https://docs.opengauss.org';
 const mainDomainUrl = 'https://opengauss.org';
@@ -314,6 +315,6 @@ export default {
     ssr: {
       noExternal: ['@opendesign-plus/components', 'element-plus'],
     },
-    plugins: [llmstxt()],
+    plugins: [llmstxt(), vueI18n({ ssr: true })],
   },
 } as UserConfig;

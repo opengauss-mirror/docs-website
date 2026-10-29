@@ -1,7 +1,8 @@
 import Cookies from 'js-cookie';
 
-import { useLoginStore, useUserInfoStore } from '@/stores/user';
 import { getUserIdToken, getUserInfo } from '@/api/api-user';
+import { useLoginStore } from '@opendesign-plus/composables';
+import { useUserInfoStore } from '@/stores/user';
 
 // 登录状态
 export enum LOGIN_STATUS {
@@ -50,7 +51,6 @@ export async function requestUserInfo() {
   const loginStore = useLoginStore();
   if (!Cookies.get(LOGIN_KEYS.CSRF_TOKEN)) {
     clearUserAuth();
-    loginStore.setLoginStateChecked(true);
     return;
   }
 
@@ -67,6 +67,5 @@ export async function requestUserInfo() {
   } catch {
     loginStore.setLoginStatus(LOGIN_STATUS.FAILED);
   } finally {
-    loginStore.setLoginStateChecked(true);
   }
 }

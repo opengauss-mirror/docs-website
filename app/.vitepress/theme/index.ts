@@ -23,6 +23,8 @@ import MarkdownImage from '@/components/markdown/MarkdownImage.vue';
 import { removeCustomCookie } from '@/utils/cookie';
 import { BAIDU_HM } from '@/config/urls';
 import { request } from '@/shared/axios';
+
+import i18n from '@/i18n';
  
 export default {
   Layout,
@@ -34,6 +36,8 @@ export default {
         ADD_ATTR: ['target'],
       },
     });
+
+    app.use(i18n);
 
     // 注册组件
     app.component('MarkdownTitle', MarkdownTitle);
