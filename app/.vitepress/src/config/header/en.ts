@@ -108,21 +108,25 @@ export default [
             description: 'Your go-to resource for different usage scenarios.',
             tag: TAG_TYPE.NEW,
             href: '/en/',
+            target: '_blank',
           },
           {
             label: 'Quick Start',
             description: 'Learn the community essentials in 10 minutes.',
             href: '/en/docs/latest/getting_started/getting_started.html',
+            target: '_blank',
           },
           {
             label: 'Installation Guide',
             description: 'Step-by-step instructions for installing openGauss.',
             href: `/en/docs/latest/installation_guide/installation_overview.html`,
+            target: '_blank',
           },
           {
             label: 'Documentation Development Guide',
             description: 'Discover how you can contribute to document development.',
             href: `/en/docs/common/contribute/directory_structure_introductory.html`,
+            target: '_blank',
           },
         ],
       },
@@ -131,10 +135,12 @@ export default [
       {
         label: 'About openGauss',
         href: `/en/docs/latest/about_opengauss/about_opengauss.html`,
+        target: '_blank',
       },
       {
         label: 'Database Administration Guide',
         href: `/en/docs/latest/database_administration_guide/database_concepts.html`,
+        target: '_blank',
       },
     ],
   },

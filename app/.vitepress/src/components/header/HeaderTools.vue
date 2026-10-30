@@ -13,6 +13,8 @@ import { isPageExist } from '@/api/api-common';
 import { getUnreadMsgCount } from '@/api/api-user';
 import { useI18n } from '@/i18n';
 import { useScreen } from '@/composables/useScreen';
+import { getCustomCookie } from '@/utils/cookie';
+import { usePreferredColorScheme } from '@vueuse/core';
 
 const i18n = useI18n();
 const { locale } = useLocale();
@@ -22,6 +24,7 @@ const { lang } = useData();
 const router = useRouter();
 
 const changeTheme = (val: 'light' | 'dark') => commonStore.setTheme(val);
+const preferredColor = usePreferredColorScheme();
 
 const changeLanguage: (arg: { id: string }) => void = async ({ id }) => {
   if (locale.value === id) {
@@ -52,6 +55,11 @@ const userInfo = computed(() => ({
 }));
 
 onMounted(() => {
+  const defaultTheme = (getCustomCookie('openGauss-theme-appearance') || (preferredColor.value === 'no-preference' ? 'light' : preferredColor.value) || 'light') as 'light' | 'dark';
+  if (defaultTheme !== commonStore.theme) {
+    commonStore.setTheme(defaultTheme);
+  }
+
   requestUserInfo();
   const { csrfCookie } = getUserAuth();
   token.value = csrfCookie || '';
