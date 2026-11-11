@@ -5,7 +5,7 @@ import { OIcon, ODialog, ORadioGroup, ORadio, OToggle, OButton, ODivider, useMes
 import IconChevronDown from '~icons/app/icon-chevron-down.svg';
 
 import { isPageExist } from '@/api/api-common';
-import { versions } from '@/config/version';
+import { data as versions } from '@/config/version.data';
 import { useLocale } from '@/composables/useLocale';
 import { useVersionStore } from '@/stores/version';
 

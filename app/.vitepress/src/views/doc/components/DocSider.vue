@@ -11,7 +11,7 @@ import DocSiderResizeBar from './DocSiderResizeBar.vue';
 
 import IconExpand from '~icons/app/icon-expand.svg';
 
-import { versions } from '@/config/version';
+import { data as versions } from '@/config/version.data';
 import { findNode } from '@/utils/tree';
 import { useScreen } from '@/composables/useScreen';
 import { useLocale } from '@/composables/useLocale';
