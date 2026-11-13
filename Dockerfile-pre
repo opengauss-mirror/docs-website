@@ -26,6 +26,8 @@ RUN cd /src/ && \
     mkdir -p /src/website/content/en/docs/latest-lite/ && \
     cp -rf /src/latest/docs/content/docs-lite/en/* /src/website/content/en/docs/latest-lite/ && \
 
+    # 生成停维(EOM)数据；失败时告警并沿用仓库内已提交的兜底文件，不中断构建
+    cd /src/website && bash scripts/gen-eol-versions.sh || echo "WARN: gen-eol-versions.sh failed, use committed EOL data"; \
     cd /src/website && /usr/local/bin/hugo -b / && /usr/local/bin/hugo --gc --minify && \
     cp -rf /src/website/public/* /usr/share/nginx/html/ && \
     chmod -R 755 /usr/share/nginx/html && \

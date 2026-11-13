@@ -19,4 +19,6 @@ cp -r ../website-v2/* .
 rm -rf ../website-v2
 rm -rf ./content
 mv ./website ./content
+# 生成停维(EOM)数据；失败时告警并沿用仓库内已提交的兜底文件，不中断构建
+bash scripts/gen-eol-versions.sh || echo "WARN: gen-eol-versions.sh failed, use committed EOL data"
 hugo -D

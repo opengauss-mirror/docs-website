@@ -62,7 +62,8 @@
         {{ $version := "" }}
         {{ if gt (len $versionArr) 1 }}{{ $version = index (split (index $versionArr 1) "/") 0 }}{{ end }}
         {{ $version = replace $version "-lite" "" }}
-        {{/* 命中 data/eolVersions.yaml 的归档(EOM)版本时，展示"停止维护"提示横幅 */}}
+        {{/* 命中 data/eolVersions.yaml（构建时按 versions.yaml 的 planned_eol 生成）的归档(EOM)版本时，
+             在 SSG 阶段渲染"停止维护"提示横幅；浏览器端再由 js/eol-banner.js 按当前时间校正展示 */}}
         {{ $isEOL := and $version (in site.Data.eolVersions $version) }}
         {{ partial "nav.html" . }}
         <div id="menu-mobile">
@@ -81,7 +82,7 @@
         <main class="book-page container" id="page">
             <div class="page-content">
               {{ if $isEOL }}
-              <div style="padding: 16px; border-radius: 4px; background-color: rgba(255, 204, 204, 0.48); margin-bottom: 20px; font-size: 14px;">
+              <div id="eol-banner" style="padding: 16px; border-radius: 4px; background-color: rgba(255, 204, 204, 0.48); margin-bottom: 20px; font-size: 14px;">
                 <span style="display: inline-block; color: #fff; padding: 1px 8px; border-radius: 4px; background-color: #e60012; margin-right: 8px; font-size: 12px;">{{ i18n "eol_tag" }}</span>
                 <span>{{ i18n "eol_notice" }}</span>
               </div>
