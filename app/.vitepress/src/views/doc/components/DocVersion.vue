@@ -1,12 +1,14 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import { OIcon, ODropdown, ODropdownItem, OScroller, OTag, useMessage } from '@opensig/opendesign';
 
 import IconChevronDown from '~icons/app/icon-chevron-down.svg';
 
 import { isPageExist } from '@/api/api-common';
-import { versions } from '@/config/version';
+import { data as versions } from '@/config/version.data';
 import { useLocale } from '@/composables/useLocale';
 import { useVersionStore } from '@/stores/version';
+import { parseEolTime } from '@/utils/version';
 
 defineProps({
   version: {
@@ -40,6 +42,13 @@ const changeVersion = async (item: { value: string; href?: string | Record<strin
     });
   }
 };
+
+// 客户端当前时间，挂载后再赋值，保证预渲染结果与首次 hydration 一致
+const now = ref(0);
+
+onMounted(() => {
+  now.value = Date.now();
+});
 </script>
 
 <template>
@@ -59,7 +68,7 @@ const changeVersion = async (item: { value: string; href?: string | Record<strin
           @click="changeVersion(item)"
         >
           {{ item.label }}
-          <OTag v-if="item.archive"> {{ t('docs.archive') }} </OTag>
+          <OTag v-if="item.eol || now > parseEolTime(item.plannedEol)"> {{ t('docs.archive') }} </OTag>
         </ODropdownItem>
       </OScroller>
     </template>
