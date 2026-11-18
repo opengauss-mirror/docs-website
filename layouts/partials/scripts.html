@@ -8,6 +8,8 @@
 <script src="{{ .Site.Params.resourceURL }}js/pagination.js"></script>
 <script src="{{ .Site.Params.resourceURL }}js/float.js"></script>
 <script src="{{ .Site.Params.resourceURL }}js/cookie-notice.js"></script>
+<script src="{{ .Site.Params.resourceURL }}js/eol-data.js?t={{ mul 1000 (time now).Unix }}"></script>
+<script src="{{ .Site.Params.resourceURL }}js/eol-banner.js"></script>
 <script type="text/javascript">
   $(document).ready(function () {
     function getCurrentID(wholeData, relativeURL) {

@@ -27,6 +27,16 @@ COPY . /src/website
 # merge.js 会把 config.toml 的 resourceURL 改写为 /docs/<version>/，据此推导版本号；
 # 站点以 -b / 相对根构建，页面真实 URL 为 ${DOCS_BASE_URL}/zh|en/docs/<version>/...，
 # 而版本站点在网关上挂载于 ${DOCS_BASE_URL}/docs/<version>/，故 sitemap 索引与语言 sitemap 需分别补前缀
+
+# gen-eol-versions.sh 构建时需 curl 拉取 versions.yaml（生成 data/eolVersions.yaml 与 static/js/eol-data.js）
+RUN sed -i "s|repo.openeuler.org|mirrors.nju.edu.cn/openeuler|g" /etc/yum.repos.d/openEuler.repo \
+    && sed -i '/metalink/d' /etc/yum.repos.d/openEuler.repo \
+    && sed -i '/metadata_expire/d' /etc/yum.repos.d/openEuler.repo \
+    && yum install -y curl
+
+# 生成停维(EOM)数据；失败时告警并沿用仓库内已提交的兜底文件，不中断构建
+RUN cd /src/website && (bash scripts/gen-eol-versions.sh || echo "WARN: gen-eol-versions.sh failed, use committed EOL data")
+
 ARG DOCS_BASE_URL=https://docs.opengauss.org
 RUN cd /src/website && hugo -b / --minify && \
     docs_version=$(sed -n 's|.*resourceURL = "/docs/\([^/]*\)/".*|\1|p' config.toml) && \

@@ -92,4 +92,8 @@ for branch in "${VERSION[@]}"; do
 done
 
 cd $PROJECT_PATH
+
+# 生成停维(EOM)数据（versions.yaml 拉取失败时使用仓库内已提交数据兜底，不阻塞本地预览）
+bash scripts/gen-eol-versions.sh || echo "WARN: gen-eol-versions.sh failed, use committed EOL data"
+
 hugo server

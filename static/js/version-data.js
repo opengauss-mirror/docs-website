@@ -1,4 +1,6 @@
 //放置版本数据 state表示该版本目前的周期状态：DEV(开发更新中)，LTS(长期维护中)，EOM(已结束维护)
+//注意：此处 EOM 为人工静态标注，页面加载时 eol-banner.js 会依据 eol-data.js 中各版本的 planned_eol
+//与浏览器当前时间重新校正 state（到期改为 EOM，误标 EOM 但未到期则回退为 versions.yaml 推导的在维期状态）
 const versionObjZh = {
   latest: {
     homePath: "/getting_started/understanding_opengauss.html",
