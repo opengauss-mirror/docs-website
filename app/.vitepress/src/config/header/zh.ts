@@ -424,7 +424,7 @@ export default [
           {
             label: '峰会',
             description: '查看openGauss年度大会详情',
-            href: `${import.meta.env.VITE_MAIN_DOMAIN_URL}/zh/summit/summit2025/`,
+            href: `${import.meta.env.VITE_MAIN_DOMAIN_URL}/zh/summit/summit2026/`,
           },
           {
             label: '结队计划',
